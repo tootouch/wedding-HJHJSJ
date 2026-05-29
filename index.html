@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6eadb" />
+    <meta
+      name="description"
+      content="도윤과 서연의 결혼식에 소중한 분들을 초대합니다."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="도윤 &amp; 서연의 결혼식에 초대합니다" />
+    <meta
+      property="og:description"
+      content="2026년 10월 24일 토요일 오후 12시 30분, 라움아트센터"
+    />
+    <meta property="og:image" content="assets/wedding-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>도윤 &amp; 서연의 모바일 청첩장</title>
+    <link rel="preload" href="assets/wedding-cover.png" as="image" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="invitation-shell">
+      <section class="hero" aria-labelledby="couple-names">
+        <img
+          class="hero__image"
+          src="assets/wedding-cover.png"
+          alt="꽃과 반지가 놓인 웨딩 이미지"
+        />
+        <div class="hero__shade"></div>
+        <div class="hero__content">
+          <p class="hero__eyebrow">Wedding Invitation</p>
+          <h1 id="couple-names"><span data-field="groomFirst"></span> &amp; <span data-field="brideFirst"></span></h1>
+          <p class="hero__date" data-field="weddingDateLabel"></p>
+          <p class="hero__venue" data-field="venue"></p>
+        </div>
+      </section>
+
+      <nav class="quick-actions" aria-label="초대장 주요 메뉴">
+        <a href="#calendar" class="quick-actions__item">
+          <i data-lucide="calendar-days" aria-hidden="true"></i>
+          <span>일정</span>
+        </a>
+        <a href="#location" class="quick-actions__item">
+          <i data-lucide="map-pinned" aria-hidden="true"></i>
+          <span>위치</span>
+        </a>
+        <a href="#gift" class="quick-actions__item">
+          <i data-lucide="wallet-cards" aria-hidden="true"></i>
+          <span>마음</span>
+        </a>
+        <a href="#rsvp" class="quick-actions__item">
+          <i data-lucide="clipboard-check" aria-hidden="true"></i>
+          <span>참석</span>
+        </a>
+        <button class="quick-actions__item" type="button" data-action="share">
+          <i data-lucide="send" aria-hidden="true"></i>
+          <span>공유</span>
+        </button>
+      </nav>
+
+      <section class="intro section-band">
+        <p class="section-kicker">초대합니다</p>
+        <h2>서로의 계절이 되어<br />한 길을 걷겠습니다</h2>
+        <p>
+          따뜻한 마음으로 지켜봐 주신 분들께 감사드립니다. 저희 두 사람이
+          사랑과 믿음으로 새로운 시작을 하려 합니다. 귀한 걸음으로 함께해
+          주시면 더없는 기쁨으로 간직하겠습니다.
+        </p>
+        <div class="couple-line" aria-label="신랑 신부">
+          <span data-field="groomFull"></span>
+          <span aria-hidden="true"></span>
+          <span data-field="brideFull"></span>
+        </div>
+      </section>
+
+      <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
+        <p class="section-kicker">Wedding Day</p>
+        <h2 id="calendar-title" data-field="weddingDateFull"></h2>
+        <div class="time-place">
+          <p data-field="weddingTime"></p>
+          <p data-field="venueDetail"></p>
+        </div>
+        <div class="countdown" aria-label="예식까지 남은 시간">
+          <div>
+            <strong data-countdown="days">0</strong>
+            <span>Days</span>
+          </div>
+          <div>
+            <strong data-countdown="hours">0</strong>
+            <span>Hours</span>
+          </div>
+          <div>
+            <strong data-countdown="minutes">0</strong>
+            <span>Min</span>
+          </div>
+        </div>
+        <button class="primary-button" type="button" data-action="calendar">
+          <i data-lucide="calendar-plus" aria-hidden="true"></i>
+          <span>일정 저장</span>
+        </button>
+      </section>
+
+      <section class="family section-band" aria-labelledby="family-title">
+        <p class="section-kicker">With Our Families</p>
+        <h2 id="family-title">혼주와 신랑 신부</h2>
+        <div class="family-list">
+          <article class="person-card">
+            <p class="person-card__role">신랑</p>
+            <h3 data-field="groomFull"></h3>
+            <p data-field="groomParents"></p>
+            <div class="person-card__actions">
+              <a data-link="groomTel" aria-label="신랑에게 전화">
+                <i data-lucide="phone" aria-hidden="true"></i>
+              </a>
+              <a data-link="groomSms" aria-label="신랑에게 문자">
+                <i data-lucide="message-circle" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
+          <article class="person-card">
+            <p class="person-card__role">신부</p>
+            <h3 data-field="brideFull"></h3>
+            <p data-field="brideParents"></p>
+            <div class="person-card__actions">
+              <a data-link="brideTel" aria-label="신부에게 전화">
+                <i data-lucide="phone" aria-hidden="true"></i>
+              </a>
+              <a data-link="brideSms" aria-label="신부에게 문자">
+                <i data-lucide="message-circle" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="gallery section-band" aria-labelledby="gallery-title">
+        <p class="section-kicker">Gallery</p>
+        <h2 id="gallery-title">기억하고 싶은 장면들</h2>
+        <div class="gallery-grid" data-gallery-grid aria-label="웨딩 사진"></div>
+      </section>
+
+      <section id="location" class="location section-band" aria-labelledby="location-title">
+        <p class="section-kicker">Location</p>
+        <h2 id="location-title" data-field="venue"></h2>
+        <p class="address" data-field="address"></p>
+        <div class="map-panel" aria-label="예식장 위치">
+          <div class="map-panel__pin">
+            <i data-lucide="map-pin" aria-hidden="true"></i>
+          </div>
+          <div>
+            <strong data-field="venueShort"></strong>
+            <span data-field="addressShort"></span>
+          </div>
+        </div>
+        <div class="map-actions">
+          <a class="secondary-button" data-map="naver" target="_blank" rel="noreferrer">
+            <i data-lucide="navigation" aria-hidden="true"></i>
+            <span>네이버지도</span>
+          </a>
+          <a class="secondary-button" data-map="kakao" target="_blank" rel="noreferrer">
+            <i data-lucide="route" aria-hidden="true"></i>
+            <span>카카오맵</span>
+          </a>
+        </div>
+        <dl class="transport">
+          <div>
+            <dt>지하철</dt>
+            <dd>2호선 역삼역 8번 출구 도보 7분</dd>
+          </div>
+          <div>
+            <dt>주차</dt>
+            <dd>예식 당일 2시간 무료 주차</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="gift" class="gift section-band" aria-labelledby="gift-title">
+        <p class="section-kicker">Thank You</p>
+        <h2 id="gift-title">마음 전하실 곳</h2>
+        <p class="section-note">
+          참석이 어려운 분들을 위해 조심스레 남겨둡니다.
+        </p>
+        <div class="account-list">
+          <details class="account-group">
+            <summary>
+              <span>신랑측</span>
+              <i data-lucide="chevron-down" aria-hidden="true"></i>
+            </summary>
+            <article class="account-card">
+              <div>
+                <p>예금주</p>
+                <strong data-field="groomAccountName"></strong>
+                <span data-field="groomAccount"></span>
+              </div>
+              <button type="button" data-copy="groomAccount">
+                <i data-lucide="copy" aria-hidden="true"></i>
+                <span>복사</span>
+              </button>
+            </article>
+          </details>
+          <details class="account-group">
+            <summary>
+              <span>신부측</span>
+              <i data-lucide="chevron-down" aria-hidden="true"></i>
+            </summary>
+            <article class="account-card">
+              <div>
+                <p>예금주</p>
+                <strong data-field="brideAccountName"></strong>
+                <span data-field="brideAccount"></span>
+              </div>
+              <button type="button" data-copy="brideAccount">
+                <i data-lucide="copy" aria-hidden="true"></i>
+                <span>복사</span>
+              </button>
+            </article>
+          </details>
+        </div>
+      </section>
+
+      <section id="rsvp" class="rsvp section-band" aria-labelledby="rsvp-title">
+        <p class="section-kicker">RSVP</p>
+        <h2 id="rsvp-title">참석 의사</h2>
+        <p class="section-note">
+          준비에 참고할 수 있도록 참석 여부와 식사 인원을 알려주세요.
+        </p>
+        <form class="rsvp-form" data-rsvp-form>
+          <label>
+            <span>성함</span>
+            <input name="name" type="text" autocomplete="name" required />
+          </label>
+          <label>
+            <span>연락처</span>
+            <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="선택 입력" />
+          </label>
+          <fieldset>
+            <legend>참석 여부</legend>
+            <div class="segmented">
+              <label>
+                <input type="radio" name="attendance" value="참석" checked />
+                <span>참석</span>
+              </label>
+              <label>
+                <input type="radio" name="attendance" value="불참" />
+                <span>불참</span>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>어느 쪽 하객이신가요?</legend>
+            <div class="segmented">
+              <label>
+                <input type="radio" name="side" value="신랑측" checked />
+                <span>신랑측</span>
+              </label>
+              <label>
+                <input type="radio" name="side" value="신부측" />
+                <span>신부측</span>
+              </label>
+            </div>
+          </fieldset>
+          <label>
+            <span>동행 인원</span>
+            <select name="guests">
+              <option value="0">본인만</option>
+              <option value="1">1명</option>
+              <option value="2">2명</option>
+              <option value="3">3명 이상</option>
+            </select>
+          </label>
+          <label>
+            <span>식사 인원</span>
+            <select name="meal">
+              <option value="0">식사 안 함</option>
+              <option value="1" selected>1명</option>
+              <option value="2">2명</option>
+              <option value="3">3명 이상</option>
+            </select>
+          </label>
+          <label>
+            <span>전하실 말씀</span>
+            <textarea name="memo" rows="3" placeholder="선택 입력"></textarea>
+          </label>
+          <button class="primary-button" type="submit">
+            <i data-lucide="check" aria-hidden="true"></i>
+            <span>전달하기</span>
+          </button>
+        </form>
+      </section>
+
+      <section class="guestbook section-band" aria-labelledby="guestbook-title">
+        <p class="section-kicker">Guestbook</p>
+        <h2 id="guestbook-title">축하 메시지</h2>
+        <form class="guestbook-form" data-guestbook-form>
+          <label>
+            <span>성함</span>
+            <input name="name" type="text" autocomplete="name" required />
+          </label>
+          <label>
+            <span>메시지</span>
+            <textarea name="message" rows="3" required></textarea>
+          </label>
+          <button class="secondary-button" type="submit">
+            <i data-lucide="pen-line" aria-hidden="true"></i>
+            <span>남기기</span>
+          </button>
+        </form>
+        <div class="guestbook-list" data-guestbook-list aria-live="polite"></div>
+      </section>
+
+      <footer class="closing">
+        <p>소중한 날, 함께해 주세요.</p>
+        <strong><span data-field="groomFirst"></span> &amp; <span data-field="brideFirst"></span></strong>
+      </footer>
+    </main>
+
+    <dialog class="gallery-dialog" data-gallery-dialog>
+      <button class="icon-button gallery-dialog__close" type="button" data-gallery-close aria-label="닫기">
+        <i data-lucide="x" aria-hidden="true"></i>
+      </button>
+      <button class="gallery-dialog__nav gallery-dialog__nav--prev" type="button" data-gallery-prev aria-label="이전 사진">
+        <i data-lucide="chevron-left" aria-hidden="true"></i>
+      </button>
+      <figure class="gallery-dialog__figure">
+        <img src="assets/wedding-cover.png" alt="확대된 웨딩 이미지" data-gallery-image />
+        <figcaption>
+          <span data-gallery-caption></span>
+          <span data-gallery-counter></span>
+        </figcaption>
+      </figure>
+      <button class="gallery-dialog__nav gallery-dialog__nav--next" type="button" data-gallery-next aria-label="다음 사진">
+        <i data-lucide="chevron-right" aria-hidden="true"></i>
+      </button>
+    </dialog>
+
+    <dialog class="share-dialog" data-share-dialog>
+      <div class="share-dialog__content">
+        <button class="icon-button share-dialog__close" type="button" data-share-close aria-label="닫기">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+        <p class="section-kicker">Share</p>
+        <h2>초대장 공유</h2>
+        <div class="share-presets">
+          <button type="button" data-share-preset="default">
+            <i data-lucide="heart" aria-hidden="true"></i>
+            <span>전체</span>
+          </button>
+          <button type="button" data-share-preset="parents">
+            <i data-lucide="flower-2" aria-hidden="true"></i>
+            <span>부모님용</span>
+          </button>
+          <button type="button" data-share-preset="friends">
+            <i data-lucide="sparkles" aria-hidden="true"></i>
+            <span>친구용</span>
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <div class="toast" data-toast role="status" aria-live="polite"></div>
+  </body>
+</html>
