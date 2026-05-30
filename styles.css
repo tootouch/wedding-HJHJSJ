@@ -1018,6 +1018,11 @@ img {
   background: var(--ink);
 }
 
+.rsvp-form .primary-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
 .guestbook-list {
   display: grid;
   margin-top: 30px;

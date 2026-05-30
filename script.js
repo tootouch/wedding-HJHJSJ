@@ -114,6 +114,10 @@ const invitation = {
     friends:
       "우리 결혼해요. 와서 같이 웃고 축하해 주면 정말 든든할 것 같아요.",
   },
+  integrations: {
+    // Google Apps Script web app URL. Leave empty until the RSVP sheet is deployed.
+    rsvpEndpoint: "",
+  },
 };
 
 const fields = {
@@ -483,6 +487,7 @@ function setupRsvp() {
   const dialog = document.querySelector("[data-rsvp-dialog]");
   const close = document.querySelector("[data-rsvp-close]");
   const form = document.querySelector("[data-rsvp-form]");
+  const submitButton = form.querySelector("button[type='submit']");
 
   trigger.addEventListener("click", () => {
     dialog.showModal();
@@ -495,15 +500,42 @@ function setupRsvp() {
     }
   });
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(form));
+    const submittedAt = new Date().toISOString();
+    const payload = {
+      submittedAt,
+      source: window.location.href.split("#")[0],
+      ...data,
+    };
     const savedList = readStorage(storageKeys.rsvp, []);
-    savedList.unshift({ ...data, savedAt: new Date().toISOString() });
+    savedList.unshift({ ...payload, savedAt: submittedAt });
     writeStorage(storageKeys.rsvp, savedList);
-    showToast(`${data.name}님, 마음을 전했어요.`);
-    form.reset();
-    dialog.close();
+
+    submitButton.disabled = true;
+    try {
+      const endpoint = invitation.integrations.rsvpEndpoint.trim();
+      if (endpoint) {
+        await fetch(endpoint, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+          body: JSON.stringify(payload),
+        });
+        showToast(`${data.name}님, 참석 의사를 전달했어요.`);
+      } else {
+        showToast("구글 시트 연결 전이라 이 기기에만 저장했어요.");
+      }
+      form.reset();
+      dialog.close();
+    } catch {
+      showToast("참석 의사를 전달하지 못했어요. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      submitButton.disabled = false;
+    }
   });
 }
 

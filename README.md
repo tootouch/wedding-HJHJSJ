@@ -14,3 +14,22 @@
 ```text
 https://tootouch.github.io/wedding-HJHJSJ/
 ```
+
+## 참석 의사 Google Sheets 연결
+
+참석 의사 폼은 먼저 브라우저에 백업 저장되고, `script.js`의 `rsvpEndpoint` 값이 설정되면 Google Sheets로도 전송됩니다.
+
+1. Google Sheets에서 새 스프레드시트를 만듭니다.
+2. 메뉴에서 `확장 프로그램 > Apps Script`를 엽니다.
+3. 이 저장소의 `google-apps-script-rsvp.gs` 내용을 Apps Script 편집기에 붙여넣습니다.
+4. `setup` 함수를 한 번 실행하고 권한을 승인합니다.
+5. `배포 > 새 배포 > 웹 앱`을 선택합니다.
+6. 설정은 `실행 권한: 나`, `액세스 권한: 모든 사용자`로 둡니다.
+7. 배포 후 생성되는 Web app URL을 복사합니다. 주소는 보통 `/exec`로 끝납니다.
+8. `script.js`에서 아래 값을 복사한 URL로 바꿉니다.
+
+```js
+rsvpEndpoint: "https://script.google.com/macros/s/.../exec",
+```
+
+URL을 넣은 뒤 다시 commit/push하면 GitHub Pages의 참석 의사 제출이 Google Sheets에 기록됩니다.
