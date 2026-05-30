@@ -20,9 +20,9 @@
     <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg" />
     <title>재혁 &amp; 소진의 모바일 청첩장</title>
     <link rel="preload" href="assets/cover.jpeg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260531-weddingday-pass" />
+    <link rel="stylesheet" href="styles.css?v=20260531-weddingday-minimal" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script src="script.js?v=20260531-weddingday-pass" defer></script>
+    <script src="script.js?v=20260531-weddingday-minimal" defer></script>
   </head>
   <body>
     <main class="invitation-shell">
@@ -113,26 +113,20 @@
 
       <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
         <p class="section-kicker">Wedding Day</p>
-        <div class="wedding-day-panel">
-          <div class="wedding-date-mark">
-            <span data-field="weddingYearMonth"></span>
-            <h2 id="calendar-title" data-field="weddingDay"></h2>
-            <span data-field="weddingWeekday"></span>
+        <div class="wedding-day-minimal">
+          <div class="wedding-day-minimal__topline">
+            <h2 id="calendar-title" data-field="weddingDateFull"></h2>
+            <span>D-<strong data-countdown="days">0</strong></span>
           </div>
-          <div class="wedding-day-info">
-            <p class="wedding-day-info__time" data-field="weddingTime"></p>
-            <p class="wedding-day-info__venue">
-              <span data-field="venue"></span>
-              <strong data-field="venueHall"></strong>
-            </p>
-            <div class="countdown" aria-label="예식까지 남은 시간">
-              <span>D-<strong data-countdown="days">0</strong></span>
-              <small>
-                <strong data-countdown="hours">0</strong>시간
-                <strong data-countdown="minutes">0</strong>분 남았습니다
-              </small>
-            </div>
-          </div>
+          <p class="wedding-day-minimal__time" data-field="weddingTime"></p>
+          <p class="wedding-day-minimal__place">
+            <span data-field="venue"></span>
+            <strong data-field="venueHall"></strong>
+          </p>
+          <p class="countdown" aria-label="예식까지 남은 시간">
+            <strong data-countdown="hours">0</strong>시간
+            <strong data-countdown="minutes">0</strong>분 남았습니다
+          </p>
         </div>
         <button class="primary-button" type="button" data-action="calendar">
           <i data-lucide="calendar-plus" aria-hidden="true"></i>
