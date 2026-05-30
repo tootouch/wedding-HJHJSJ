@@ -116,7 +116,8 @@ const invitation = {
   },
   integrations: {
     // Google Apps Script web app URL. Leave empty until the RSVP sheet is deployed.
-    rsvpEndpoint: "",
+    rsvpEndpoint:
+      "https://script.google.com/macros/s/AKfycbyg0q0JhDKbG4BZ90dDxBbTCC42G-tUJqOnQ9ggoQKeOsGR6DZKUGQl7WG4YSOjkZl1/exec",
   },
 };
 
