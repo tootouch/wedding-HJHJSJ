@@ -213,11 +213,33 @@
         </div>
       </section>
 
+      <section class="information section-band" aria-labelledby="information-title">
+        <p class="section-kicker">INFORMATION</p>
+        <h2 id="information-title">안내 말씀드립니다</h2>
+        <div class="notice-list">
+          <article class="notice-item">
+            <h3>[ 화환 안내 ]</h3>
+            <p>
+              화환은 정중히 사양합니다.<br />
+              마음만으로도 따뜻한 축하 감사드립니다.
+            </p>
+          </article>
+          <article class="notice-item">
+            <h3>[ 예식 안내 ]</h3>
+            <p>
+              휴일 저녁 귀한 걸음 해주시는 만큼,<br />
+              편안히 오실 수 있도록 여유 있게 안내드리겠습니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section id="gift" class="gift section-band" aria-labelledby="gift-title">
-        <p class="section-kicker">Thank You</p>
+        <p class="section-kicker">THANK YOU</p>
         <h2 id="gift-title">마음 전하실 곳</h2>
         <p class="section-note">
-          참석이 어려운 분들을 위해 조심스레 남겨둡니다.
+          저희 두 사람의 소중한 시작을 축하해주시는 모든 분들께 감사드립니다.
+          따뜻한 진심을 감사히 오래도록 간직하겠습니다.
         </p>
         <div class="account-list">
           <details class="account-group">
@@ -226,14 +248,14 @@
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </summary>
             <article class="account-card">
-              <div>
-                <p>예금주</p>
+              <div class="account-card__info">
+                <p>신랑</p>
                 <strong data-field="groomAccountName"></strong>
                 <span data-field="groomAccount"></span>
               </div>
               <button type="button" data-copy="groomAccount">
                 <i data-lucide="copy" aria-hidden="true"></i>
-                <span>복사</span>
+                <span>계좌번호 복사</span>
               </button>
             </article>
           </details>
@@ -243,14 +265,14 @@
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </summary>
             <article class="account-card">
-              <div>
-                <p>예금주</p>
+              <div class="account-card__info">
+                <p>신부</p>
                 <strong data-field="brideAccountName"></strong>
                 <span data-field="brideAccount"></span>
               </div>
               <button type="button" data-copy="brideAccount">
                 <i data-lucide="copy" aria-hidden="true"></i>
-                <span>복사</span>
+                <span>계좌번호 복사</span>
               </button>
             </article>
           </details>
@@ -259,7 +281,7 @@
 
       <section id="rsvp" class="rsvp section-band" aria-labelledby="rsvp-title">
         <p class="section-kicker">RSVP</p>
-        <h2 id="rsvp-title">참석 의사</h2>
+        <h2 id="rsvp-title">참석 의사 전달하기</h2>
         <p class="section-note">
           준비에 참고할 수 있도록 참석 여부와 식사 인원을 알려주세요.
         </p>
@@ -322,34 +344,65 @@
           </label>
           <button class="primary-button" type="submit">
             <i data-lucide="check" aria-hidden="true"></i>
-            <span>전달하기</span>
+            <span>참석 의사 보내기</span>
           </button>
         </form>
       </section>
 
       <section class="guestbook section-band" aria-labelledby="guestbook-title">
-        <p class="section-kicker">Guestbook</p>
-        <h2 id="guestbook-title">축하 메시지</h2>
+        <p class="section-kicker">GUEST BOOK</p>
+        <h2 id="guestbook-title">축하 메시지를 남겨주세요</h2>
+        <p class="section-note">
+          신랑 &amp; 신부의 행복한 앞날을 위해 따뜻한 덕담 한 말씀 남겨주세요.
+          소중한 추억으로 간직하겠습니다.
+        </p>
         <form class="guestbook-form" data-guestbook-form>
+          <fieldset>
+            <legend>받는 사람</legend>
+            <div class="segmented">
+              <label>
+                <input type="radio" name="target" value="신랑" checked />
+                <span>To. 신랑</span>
+              </label>
+              <label>
+                <input type="radio" name="target" value="신부" />
+                <span>To. 신부</span>
+              </label>
+            </div>
+          </fieldset>
           <label>
-            <span>성함</span>
+            <span>성함*</span>
             <input name="name" type="text" autocomplete="name" required />
           </label>
           <label>
-            <span>메시지</span>
+            <span>관계</span>
+            <input name="relation" type="text" placeholder="신랑 또는 신부와의 관계를 적어주세요." />
+          </label>
+          <label>
+            <span>메시지*</span>
             <textarea name="message" rows="3" required></textarea>
           </label>
           <button class="secondary-button" type="submit">
             <i data-lucide="pen-line" aria-hidden="true"></i>
-            <span>남기기</span>
+            <span>축하 메시지 보내기</span>
           </button>
         </form>
         <div class="guestbook-list" data-guestbook-list aria-live="polite"></div>
       </section>
 
       <footer class="closing">
-        <p>소중한 날, 함께해 주세요.</p>
-        <strong><span data-field="groomFirst"></span> &amp; <span data-field="brideFirst"></span></strong>
+        <p>언제나 곁을 따뜻하게 지켜주신 모든 분들께 감사드립니다.</p>
+        <strong><span data-field="groomFull"></span> &amp; <span data-field="brideFull"></span></strong>
+        <div class="closing-actions">
+          <button type="button" data-action="share">
+            <i data-lucide="send" aria-hidden="true"></i>
+            <span>청첩장 공유하기</span>
+          </button>
+          <button type="button" data-action="copy-link">
+            <i data-lucide="link" aria-hidden="true"></i>
+            <span>링크 복사하기</span>
+          </button>
+        </div>
       </footer>
     </main>
 

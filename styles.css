@@ -668,22 +668,52 @@ img {
   stroke-width: 2.2;
 }
 
-.gift {
-  background: var(--gift-bg);
+.information,
+.gift,
+.rsvp,
+.guestbook {
+  background: #f3eee7;
+  text-align: center;
+}
+
+.notice-list {
+  margin-top: 34px;
+  border-top: 1px solid rgba(220, 200, 176, 0.9);
+}
+
+.notice-item {
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(220, 200, 176, 0.9);
+}
+
+.notice-item h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 900;
+}
+
+.notice-item p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.8;
 }
 
 .account-list {
   display: grid;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 10px;
+  margin-top: 30px;
+  text-align: left;
 }
 
 .account-group {
-  border: 1px solid rgba(213, 162, 161, 0.36);
-  border-radius: 8px;
-  background: rgba(255, 253, 249, 0.76);
-  background: color-mix(in srgb, var(--white) 76%, transparent);
-  overflow: hidden;
+  border-top: 1px solid rgba(220, 200, 176, 0.95);
+  border-bottom: 1px solid rgba(220, 200, 176, 0.95);
+}
+
+.account-group + .account-group {
+  border-top: 0;
 }
 
 .account-group summary {
@@ -692,7 +722,6 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 18px;
   color: var(--ink);
   cursor: pointer;
   font-weight: 900;
@@ -706,7 +735,7 @@ img {
 .account-group summary svg {
   width: 19px;
   height: 19px;
-  color: var(--sage-deep);
+  color: var(--champagne);
   transition: transform 160ms ease;
 }
 
@@ -716,12 +745,15 @@ img {
 
 .account-card {
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: 14px;
-  align-items: center;
-  padding: 18px;
-  border-top: 1px solid rgba(213, 162, 161, 0.3);
-  background: transparent;
+  padding: 0 0 20px;
+}
+
+.account-card__info {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 8px 12px;
+  align-items: baseline;
 }
 
 .account-card p,
@@ -731,14 +763,17 @@ img {
 }
 
 .account-card p {
-  margin: 0 0 6px;
+  grid-row: span 2;
+  margin: 0;
   color: var(--champagne);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 900;
 }
 
 .account-card strong {
-  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 900;
 }
 
 .account-card span {
@@ -747,27 +782,26 @@ img {
 }
 
 .account-card button {
-  min-width: 82px;
-  padding: 0 14px;
-  border-color: rgba(213, 162, 161, 0.42);
-  background: var(--white);
-  color: var(--sage-deep);
-}
-
-.rsvp {
-  background: var(--white);
+  width: 100%;
+  min-height: 44px;
+  border-color: rgba(220, 200, 176, 0.95);
+  border-radius: 0;
+  background: rgba(255, 253, 249, 0.72);
+  color: var(--ink);
 }
 
 .rsvp-form,
 .guestbook-form {
   display: grid;
   gap: 18px;
-  margin-top: 24px;
+  margin-top: 30px;
+  text-align: left;
 }
 
 .rsvp-form label,
 .rsvp-form fieldset,
-.guestbook-form label {
+.guestbook-form label,
+.guestbook-form fieldset {
   display: grid;
   gap: 8px;
   min-width: 0;
@@ -776,10 +810,11 @@ img {
 
 .rsvp-form span,
 .rsvp-form legend,
-.guestbook-form span {
+.guestbook-form span,
+.guestbook-form legend {
   color: var(--muted);
   font-size: 0.86rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .rsvp-form input,
@@ -789,22 +824,23 @@ img {
 .guestbook-form textarea {
   width: 100%;
   min-height: 50px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 1px solid rgba(220, 200, 176, 0.95);
+  border-radius: 0;
   padding: 0 14px;
-  background: var(--field-bg);
+  background: rgba(255, 253, 249, 0.72);
   color: var(--ink);
 }
 
 .rsvp-form textarea,
 .guestbook-form textarea {
-  min-height: 92px;
+  min-height: 104px;
   padding-top: 13px;
   line-height: 1.55;
   resize: vertical;
 }
 
-.rsvp-form fieldset {
+.rsvp-form fieldset,
+.guestbook-form fieldset {
   border: 0;
   padding: 0;
 }
@@ -830,53 +866,67 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--field-bg);
+  border: 1px solid rgba(220, 200, 176, 0.95);
+  border-radius: 0;
+  background: rgba(255, 253, 249, 0.72);
   color: var(--muted);
 }
 
 .segmented input:checked + span {
-  border-color: var(--sage-deep);
-  background: var(--sage-deep);
+  border-color: var(--ink);
+  background: var(--ink);
   color: var(--white);
-}
-
-.guestbook {
-  background: var(--calendar-bg);
 }
 
 .guestbook-form .secondary-button {
   width: 100%;
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--white);
+}
+
+.rsvp-form .primary-button {
+  border-radius: 0;
+  background: var(--ink);
 }
 
 .guestbook-list {
   display: grid;
-  gap: 12px;
-  margin-top: 24px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(220, 200, 176, 0.95);
+  text-align: left;
 }
 
 .guestbook-card {
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 253, 249, 0.78);
-  background: color-mix(in srgb, var(--white) 78%, transparent);
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(220, 200, 176, 0.95);
+}
+
+.guestbook-card strong,
+.guestbook-card span,
+.guestbook-card time {
+  display: block;
 }
 
 .guestbook-card strong {
-  display: block;
-  margin-bottom: 8px;
+  color: var(--champagne);
+  font-size: 0.84rem;
+  font-weight: 900;
+}
+
+.guestbook-card span {
+  margin-top: 6px;
+  color: var(--ink);
+  font-weight: 900;
 }
 
 .guestbook-card p {
-  margin: 0;
+  margin: 12px 0 0;
   color: var(--muted);
   line-height: 1.72;
 }
 
 .guestbook-card time {
-  display: block;
   margin-top: 12px;
   color: rgba(112, 103, 93, 0.72);
   color: color-mix(in srgb, var(--muted) 72%, transparent);
@@ -884,21 +934,50 @@ img {
 }
 
 .closing {
-  padding: 56px 28px 70px;
+  padding: 60px 28px 72px;
   text-align: center;
-  background: var(--sage-deep);
-  color: var(--white);
+  background: #f3eee7;
+  color: var(--ink);
 }
 
 .closing p {
-  margin: 0 0 12px;
-  color: rgba(255, 253, 249, 0.74);
+  max-width: 20rem;
+  margin: 0 auto 14px;
+  color: var(--muted);
+  line-height: 1.75;
 }
 
 .closing strong {
+  display: block;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.6rem;
+  font-size: 1.45rem;
   font-weight: 400;
+}
+
+.closing-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.closing-actions button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(220, 200, 176, 0.95);
+  border-radius: 0;
+  background: rgba(255, 253, 249, 0.72);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.closing-actions svg {
+  width: 18px;
+  height: 18px;
+  color: var(--champagne);
 }
 
 .gallery-dialog {

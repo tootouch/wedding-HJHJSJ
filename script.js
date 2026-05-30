@@ -131,11 +131,15 @@ const storageKeys = {
 
 const fallbackGuestbook = [
   {
+    target: "신랑",
+    relation: "친구",
     name: "민지",
     message: "두 사람의 시작을 진심으로 축하해요. 오래오래 다정하게 걸어가길!",
     savedAt: "2026-05-29T09:00:00+09:00",
   },
   {
+    target: "신부",
+    relation: "친구",
     name: "준호",
     message: "청첩장 분위기가 두 사람처럼 따뜻하네요. 예식 날 환하게 만나요.",
     savedAt: "2026-05-29T09:10:00+09:00",
@@ -274,20 +278,28 @@ function setupActions() {
       copyText(value, message);
     });
   });
+
+  document.querySelectorAll("[data-action='copy-link']").forEach((button) => {
+    button.addEventListener("click", () => {
+      copyText(window.location.href.split("#")[0], "청첩장 링크를 복사했어요.");
+    });
+  });
 }
 
 function setupShareDialog() {
-  const trigger = document.querySelector("[data-action='share']");
+  const triggers = document.querySelectorAll("[data-action='share']");
   const dialog = document.querySelector("[data-share-dialog]");
   const close = document.querySelector("[data-share-close]");
 
-  trigger.addEventListener("click", () => {
-    if (dialog.showModal) {
-      dialog.showModal();
-      return;
-    }
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      if (dialog.showModal) {
+        dialog.showModal();
+        return;
+      }
 
-    shareInvitation("default").catch(() => showToast("공유를 완료하지 못했어요."));
+      shareInvitation("default").catch(() => showToast("공유를 완료하지 못했어요."));
+    });
   });
 
   close.addEventListener("click", () => dialog.close());
@@ -459,10 +471,10 @@ function formatGuestbookDate(value) {
     return "";
   }
 
-  return date.toLocaleDateString("ko-KR", {
-    month: "long",
-    day: "numeric",
-  });
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}.${month}.${day}`;
 }
 
 function renderGuestbook() {
@@ -472,16 +484,19 @@ function renderGuestbook() {
 
   messages.slice(0, 8).forEach((item) => {
     const card = document.createElement("article");
-    const name = document.createElement("strong");
+    const target = document.createElement("strong");
+    const name = document.createElement("span");
     const message = document.createElement("p");
     const time = document.createElement("time");
+    const sender = [item.relation, item.name].filter(Boolean).join(" ");
 
     card.className = "guestbook-card";
-    name.textContent = item.name;
+    target.textContent = `To. ${item.target || "두 사람"}`;
+    name.textContent = `From. ${sender || "익명"}`;
     message.textContent = item.message;
     time.textContent = formatGuestbookDate(item.savedAt);
 
-    card.append(name, message, time);
+    card.append(target, name, message, time);
     list.append(card);
   });
 }
@@ -493,6 +508,8 @@ function setupGuestbook() {
     const data = Object.fromEntries(new FormData(form));
     const messages = readStorage(storageKeys.guestbook, fallbackGuestbook);
     messages.unshift({
+      target: data.target,
+      relation: data.relation,
       name: data.name,
       message: data.message,
       savedAt: new Date().toISOString(),
