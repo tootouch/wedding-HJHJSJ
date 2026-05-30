@@ -230,19 +230,31 @@ img {
   line-height: 2.08;
 }
 
-.couple-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 34px;
+.family-line {
+  display: grid;
+  gap: 15px;
+  width: min(100%, 24rem);
+  margin: 40px auto 0;
   color: var(--ink);
-  font-weight: 700;
 }
 
-.couple-line span:nth-child(2) {
-  width: 34px;
-  height: 1px;
-  background: var(--blush);
+.family-line p {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto minmax(4.6rem, auto);
+  gap: 10px;
+  align-items: baseline;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.family-line strong {
+  color: var(--ink);
+  font-size: 1.14rem;
+  font-weight: 900;
+  text-align: right;
 }
 
 .calendar {
@@ -316,44 +328,6 @@ img {
 .account-card button svg {
   width: 19px;
   height: 19px;
-}
-
-.family {
-  background: var(--white);
-}
-
-.family-list {
-  display: grid;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.person-card {
-  min-height: 112px;
-  padding: 20px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--field-bg);
-}
-
-.person-card__role {
-  margin: 0 0 7px;
-  color: var(--champagne);
-  font-size: 0.8rem;
-  font-weight: 900;
-}
-
-.person-card h3 {
-  margin: 0;
-  font-size: 1.22rem;
-  letter-spacing: 0;
-}
-
-.person-card p:last-of-type {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
 }
 
 .icon-button {
@@ -929,6 +903,21 @@ img {
 
   .hero h1 {
     font-size: 3.8rem;
+  }
+
+  .family-line {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .family-line p {
+    grid-template-columns: minmax(0, 1fr) auto auto minmax(3.8rem, auto);
+    gap: 7px;
+    font-size: 0.9rem;
+  }
+
+  .family-line strong {
+    font-size: 1rem;
   }
 
   .map-actions,
