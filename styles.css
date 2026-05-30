@@ -63,6 +63,18 @@ img {
   max-width: 100%;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .invitation-shell {
   width: min(100%, 480px);
   min-height: 100vh;
@@ -919,7 +931,8 @@ img {
 }
 
 .rsvp-form,
-.guestbook-form {
+.guestbook-form,
+.delete-form {
   display: grid;
   gap: 18px;
   margin-top: 30px;
@@ -929,31 +942,46 @@ img {
 .rsvp-form label,
 .rsvp-form fieldset,
 .guestbook-form label,
-.guestbook-form fieldset {
+.guestbook-form fieldset,
+.delete-form label {
   display: grid;
   gap: 8px;
   min-width: 0;
   margin: 0;
 }
 
-.rsvp-form span,
+.rsvp-form label > span,
 .rsvp-form legend,
-.guestbook-form span,
-.guestbook-form legend {
+.guestbook-form label > span,
+.guestbook-form legend,
+.delete-form label > span {
   color: var(--muted);
   font-size: 0.86rem;
   font-weight: 900;
+}
+
+.guestbook-form small {
+  color: rgba(116, 103, 91, 0.72);
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.guestbook-form em {
+  color: var(--blush);
+  font-style: normal;
 }
 
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea,
 .guestbook-form input,
-.guestbook-form textarea {
+.guestbook-form textarea,
+.delete-form input {
   width: 100%;
   min-height: 50px;
   border: 1px solid rgba(220, 200, 176, 0.95);
-  border-radius: 0;
+  border-radius: 8px;
   padding: 0 14px;
   background: rgba(255, 253, 249, 0.72);
   color: var(--ink);
@@ -965,6 +993,14 @@ img {
   padding-top: 13px;
   line-height: 1.55;
   resize: vertical;
+}
+
+.guestbook-form textarea {
+  min-height: 132px;
+}
+
+.guestbook-message-field {
+  margin-top: 6px;
 }
 
 .rsvp-form fieldset,
@@ -1006,11 +1042,80 @@ img {
   color: var(--white);
 }
 
+.guestbook-form .segmented {
+  gap: 0;
+}
+
+.guestbook-form .segmented span {
+  min-height: 52px;
+  border-color: rgba(220, 200, 176, 0.58);
+  border-radius: 0;
+  background: var(--white);
+  font-size: 0.98rem;
+}
+
+.guestbook-form .segmented input[value="신랑"]:checked + span {
+  border-color: var(--sage-deep);
+  background: var(--sage-deep);
+  color: var(--white);
+}
+
+.guestbook-form .segmented input[value="신부"]:checked + span {
+  border-color: var(--blush);
+  background: var(--blush);
+  color: var(--white);
+}
+
 .guestbook-form .secondary-button {
   width: 100%;
+  min-height: 62px;
   border-radius: 0;
   background: var(--ink);
   color: var(--white);
+}
+
+.guestbook-form__footer {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
+  gap: 14px;
+  align-items: start;
+  margin-top: 10px;
+}
+
+.guestbook-example {
+  min-width: 0;
+}
+
+.guestbook-example summary {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 900;
+  list-style: none;
+}
+
+.guestbook-example summary::-webkit-details-marker {
+  display: none;
+}
+
+.guestbook-example svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 180ms ease;
+}
+
+.guestbook-example[open] svg {
+  transform: rotate(180deg);
+}
+
+.guestbook-example p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
 }
 
 .rsvp-form .primary-button {
@@ -1018,52 +1123,144 @@ img {
   background: var(--ink);
 }
 
-.rsvp-form .primary-button:disabled {
+.rsvp-form .primary-button:disabled,
+.guestbook-form .secondary-button:disabled,
+.delete-form .primary-button:disabled {
   cursor: wait;
   opacity: 0.65;
 }
 
 .guestbook-list {
   display: grid;
-  margin-top: 30px;
-  border-top: 1px solid rgba(220, 200, 176, 0.95);
+  gap: 18px;
+  margin-top: 34px;
   text-align: left;
 }
 
 .guestbook-card {
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(220, 200, 176, 0.95);
+  position: relative;
+  overflow: hidden;
+  padding: 22px 22px 24px;
+  border: 1px solid rgba(220, 200, 176, 0.38);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 14px 32px rgba(66, 52, 39, 0.08);
 }
 
-.guestbook-card strong,
-.guestbook-card span,
-.guestbook-card time {
-  display: block;
+.guestbook-card__target {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 6px;
+  background: rgba(85, 95, 62, 0.08);
+  color: var(--sage-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.guestbook-card strong {
-  color: var(--champagne);
-  font-size: 0.84rem;
-  font-weight: 900;
+.guestbook-card--bride .guestbook-card__target {
+  background: rgba(201, 130, 114, 0.11);
+  color: var(--blush);
 }
 
-.guestbook-card span {
-  margin-top: 6px;
-  color: var(--ink);
-  font-weight: 900;
+.guestbook-card__delete {
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: rgba(116, 103, 91, 0.58);
+  cursor: pointer;
+}
+
+.guestbook-card__delete svg {
+  width: 21px;
+  height: 21px;
 }
 
 .guestbook-card p {
-  margin: 12px 0 0;
-  color: var(--muted);
+  margin: 18px 0 0;
+  color: var(--ink);
   line-height: 1.72;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
-.guestbook-card time {
-  margin-top: 12px;
-  color: rgba(112, 103, 93, 0.72);
-  color: color-mix(in srgb, var(--muted) 72%, transparent);
-  font-size: 0.78rem;
+.guestbook-card__divider {
+  width: min(66%, 260px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px auto 14px;
+  color: rgba(201, 130, 114, 0.46);
+}
+
+.guestbook-card--groom .guestbook-card__divider {
+  color: rgba(85, 95, 62, 0.42);
+}
+
+.guestbook-card__divider::before,
+.guestbook-card__divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: currentColor;
+}
+
+.guestbook-card__divider svg {
+  width: 18px;
+  height: 18px;
+}
+
+.guestbook-card__meta {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
+.guestbook-card__meta time {
+  color: rgba(116, 103, 91, 0.58);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.guestbook-card__from {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--ink);
+}
+
+.guestbook-card__from span {
+  color: var(--champagne);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+}
+
+.guestbook-card--groom .guestbook-card__from span {
+  color: var(--sage-deep);
+}
+
+.guestbook-card__from strong {
+  font-size: 0.96rem;
+  font-weight: 900;
+}
+
+.guestbook-empty {
+  margin: 0;
+  padding: 24px 18px;
+  border: 1px solid rgba(220, 200, 176, 0.5);
+  border-radius: 8px;
+  background: rgba(255, 253, 249, 0.58);
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.7;
 }
 
 .gallery-dialog {
@@ -1097,6 +1294,14 @@ img {
   border: 0;
   border-radius: 8px;
   background: transparent;
+}
+
+.form-dialog--guestbook {
+  width: min(92vw, 620px);
+}
+
+.form-dialog--delete {
+  width: min(92vw, 420px);
 }
 
 .share-dialog::backdrop {
@@ -1134,6 +1339,27 @@ img {
   border-radius: 8px;
   background: var(--white);
   box-shadow: var(--shadow);
+}
+
+.form-dialog--guestbook .form-dialog__content {
+  padding: 48px 34px 38px;
+}
+
+.form-dialog--delete .form-dialog__content {
+  padding: 46px 30px 32px;
+}
+
+.delete-dialog__target {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.delete-form .primary-button {
+  border-radius: 0;
+  background: var(--ink);
 }
 
 .share-dialog h2 {
@@ -1380,6 +1606,18 @@ img {
 
   .share-presets {
     grid-template-columns: 1fr;
+  }
+
+  .guestbook-form__footer {
+    grid-template-columns: 1fr;
+  }
+
+  .guestbook-example summary {
+    min-height: 38px;
+  }
+
+  .guestbook-card {
+    padding: 20px 18px 22px;
   }
 
   .contact-dialog__content {

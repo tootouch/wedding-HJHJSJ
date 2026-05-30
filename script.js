@@ -155,25 +155,16 @@ const toast = document.querySelector("[data-toast]");
 let toastTimer;
 const storageKeys = {
   rsvp: "wedding-rsvp-list",
-  guestbook: "wedding-guestbook",
+  guestbook: "wedding-guestbook-v2",
 };
 
-const fallbackGuestbook = [
-  {
-    target: "신랑",
-    relation: "친구",
-    name: "민지",
-    message: "두 사람의 시작을 진심으로 축하해요. 오래오래 다정하게 걸어가길!",
-    savedAt: "2026-05-29T09:00:00+09:00",
-  },
-  {
-    target: "신부",
-    relation: "친구",
-    name: "준호",
-    message: "청첩장 분위기가 두 사람처럼 따뜻하네요. 예식 날 환하게 만나요.",
-    savedAt: "2026-05-29T09:10:00+09:00",
-  },
-];
+const fallbackGuestbook = [];
+
+const guestbookState = {
+  messages: [],
+  remoteReady: false,
+  pendingDeleteId: "",
+};
 
 function showToast(message) {
   window.clearTimeout(toastTimer);
@@ -552,28 +543,218 @@ function formatGuestbookDate(value) {
   return `${year}.${month}.${day}`;
 }
 
+function getIntegrationEndpoint() {
+  return invitation.integrations.rsvpEndpoint.trim();
+}
+
+function withEndpointParams(params) {
+  const endpoint = getIntegrationEndpoint();
+  const query = Object.entries(params)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join("&");
+
+  return `${endpoint}${endpoint.includes("?") ? "&" : "?"}${query}`;
+}
+
+function requestJsonp(params) {
+  return new Promise((resolve, reject) => {
+    const endpoint = getIntegrationEndpoint();
+    if (!endpoint) {
+      reject(new Error("No integration endpoint configured."));
+      return;
+    }
+
+    const callbackName = `__guestbookCallback_${Date.now()}_${Math.random()
+      .toString(36)
+      .slice(2)}`;
+    const script = document.createElement("script");
+    const timeout = window.setTimeout(() => {
+      cleanup();
+      reject(new Error("Guestbook request timed out."));
+    }, 7000);
+
+    function cleanup() {
+      window.clearTimeout(timeout);
+      delete window[callbackName];
+      script.remove();
+    }
+
+    window[callbackName] = (payload) => {
+      cleanup();
+      resolve(payload);
+    };
+
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("Guestbook request failed."));
+    };
+    script.src = withEndpointParams({ ...params, callback: callbackName });
+    document.body.append(script);
+  });
+}
+
+function createGuestbookId() {
+  return `guestbook-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function normalizeGuestbookItem(item, index) {
+  return {
+    id: item.id || `local-${index}-${item.savedAt || item.createdAt || Date.now()}`,
+    target: item.target || "두 사람",
+    relation: item.relation || "",
+    name: item.name || "",
+    message: item.message || "",
+    savedAt: item.savedAt || item.createdAt || new Date().toISOString(),
+    password: item.password || "",
+  };
+}
+
+function getLocalGuestbook() {
+  return readStorage(storageKeys.guestbook, fallbackGuestbook).map(normalizeGuestbookItem);
+}
+
+function saveLocalGuestbook(messages) {
+  writeStorage(storageKeys.guestbook, messages.slice(0, 50));
+}
+
+function setGuestbookMessages(messages) {
+  guestbookState.messages = messages.map(normalizeGuestbookItem);
+  saveLocalGuestbook(guestbookState.messages);
+  renderGuestbook();
+}
+
+function getGuestbookSender(item) {
+  return [item.relation, item.name].filter(Boolean).join(" ") || "익명";
+}
+
 function renderGuestbook() {
   const list = document.querySelector("[data-guestbook-list]");
-  const messages = readStorage(storageKeys.guestbook, fallbackGuestbook);
+  const messages = guestbookState.messages;
   list.replaceChildren();
 
-  messages.slice(0, 8).forEach((item) => {
+  if (!messages.length) {
+    const empty = document.createElement("p");
+    empty.className = "guestbook-empty";
+    empty.textContent = "아직 남겨진 축하 메시지가 없습니다. 첫 번째 마음을 남겨주세요.";
+    list.append(empty);
+    return;
+  }
+
+  messages.slice(0, 12).forEach((item) => {
     const card = document.createElement("article");
-    const target = document.createElement("strong");
-    const name = document.createElement("span");
+    const target = document.createElement("span");
+    const deleteButton = document.createElement("button");
     const message = document.createElement("p");
+    const divider = document.createElement("div");
+    const dividerIcon = document.createElement("i");
+    const meta = document.createElement("div");
     const time = document.createElement("time");
-    const sender = [item.relation, item.name].filter(Boolean).join(" ");
+    const from = document.createElement("div");
+    const fromLabel = document.createElement("span");
+    const fromName = document.createElement("strong");
+    const targetSide = item.target === "신부" ? "bride" : "groom";
 
-    card.className = "guestbook-card";
+    card.className = `guestbook-card guestbook-card--${targetSide}`;
+    target.className = "guestbook-card__target";
     target.textContent = `To. ${item.target || "두 사람"}`;
-    name.textContent = `From. ${sender || "익명"}`;
-    message.textContent = item.message;
-    time.textContent = formatGuestbookDate(item.savedAt);
 
-    card.append(target, name, message, time);
+    deleteButton.className = "guestbook-card__delete";
+    deleteButton.type = "button";
+    deleteButton.dataset.guestbookDelete = item.id;
+    deleteButton.setAttribute("aria-label", "축하 메시지 삭제");
+    deleteButton.innerHTML = '<i data-lucide="x" aria-hidden="true"></i>';
+
+    message.textContent = item.message;
+
+    divider.className = "guestbook-card__divider";
+    dividerIcon.setAttribute("data-lucide", "sprout");
+    dividerIcon.setAttribute("aria-hidden", "true");
+    divider.append(dividerIcon);
+
+    meta.className = "guestbook-card__meta";
+    time.textContent = formatGuestbookDate(item.savedAt);
+    time.dateTime = item.savedAt;
+
+    from.className = "guestbook-card__from";
+    fromLabel.textContent = "From.";
+    fromName.textContent = getGuestbookSender(item);
+    from.append(fromLabel, fromName);
+
+    meta.append(time, from);
+    card.append(target, deleteButton, message, divider, meta);
     list.append(card);
   });
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+}
+
+async function loadGuestbookFromRemote() {
+  if (!getIntegrationEndpoint()) {
+    return;
+  }
+
+  try {
+    const payload = await requestJsonp({ action: "listGuestbook" });
+    if (!payload || !payload.ok || !Array.isArray(payload.messages)) {
+      throw new Error("Invalid guestbook response.");
+    }
+
+    guestbookState.remoteReady = true;
+    setGuestbookMessages(payload.messages);
+  } catch {
+    guestbookState.remoteReady = false;
+  }
+}
+
+async function submitGuestbookToRemote(payload) {
+  if (!guestbookState.remoteReady || !getIntegrationEndpoint()) {
+    return false;
+  }
+
+  await fetch(getIntegrationEndpoint(), {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify({
+      action: "createGuestbook",
+      ...payload,
+    }),
+  });
+
+  return true;
+}
+
+function openGuestbookDeleteDialog(item, dialog, form, title) {
+  guestbookState.pendingDeleteId = item.id;
+  title.textContent = `From. ${getGuestbookSender(item)} 메시지를 삭제합니다.`;
+  form.reset();
+  dialog.showModal();
+}
+
+async function deleteGuestbookMessage(password) {
+  const id = guestbookState.pendingDeleteId;
+  const item = guestbookState.messages.find((message) => message.id === id);
+  if (!item) {
+    return { ok: false, message: "삭제할 메시지를 찾을 수 없어요." };
+  }
+
+  if (guestbookState.remoteReady && getIntegrationEndpoint()) {
+    return requestJsonp({
+      action: "deleteGuestbook",
+      id,
+      password,
+    });
+  }
+
+  if (!item.password || item.password !== password) {
+    return { ok: false, message: "비밀번호가 맞지 않아요." };
+  }
+
+  return { ok: true };
 }
 
 function setupGuestbook() {
@@ -581,6 +762,13 @@ function setupGuestbook() {
   const dialog = document.querySelector("[data-guestbook-dialog]");
   const close = document.querySelector("[data-guestbook-close]");
   const form = document.querySelector("[data-guestbook-form]");
+  const submitButton = form.querySelector("button[type='submit']");
+  const list = document.querySelector("[data-guestbook-list]");
+  const deleteDialog = document.querySelector("[data-guestbook-delete-dialog]");
+  const deleteClose = document.querySelector("[data-guestbook-delete-close]");
+  const deleteForm = document.querySelector("[data-guestbook-delete-form]");
+  const deleteSubmit = deleteForm.querySelector("button[type='submit']");
+  const deleteTitle = document.querySelector("[data-guestbook-delete-title]");
 
   trigger.addEventListener("click", () => {
     dialog.showModal();
@@ -593,22 +781,93 @@ function setupGuestbook() {
     }
   });
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(form));
-    const messages = readStorage(storageKeys.guestbook, fallbackGuestbook);
-    messages.unshift({
+    const savedAt = new Date().toISOString();
+    const item = {
+      id: createGuestbookId(),
       target: data.target,
       relation: data.relation,
       name: data.name,
       message: data.message,
-      savedAt: new Date().toISOString(),
-    });
-    writeStorage(storageKeys.guestbook, messages);
-    renderGuestbook();
-    showToast("축하 메시지를 남겼어요.");
-    form.reset();
-    dialog.close();
+      password: data.password,
+      savedAt,
+      source: window.location.href.split("#")[0],
+    };
+
+    submitButton.disabled = true;
+    try {
+      const sent = await submitGuestbookToRemote(item);
+      setGuestbookMessages([item, ...guestbookState.messages]);
+      showToast(
+        sent
+          ? "축하 메시지를 남겼어요."
+          : "구글 시트 연결 전이라 이 기기에만 저장했어요.",
+      );
+      form.reset();
+      dialog.close();
+
+      if (sent) {
+        window.setTimeout(loadGuestbookFromRemote, 1200);
+      }
+    } catch {
+      showToast("축하 메시지를 남기지 못했어요. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+
+  list.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-guestbook-delete]");
+    if (!button) {
+      return;
+    }
+
+    const item = guestbookState.messages.find(
+      (message) => message.id === button.dataset.guestbookDelete,
+    );
+    if (item) {
+      openGuestbookDeleteDialog(item, deleteDialog, deleteForm, deleteTitle);
+    }
+  });
+
+  deleteClose.addEventListener("click", () => deleteDialog.close());
+  deleteDialog.addEventListener("click", (event) => {
+    if (event.target === deleteDialog) {
+      deleteDialog.close();
+    }
+  });
+
+  deleteForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = Object.fromEntries(new FormData(deleteForm));
+
+    deleteSubmit.disabled = true;
+    try {
+      const result = await deleteGuestbookMessage(data.password);
+      if (!result || !result.ok) {
+        showToast(result && result.message ? result.message : "비밀번호가 맞지 않아요.");
+        return;
+      }
+
+      setGuestbookMessages(
+        guestbookState.messages.filter(
+          (message) => message.id !== guestbookState.pendingDeleteId,
+        ),
+      );
+      showToast("축하 메시지를 삭제했어요.");
+      deleteForm.reset();
+      deleteDialog.close();
+
+      if (guestbookState.remoteReady) {
+        window.setTimeout(loadGuestbookFromRemote, 600);
+      }
+    } catch {
+      showToast("축하 메시지를 삭제하지 못했어요. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      deleteSubmit.disabled = false;
+    }
   });
 }
 
@@ -618,8 +877,9 @@ setupActions();
 setupContactLinks();
 setupGallery();
 setupRsvp();
+setGuestbookMessages(getLocalGuestbook());
 setupGuestbook();
-renderGuestbook();
+loadGuestbookFromRemote();
 window.setInterval(updateCountdown, 60000);
 
 window.addEventListener("load", () => {

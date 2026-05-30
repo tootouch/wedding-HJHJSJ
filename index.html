@@ -479,7 +479,7 @@
       </div>
     </dialog>
 
-    <dialog class="form-dialog" data-guestbook-dialog>
+    <dialog class="form-dialog form-dialog--guestbook" data-guestbook-dialog>
       <div class="form-dialog__content">
         <button class="icon-button form-dialog__close" type="button" data-guestbook-close aria-label="닫기">
           <i data-lucide="x" aria-hidden="true"></i>
@@ -487,33 +487,68 @@
         <h2>축하 메시지 작성하기</h2>
         <form class="guestbook-form" data-guestbook-form>
           <fieldset>
-            <legend>받는 사람</legend>
+            <legend class="sr-only">받는 사람</legend>
             <div class="segmented">
               <label>
                 <input type="radio" name="target" value="신랑" checked />
-                <span>To. 신랑</span>
+                <span>To. 신랑에게</span>
               </label>
               <label>
                 <input type="radio" name="target" value="신부" />
-                <span>To. 신부</span>
+                <span>To. 신부에게</span>
               </label>
             </div>
           </fieldset>
+          <label class="guestbook-message-field">
+            <textarea name="message" rows="4" required placeholder="결혼 축하합니다!"></textarea>
+          </label>
           <label>
-            <span>성함*</span>
-            <input name="name" type="text" autocomplete="name" required />
+            <span>성함 <em>*</em></span>
+            <small>방명록에 보여질 이름을 적어주세요.</small>
+            <input name="name" type="text" autocomplete="name" required placeholder="홍길동" />
           </label>
           <label>
             <span>관계</span>
-            <input name="relation" type="text" placeholder="신랑 또는 신부와의 관계를 적어주세요." />
+            <small>신랑 또는 신부와의 관계를 적어주세요. (생략 가능)</small>
+            <input name="relation" type="text" placeholder="한국고 동문, 친구, 사촌동생" />
           </label>
           <label>
-            <span>메시지*</span>
-            <textarea name="message" rows="3" required placeholder="결혼 축하합니다!"></textarea>
+            <span>비밀번호 <em>*</em></span>
+            <small>방명록 삭제에 필요한 숫자 4자리를 적어주세요.</small>
+            <input name="password" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="1234 (숫자 4자리)" />
           </label>
-          <button class="secondary-button" type="submit">
-            <i data-lucide="pen-line" aria-hidden="true"></i>
-            <span>축하 메시지 보내기</span>
+          <div class="guestbook-form__footer">
+            <details class="guestbook-example">
+              <summary>
+                <span>예시 보기</span>
+                <i data-lucide="chevron-down" aria-hidden="true"></i>
+              </summary>
+              <p>결혼 진심으로 축하해요. 두 사람의 매일이 오래도록 다정하길 바라요!</p>
+            </details>
+            <button class="secondary-button" type="submit">
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <span>축하 메시지 보내기</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog class="form-dialog form-dialog--delete" data-guestbook-delete-dialog>
+      <div class="form-dialog__content">
+        <button class="icon-button form-dialog__close" type="button" data-guestbook-delete-close aria-label="닫기">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+        <h2>축하 메시지 삭제하기</h2>
+        <p class="delete-dialog__target" data-guestbook-delete-title></p>
+        <form class="delete-form" data-guestbook-delete-form>
+          <label>
+            <span>비밀번호</span>
+            <input name="password" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="작성 시 입력한 숫자 4자리" />
+          </label>
+          <button class="primary-button" type="submit">
+            <i data-lucide="trash-2" aria-hidden="true"></i>
+            <span>삭제하기</span>
           </button>
         </form>
       </div>
