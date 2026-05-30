@@ -232,7 +232,7 @@ img {
 
 .family-line {
   display: grid;
-  gap: 8px;
+  gap: 4px;
   width: min(100%, 20rem);
   margin: 24px auto 0;
   color: var(--ink);
@@ -1023,7 +1023,7 @@ img {
 
   .family-line {
     width: 100%;
-    gap: 7px;
+    gap: 3px;
     margin-top: 20px;
   }
 
