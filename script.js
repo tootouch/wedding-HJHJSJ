@@ -2,14 +2,14 @@ const invitation = {
   groom: {
     full: "허재혁",
     first: "재혁",
-    parents: "허승규의 차남",
+    parents: "허승규의 아들",
     accountName: "허재혁",
     account: "국민은행 123456-78-901234",
   },
   bride: {
     full: "조소진",
     first: "소진",
-    parents: "조광희 · 정은정의 차녀",
+    parents: "조광희 · 정은정의 딸",
     accountName: "조소진",
     account: "신한은행 110-123-456789",
   },
