@@ -40,8 +40,8 @@ const invitation = {
     venue: "라마다 서울 신도림 호텔",
     venueDetail: "라마다 서울 신도림 호텔 5층 세인트그레이스홀",
     venueShort: "라마다 서울 신도림",
-    address: "서울 구로구 경인로 624 라마다 서울 신도림 호텔",
-    addressShort: "서울 구로구 경인로 624",
+    address: "서울특별시 구로구 경인로 624",
+    addressShort: "서울특별시 구로구 경인로 624",
   },
   gallery: [
     {
@@ -172,7 +172,7 @@ function populateContent() {
     node.textContent = fields[key] ?? "";
   });
 
-  const query = encodeURIComponent(`${invitation.wedding.venue} ${invitation.wedding.address}`);
+  const query = encodeURIComponent(invitation.wedding.address);
   const mapUrls = {
     naver: `https://map.naver.com/p/search/${query}`,
     kakao: `https://map.kakao.com/link/search/${query}`,
