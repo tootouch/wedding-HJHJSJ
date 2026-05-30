@@ -137,39 +137,105 @@
       </section>
 
       <section id="location" class="location section-band" aria-labelledby="location-title">
-        <p class="section-kicker">Location</p>
-        <h2 id="location-title" data-field="venue"></h2>
-        <p class="section-note" data-field="venueHall"></p>
-        <p class="address" data-field="address"></p>
-        <div class="map-panel" aria-label="예식장 위치">
-          <div class="map-panel__pin">
-            <i data-lucide="map-pin" aria-hidden="true"></i>
+        <p class="section-kicker">LOCATION</p>
+        <h2 id="location-title">오시는 길</h2>
+        <div class="location-meta" aria-label="예식장 주소와 홀 정보">
+          <p data-field="address"></p>
+          <p>
+            <span data-field="venue"></span>
+            <strong data-field="venueHall"></strong>
+          </p>
+        </div>
+        <div class="location-layout">
+          <div class="location-map-column">
+            <a class="map-preview" data-map="kakao" target="_blank" rel="noreferrer" aria-label="카카오맵에서 길찾기">
+              <svg class="map-preview__map" viewBox="0 0 640 430" role="img" aria-label="신도림역에서 라마다 서울 신도림 호텔까지의 약도">
+                <rect width="640" height="430" fill="#e9e1d7" />
+                <rect x="500" y="0" width="140" height="430" fill="#b9d7df" />
+                <path d="M0 310 C140 288 236 305 338 270 C438 236 520 226 640 232" fill="none" stroke="#d5a84f" stroke-width="30" />
+                <path d="M72 0 C92 92 94 174 76 268 C64 334 62 382 76 430" fill="none" stroke="#e3c36a" stroke-width="24" />
+                <path d="M320 0 C342 110 338 210 310 430" fill="none" stroke="#d8cec2" stroke-width="18" />
+                <path d="M402 0 L438 430" fill="none" stroke="#d8cec2" stroke-width="16" />
+                <path d="M95 276 C172 242 248 254 336 238 C382 230 416 222 456 212" fill="none" stroke="#7d8063" stroke-width="8" stroke-linecap="round" stroke-dasharray="16 12" />
+                <g fill="#f8f4ee" stroke="#d6c7b5" stroke-width="2">
+                  <rect x="130" y="72" width="120" height="72" rx="8" />
+                  <rect x="156" y="170" width="136" height="78" rx="8" />
+                  <rect x="350" y="72" width="116" height="92" rx="8" />
+                  <rect x="386" y="256" width="96" height="72" rx="8" />
+                  <rect x="18" y="158" width="112" height="82" rx="8" />
+                </g>
+                <g>
+                  <circle cx="92" cy="280" r="24" fill="#ffffff" stroke="#6f7856" stroke-width="5" />
+                  <text x="92" y="287" text-anchor="middle" fill="#6f7856" font-size="20" font-weight="900">1</text>
+                  <text x="38" y="344" fill="#3a332e" font-size="24" font-weight="900">신도림역</text>
+                  <text x="52" y="374" fill="#74675b" font-size="18" font-weight="700">1번 출구</text>
+                </g>
+                <g>
+                  <path d="M454 178 C426 178 404 200 404 228 C404 266 454 316 454 316 C454 316 504 266 504 228 C504 200 482 178 454 178Z" fill="#c98272" />
+                  <circle cx="454" cy="228" r="18" fill="#fffdf9" />
+                  <text x="332" y="366" fill="#2b241f" font-size="26" font-weight="900">라마다 서울 신도림</text>
+                  <text x="366" y="396" fill="#74675b" font-size="18" font-weight="800">5층 세인트그레이스홀</text>
+                </g>
+                <text x="150" y="118" fill="#74675b" font-size="19" font-weight="800">디큐브시티</text>
+                <text x="168" y="220" fill="#74675b" font-size="19" font-weight="800">GS칼텍스</text>
+                <text x="364" y="122" fill="#74675b" font-size="19" font-weight="800">SK VIEW</text>
+              </svg>
+              <span class="map-preview__button">
+                <i data-lucide="map-pin" aria-hidden="true"></i>
+                <span>카카오 길찾기</span>
+                <i data-lucide="chevron-right" aria-hidden="true"></i>
+              </span>
+            </a>
+            <div class="navigation-panel">
+              <h3>내비게이션</h3>
+              <p>버튼을 누르면 앱에서 길안내가 시작됩니다.</p>
+              <div class="navigation-actions">
+                <a class="navigation-button" data-map="naver" target="_blank" rel="noreferrer">
+                  <i data-lucide="navigation" aria-hidden="true"></i>
+                  <span>네이버지도</span>
+                </a>
+                <a class="navigation-button" data-map="kakao" target="_blank" rel="noreferrer">
+                  <i data-lucide="route" aria-hidden="true"></i>
+                  <span>카카오맵</span>
+                </a>
+                <button class="navigation-button" type="button" data-copy="address" data-copy-message="주소를 복사했어요.">
+                  <i data-lucide="copy" aria-hidden="true"></i>
+                  <span>주소복사</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <div>
-            <strong data-field="venueShort"></strong>
-            <span data-field="addressShort"></span>
+          <div class="direction-guide" aria-label="교통 안내">
+            <article class="direction-block">
+              <h3>자가용</h3>
+              <p>
+                내비게이션에서 <strong>라마다서울신도림호텔</strong>을 검색해 주세요.
+                호텔 주차장 이용이 가능합니다.
+              </p>
+            </article>
+            <article class="direction-block">
+              <h3>지하철</h3>
+              <p>
+                <strong>1·2호선 신도림역 1번 출구</strong>에서 하차 후 도보 약 5분 거리입니다.
+                1번 출구 앞 신도림광장 횡단보도 인근에서 셔틀버스 탑승이 가능합니다.
+              </p>
+              <ol class="walking-route" aria-label="도보 이동 경로">
+                <li>신도림역 1번 출구</li>
+                <li>현대백화점 디큐브시티</li>
+                <li>GS칼텍스 주유소</li>
+                <li>SK VIEW</li>
+                <li>호텔</li>
+              </ol>
+            </article>
+            <article class="direction-block">
+              <h3>버스</h3>
+              <p>
+                신도림역·구로역 정류장 이용이 편리합니다.
+                간선 160, 503, 600, 662, 660, N16 / 지선 6513, 6515, 6516, 6637, 6640B 등이 정차합니다.
+              </p>
+            </article>
           </div>
         </div>
-        <div class="map-actions">
-          <a class="secondary-button" data-map="naver" target="_blank" rel="noreferrer">
-            <i data-lucide="navigation" aria-hidden="true"></i>
-            <span>네이버지도</span>
-          </a>
-          <a class="secondary-button" data-map="kakao" target="_blank" rel="noreferrer">
-            <i data-lucide="route" aria-hidden="true"></i>
-            <span>카카오맵</span>
-          </a>
-        </div>
-        <dl class="transport">
-          <div>
-            <dt>지하철</dt>
-            <dd>1·2호선 신도림역 1번 출구 인근</dd>
-          </div>
-          <div>
-            <dt>주차</dt>
-            <dd>호텔 주차장 이용 가능</dd>
-          </div>
-        </dl>
       </section>
 
       <section id="gift" class="gift section-band" aria-labelledby="gift-title">

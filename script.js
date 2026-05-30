@@ -270,7 +270,8 @@ function setupActions() {
   document.querySelectorAll("[data-copy]").forEach((button) => {
     button.addEventListener("click", () => {
       const value = fields[button.dataset.copy];
-      copyText(value, "계좌번호를 복사했어요.");
+      const message = button.dataset.copyMessage || "계좌번호를 복사했어요.";
+      copyText(value, message);
     });
   });
 }
