@@ -20,9 +20,9 @@
     <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/wedding-cover.png" />
     <title>재혁 &amp; 소진의 모바일 청첩장</title>
     <link rel="preload" href="assets/wedding-cover.png" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260531-guestbook-display" />
+    <link rel="stylesheet" href="styles.css?v=20260531-guestbook-preview" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script src="script.js?v=20260531-guestbook-display" defer></script>
+    <script src="script.js?v=20260531-guestbook-preview" defer></script>
   </head>
   <body>
     <main class="invitation-shell">
@@ -361,6 +361,10 @@
           <span>축하 메시지 작성하기</span>
         </button>
         <div class="guestbook-list" data-guestbook-list aria-live="polite"></div>
+        <button class="guestbook-more-button" type="button" data-guestbook-all-open hidden>
+          <i data-lucide="list" aria-hidden="true"></i>
+          <span>축하 메시지 전체보기</span>
+        </button>
       </section>
 
     </main>
@@ -522,6 +526,16 @@
             <span>축하 메시지 보내기</span>
           </button>
         </form>
+      </div>
+    </dialog>
+
+    <dialog class="form-dialog form-dialog--guestbook-all" data-guestbook-all-dialog>
+      <div class="form-dialog__content">
+        <button class="icon-button form-dialog__close" type="button" data-guestbook-all-close aria-label="닫기">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+        <h2>축하 메시지 전체보기</h2>
+        <div class="guestbook-list guestbook-list--all" data-guestbook-all-list aria-live="polite"></div>
       </div>
     </dialog>
 

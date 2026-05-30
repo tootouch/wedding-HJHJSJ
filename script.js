@@ -650,66 +650,91 @@ function getGuestbookSender(item) {
   return [item.relation, item.name].filter(Boolean).join(" ") || "익명";
 }
 
-function renderGuestbook() {
-  const list = document.querySelector("[data-guestbook-list]");
-  const messages = guestbookState.messages;
+function createGuestbookCard(item) {
+  const card = document.createElement("article");
+  const target = document.createElement("span");
+  const deleteButton = document.createElement("button");
+  const message = document.createElement("p");
+  const divider = document.createElement("div");
+  const dividerIcon = document.createElement("i");
+  const meta = document.createElement("div");
+  const time = document.createElement("time");
+  const from = document.createElement("div");
+  const fromLabel = document.createElement("span");
+  const fromName = document.createElement("strong");
+  const targetSide = item.target === "신부" ? "bride" : "groom";
+
+  card.className = `guestbook-card guestbook-card--${targetSide}`;
+  target.className = "guestbook-card__target";
+  target.textContent = `To. ${item.target || "두 사람"}`;
+
+  deleteButton.className = "guestbook-card__delete";
+  deleteButton.type = "button";
+  deleteButton.dataset.guestbookDelete = item.id;
+  deleteButton.setAttribute("aria-label", "축하 메시지 삭제");
+  deleteButton.innerHTML = '<i data-lucide="x" aria-hidden="true"></i>';
+
+  message.textContent = item.message;
+
+  divider.className = "guestbook-card__divider";
+  dividerIcon.setAttribute("data-lucide", "sprout");
+  dividerIcon.setAttribute("aria-hidden", "true");
+  divider.append(dividerIcon);
+
+  meta.className = "guestbook-card__meta";
+  time.textContent = formatGuestbookDate(item.savedAt);
+  time.dateTime = item.savedAt;
+
+  from.className = "guestbook-card__from";
+  fromLabel.textContent = "From.";
+  fromName.textContent = getGuestbookSender(item);
+  from.append(fromLabel, fromName);
+
+  meta.append(time, from);
+  card.append(target, deleteButton, message, divider, meta);
+  return card;
+}
+
+function renderGuestbookList(list, messages, emptyText) {
   list.replaceChildren();
 
   if (!messages.length) {
     const empty = document.createElement("p");
     empty.className = "guestbook-empty";
-    empty.textContent = "아직 남겨진 축하 메시지가 없습니다. 첫 번째 마음을 남겨주세요.";
+    empty.textContent = emptyText;
     list.append(empty);
     return;
   }
 
-  messages.slice(0, 12).forEach((item) => {
-    const card = document.createElement("article");
-    const target = document.createElement("span");
-    const deleteButton = document.createElement("button");
-    const message = document.createElement("p");
-    const divider = document.createElement("div");
-    const dividerIcon = document.createElement("i");
-    const meta = document.createElement("div");
-    const time = document.createElement("time");
-    const from = document.createElement("div");
-    const fromLabel = document.createElement("span");
-    const fromName = document.createElement("strong");
-    const targetSide = item.target === "신부" ? "bride" : "groom";
-
-    card.className = `guestbook-card guestbook-card--${targetSide}`;
-    target.className = "guestbook-card__target";
-    target.textContent = `To. ${item.target || "두 사람"}`;
-
-    deleteButton.className = "guestbook-card__delete";
-    deleteButton.type = "button";
-    deleteButton.dataset.guestbookDelete = item.id;
-    deleteButton.setAttribute("aria-label", "축하 메시지 삭제");
-    deleteButton.innerHTML = '<i data-lucide="x" aria-hidden="true"></i>';
-
-    message.textContent = item.message;
-
-    divider.className = "guestbook-card__divider";
-    dividerIcon.setAttribute("data-lucide", "sprout");
-    dividerIcon.setAttribute("aria-hidden", "true");
-    divider.append(dividerIcon);
-
-    meta.className = "guestbook-card__meta";
-    time.textContent = formatGuestbookDate(item.savedAt);
-    time.dateTime = item.savedAt;
-
-    from.className = "guestbook-card__from";
-    fromLabel.textContent = "From.";
-    fromName.textContent = getGuestbookSender(item);
-    from.append(fromLabel, fromName);
-
-    meta.append(time, from);
-    card.append(target, deleteButton, message, divider, meta);
-    list.append(card);
+  messages.forEach((item) => {
+    list.append(createGuestbookCard(item));
   });
 
   if (window.lucide) {
     window.lucide.createIcons();
+  }
+}
+
+function renderGuestbook() {
+  const previewList = document.querySelector("[data-guestbook-list]");
+  const allList = document.querySelector("[data-guestbook-all-list]");
+  const allOpenButton = document.querySelector("[data-guestbook-all-open]");
+  const messages = guestbookState.messages;
+
+  renderGuestbookList(
+    previewList,
+    messages.slice(0, 3),
+    "아직 남겨진 축하 메시지가 없습니다. 첫 번째 마음을 남겨주세요.",
+  );
+  renderGuestbookList(
+    allList,
+    messages,
+    "아직 남겨진 축하 메시지가 없습니다. 첫 번째 마음을 남겨주세요.",
+  );
+
+  allOpenButton.hidden = messages.length <= 3;
+  if (messages.length > 3) {
+    allOpenButton.querySelector("span").textContent = `축하 메시지 ${messages.length}개 전체보기`;
   }
 }
 
@@ -796,6 +821,10 @@ function setupGuestbook() {
   const form = document.querySelector("[data-guestbook-form]");
   const submitButton = form.querySelector("button[type='submit']");
   const list = document.querySelector("[data-guestbook-list]");
+  const allOpenButton = document.querySelector("[data-guestbook-all-open]");
+  const allDialog = document.querySelector("[data-guestbook-all-dialog]");
+  const allClose = document.querySelector("[data-guestbook-all-close]");
+  const allList = document.querySelector("[data-guestbook-all-list]");
   const deleteDialog = document.querySelector("[data-guestbook-delete-dialog]");
   const deleteClose = document.querySelector("[data-guestbook-delete-close]");
   const deleteForm = document.querySelector("[data-guestbook-delete-form]");
@@ -810,6 +839,17 @@ function setupGuestbook() {
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
       dialog.close();
+    }
+  });
+
+  allOpenButton.addEventListener("click", () => {
+    allDialog.showModal();
+  });
+
+  allClose.addEventListener("click", () => allDialog.close());
+  allDialog.addEventListener("click", (event) => {
+    if (event.target === allDialog) {
+      allDialog.close();
     }
   });
 
@@ -851,7 +891,7 @@ function setupGuestbook() {
     }
   });
 
-  list.addEventListener("click", (event) => {
+  function handleDeleteClick(event) {
     const button = event.target.closest("[data-guestbook-delete]");
     if (!button) {
       return;
@@ -863,7 +903,10 @@ function setupGuestbook() {
     if (item) {
       openGuestbookDeleteDialog(item, deleteDialog, deleteForm, deleteTitle);
     }
-  });
+  }
+
+  list.addEventListener("click", handleDeleteClick);
+  allList.addEventListener("click", handleDeleteClick);
 
   deleteClose.addEventListener("click", () => deleteDialog.close());
   deleteDialog.addEventListener("click", (event) => {

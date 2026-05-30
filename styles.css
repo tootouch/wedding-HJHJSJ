@@ -58,6 +58,10 @@ a {
   text-decoration: none;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -1093,6 +1097,12 @@ img {
   text-align: left;
 }
 
+.guestbook-list--all {
+  max-height: min(64vh, 620px);
+  overflow: auto;
+  padding: 2px 6px 2px 2px;
+}
+
 .guestbook-card {
   position: relative;
   overflow: hidden;
@@ -1219,6 +1229,29 @@ img {
   line-height: 1.7;
 }
 
+.guestbook-more-button {
+  width: 100%;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 18px;
+  border: 1px solid rgba(220, 200, 176, 0.95);
+  border-radius: 8px;
+  background: rgba(255, 253, 249, 0.76);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.guestbook-more-button svg {
+  width: 18px;
+  height: 18px;
+  color: var(--champagne);
+}
+
 .gallery-dialog {
   width: min(94vw, 720px);
   padding: 0;
@@ -1253,6 +1286,10 @@ img {
 }
 
 .form-dialog--guestbook {
+  width: min(92vw, 620px);
+}
+
+.form-dialog--guestbook-all {
   width: min(92vw, 620px);
 }
 
