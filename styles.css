@@ -257,6 +257,28 @@ img {
   text-align: right;
 }
 
+.contact-trigger {
+  width: min(100%, 20rem);
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 253, 249, 0.72);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.contact-trigger svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sage-deep);
+}
+
 .calendar {
   background: var(--calendar-bg);
 }
@@ -482,24 +504,6 @@ img {
   margin: 0;
   color: var(--muted);
   line-height: 1.65;
-}
-
-.contact-panel {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-}
-
-.contact-panel__title {
-  margin: 0 0 10px;
-  color: var(--champagne);
-  font-size: 0.9rem;
-  font-weight: 900;
-}
-
-.contact-list {
-  display: grid;
-  gap: 6px;
 }
 
 .contact-row {
@@ -802,13 +806,35 @@ img {
   background: transparent;
 }
 
+.contact-dialog {
+  width: min(92vw, 430px);
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+}
+
 .share-dialog::backdrop {
   background: rgba(24, 22, 19, 0.62);
+}
+
+.contact-dialog::backdrop {
+  background: rgba(24, 22, 19, 0.68);
 }
 
 .share-dialog__content {
   position: relative;
   padding: 28px;
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.contact-dialog__content {
+  position: relative;
+  display: grid;
+  gap: 24px;
+  padding: 34px 28px 28px;
   border-radius: 8px;
   background: var(--white);
   box-shadow: var(--shadow);
@@ -822,10 +848,31 @@ img {
   letter-spacing: 0;
 }
 
-.share-dialog__close {
+.share-dialog__close,
+.contact-dialog__close {
   position: absolute;
   top: 16px;
   right: 16px;
+}
+
+.contact-dialog__group {
+  display: grid;
+  gap: 8px;
+}
+
+.contact-dialog__group h2 {
+  margin: 0 0 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(85, 95, 62, 0.26);
+  color: var(--sage-deep);
+  font-size: 1.18rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.contact-dialog__group--bride h2 {
+  border-bottom-color: rgba(201, 130, 114, 0.3);
+  color: var(--champagne);
 }
 
 .share-presets {
@@ -990,6 +1037,12 @@ img {
     font-size: 0.94rem;
   }
 
+  .contact-trigger {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 20px;
+  }
+
   .map-actions,
   .transport div,
   .account-card {
@@ -1002,6 +1055,10 @@ img {
 
   .share-presets {
     grid-template-columns: 1fr;
+  }
+
+  .contact-dialog__content {
+    padding: 30px 20px 22px;
   }
 
   .gallery-dialog {

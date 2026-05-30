@@ -86,6 +86,10 @@
             <strong data-field="brideFull"></strong>
           </p>
         </div>
+        <button class="contact-trigger" type="button" data-contact-open>
+          <i data-lucide="phone" aria-hidden="true"></i>
+          <span>혼주께 연락하기</span>
+        </button>
       </section>
 
       <section class="gallery section-band" aria-labelledby="gallery-title">
@@ -154,53 +158,6 @@
             <dd>호텔 주차장 이용 가능</dd>
           </div>
         </dl>
-        <div class="contact-panel" aria-labelledby="contact-title">
-          <p class="contact-panel__title" id="contact-title">연락처</p>
-          <div class="contact-list">
-            <article class="contact-row" data-contact-name="허승규">
-              <div>
-                <span>신랑측</span>
-                <strong>허승규</strong>
-              </div>
-              <div class="contact-actions">
-                <a data-contact-action="tel" aria-label="허승규에게 전화">
-                  <i data-lucide="phone" aria-hidden="true"></i>
-                </a>
-                <a data-contact-action="sms" aria-label="허승규에게 문자">
-                  <i data-lucide="message-circle" aria-hidden="true"></i>
-                </a>
-              </div>
-            </article>
-            <article class="contact-row" data-contact-name="조광희">
-              <div>
-                <span>신부측</span>
-                <strong>조광희</strong>
-              </div>
-              <div class="contact-actions">
-                <a data-contact-action="tel" aria-label="조광희에게 전화">
-                  <i data-lucide="phone" aria-hidden="true"></i>
-                </a>
-                <a data-contact-action="sms" aria-label="조광희에게 문자">
-                  <i data-lucide="message-circle" aria-hidden="true"></i>
-                </a>
-              </div>
-            </article>
-            <article class="contact-row" data-contact-name="정은정">
-              <div>
-                <span>신부측</span>
-                <strong>정은정</strong>
-              </div>
-              <div class="contact-actions">
-                <a data-contact-action="tel" aria-label="정은정에게 전화">
-                  <i data-lucide="phone" aria-hidden="true"></i>
-                </a>
-                <a data-contact-action="sms" aria-label="정은정에게 문자">
-                  <i data-lucide="message-circle" aria-hidden="true"></i>
-                </a>
-              </div>
-            </article>
-          </div>
-        </div>
       </section>
 
       <section id="gift" class="gift section-band" aria-labelledby="gift-title">
@@ -382,6 +339,62 @@
             <i data-lucide="sparkles" aria-hidden="true"></i>
             <span>친구용</span>
           </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="contact-dialog" data-contact-dialog>
+      <div class="contact-dialog__content">
+        <button class="icon-button contact-dialog__close" type="button" data-contact-close aria-label="닫기">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+        <div class="contact-dialog__group">
+          <h2>신랑측</h2>
+          <article class="contact-row" data-contact-name="허승규">
+            <div>
+              <span>혼주</span>
+              <strong>허승규</strong>
+            </div>
+            <div class="contact-actions">
+              <a data-contact-action="tel" aria-label="허승규에게 전화">
+                <i data-lucide="phone" aria-hidden="true"></i>
+              </a>
+              <a data-contact-action="sms" aria-label="허승규에게 문자">
+                <i data-lucide="message-circle" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+        <div class="contact-dialog__group contact-dialog__group--bride">
+          <h2>신부측</h2>
+          <article class="contact-row" data-contact-name="조광희">
+            <div>
+              <span>혼주</span>
+              <strong>조광희</strong>
+            </div>
+            <div class="contact-actions">
+              <a data-contact-action="tel" aria-label="조광희에게 전화">
+                <i data-lucide="phone" aria-hidden="true"></i>
+              </a>
+              <a data-contact-action="sms" aria-label="조광희에게 문자">
+                <i data-lucide="message-circle" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
+          <article class="contact-row" data-contact-name="정은정">
+            <div>
+              <span>혼주</span>
+              <strong>정은정</strong>
+            </div>
+            <div class="contact-actions">
+              <a data-contact-action="tel" aria-label="정은정에게 전화">
+                <i data-lucide="phone" aria-hidden="true"></i>
+              </a>
+              <a data-contact-action="sms" aria-label="정은정에게 문자">
+                <i data-lucide="message-circle" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     </dialog>

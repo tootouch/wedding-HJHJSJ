@@ -308,6 +308,20 @@ function setupShareDialog() {
 
 function setupContactLinks() {
   const contactMap = new Map(invitation.contacts.map((contact) => [contact.name, contact.phone]));
+  const trigger = document.querySelector("[data-contact-open]");
+  const dialog = document.querySelector("[data-contact-dialog]");
+  const close = document.querySelector("[data-contact-close]");
+
+  trigger.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  close.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
 
   document.querySelectorAll("[data-contact-name]").forEach((row) => {
     const phone = contactMap.get(row.dataset.contactName);
