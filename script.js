@@ -15,6 +15,23 @@ const invitation = {
     accountName: "조소진",
     account: "신한은행 110-123-456789",
   },
+  contacts: [
+    {
+      side: "신랑측",
+      name: "허승규",
+      phone: "010-2856-4170",
+    },
+    {
+      side: "신부측",
+      name: "조광희",
+      phone: "010-7797-4546",
+    },
+    {
+      side: "신부측",
+      name: "정은정",
+      phone: "010-3771-9204",
+    },
+  ],
   wedding: {
     date: "2026-09-20T18:10:00+09:00",
     dateLabel: "2026. 09. 20. SUN 6:10 PM",
@@ -286,6 +303,22 @@ function setupShareDialog() {
   });
 }
 
+function setupContactLinks() {
+  const contactMap = new Map(invitation.contacts.map((contact) => [contact.name, contact.phone]));
+
+  document.querySelectorAll("[data-contact-name]").forEach((row) => {
+    const phone = contactMap.get(row.dataset.contactName);
+    if (!phone) {
+      return;
+    }
+
+    row.querySelectorAll("[data-contact-action]").forEach((link) => {
+      const action = link.dataset.contactAction;
+      link.href = `${action}:${phone}`;
+    });
+  });
+}
+
 function renderGalleryGrid() {
   const grid = document.querySelector("[data-gallery-grid]");
   grid.replaceChildren();
@@ -456,6 +489,7 @@ function setupGuestbook() {
 populateContent();
 updateCountdown();
 setupActions();
+setupContactLinks();
 setupGallery();
 setupRsvp();
 setupGuestbook();
