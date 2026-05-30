@@ -709,11 +709,12 @@ async function loadGuestbookFromRemote() {
 }
 
 async function submitGuestbookToRemote(payload) {
-  if (!guestbookState.remoteReady || !getIntegrationEndpoint()) {
+  const endpoint = getIntegrationEndpoint();
+  if (!endpoint) {
     return false;
   }
 
-  await fetch(getIntegrationEndpoint(), {
+  await fetch(endpoint, {
     method: "POST",
     mode: "no-cors",
     headers: {
@@ -725,6 +726,7 @@ async function submitGuestbookToRemote(payload) {
     }),
   });
 
+  guestbookState.remoteReady = true;
   return true;
 }
 
