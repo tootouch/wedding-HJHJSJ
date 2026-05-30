@@ -450,7 +450,6 @@ function setupGallery() {
   renderGalleryGrid(
     grid,
     invitation.gallery.slice(0, galleryPreviewCount),
-    { featureFirst: true },
   );
   renderGalleryGrid(allGrid, invitation.gallery);
   allOpen.hidden = invitation.gallery.length <= galleryPreviewCount;
