@@ -314,97 +314,96 @@ img {
   color: var(--sage-deep);
 }
 
-.calendar {
-  background: #f4e7d7;
+.calendar.section-band {
+  padding: 0;
+  border-bottom: 0;
 }
 
-.wedding-day-minimal {
-  margin-top: 26px;
-  text-align: left;
+.d-day-count {
+  position: relative;
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+  padding: 52px 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(24, 24, 20, 0.48), rgba(24, 24, 20, 0.48)),
+    url("assets/cover.jpeg") center 43% / cover;
+  color: var(--white);
+  text-align: center;
 }
 
-.wedding-day-minimal__topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(43, 36, 31, 0.12);
+.d-day-count__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
 }
 
-.wedding-day-minimal__topline h2 {
+.d-day-count__content p {
   margin: 0;
-  color: var(--ink);
-  font-family: inherit;
-  font-size: clamp(1.42rem, 6.6vw, 2.15rem);
-  line-height: 1.25;
-  font-weight: 900;
+  color: rgba(255, 253, 249, 0.72);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
-.wedding-day-minimal__topline span {
-  flex: 0 0 auto;
-  min-height: 34px;
+.d-day-count h2 {
+  margin: 18px 0 0;
+  color: var(--white);
+  font-family: inherit;
+  font-size: clamp(1.18rem, 6vw, 1.9rem);
+  line-height: 1.45;
+  font-weight: 800;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
+}
+
+.d-day-count__days {
+  margin-top: 34px;
+  color: var(--white);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4.2rem, 22vw, 6.5rem);
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-shadow: 0 5px 26px rgba(0, 0, 0, 0.2);
+}
+
+.d-day-count__days strong {
+  font-weight: 400;
+}
+
+.d-day-count__clock {
+  margin-top: 28px;
+  color: var(--white);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.1rem, 11vw, 3.25rem);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.d-day-count__save {
+  min-height: 42px;
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 0 11px;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+  border: 1px solid rgba(255, 253, 249, 0.36);
   border-radius: 999px;
-  background: var(--ink);
+  padding: 0 18px;
+  background: rgba(255, 253, 249, 0.12);
   color: var(--white);
-  font-size: 0.82rem;
+  cursor: pointer;
   font-weight: 900;
+  backdrop-filter: blur(14px);
 }
 
-.wedding-day-minimal__topline strong {
-  font-size: 1rem;
-  font-weight: 900;
-}
-
-.wedding-day-minimal__time {
-  margin: 30px 0 0;
-  color: var(--ink);
-  font-size: clamp(2.15rem, 11vw, 3.45rem);
-  line-height: 1.02;
-  font-weight: 900;
-}
-
-.wedding-day-minimal__place {
-  display: grid;
-  gap: 4px;
-  margin: 18px 0 0;
-  color: var(--muted);
-  font-size: 0.94rem;
-  line-height: 1.55;
-}
-
-.wedding-day-minimal__place strong {
-  color: var(--ink);
-  font-size: 1rem;
-  font-weight: 900;
-}
-
-.countdown {
-  margin: 18px 0 0;
-  color: var(--sage-deep);
-  font-size: 0.82rem;
-  font-weight: 800;
-  line-height: 1.5;
-}
-
-.countdown strong {
-  color: var(--ink);
-  font-weight: 900;
-}
-
-.calendar .primary-button {
-  width: auto;
-  min-width: 11rem;
-  margin-top: 28px;
-  min-height: 46px;
-  padding: 0 22px;
-  border-color: rgba(43, 36, 31, 0.16);
-  background: transparent;
-  color: var(--ink);
+.d-day-count__save svg {
+  width: 18px;
+  height: 18px;
 }
 
 .primary-button,
@@ -808,9 +807,80 @@ img {
 
 .gift,
 .rsvp,
+.flower,
 .guestbook {
   background: #f3eee7;
   text-align: center;
+}
+
+.flower {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.72), rgba(255, 253, 249, 0.5)),
+    #f3eee7;
+}
+
+.flower .section-kicker {
+  color: #9ab0cb;
+}
+
+.flower h2 {
+  color: var(--ink);
+}
+
+.flower-info {
+  display: grid;
+  gap: 14px;
+  margin: 32px auto 0;
+  padding: 20px 0;
+  border-top: 1px solid rgba(154, 176, 203, 0.34);
+  border-bottom: 1px solid rgba(154, 176, 203, 0.34);
+  color: #24435a;
+  text-align: left;
+}
+
+.flower-info p {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  align-items: start;
+  width: min(100%, 21rem);
+  margin: 0 auto;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  font-weight: 800;
+}
+
+.flower-info svg {
+  width: 21px;
+  height: 21px;
+  margin-top: 2px;
+  color: #24435a;
+}
+
+.flower-info strong {
+  display: block;
+  margin-top: 2px;
+  color: #24435a;
+}
+
+.flower-button {
+  width: min(100%, 22rem);
+  min-height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 34px;
+  border-radius: 8px;
+  background: #294e6b;
+  box-shadow: 0 16px 28px rgba(41, 78, 107, 0.22);
+  color: var(--white);
+  font-weight: 900;
+}
+
+.flower-button svg {
+  width: 21px;
+  height: 21px;
 }
 
 .account-list {

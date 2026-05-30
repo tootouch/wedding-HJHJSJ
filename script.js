@@ -149,9 +149,6 @@ const fields = {
   brideMotherAccount: invitation.bride.motherAccount,
   weddingDateLabel: invitation.wedding.dateLabel,
   weddingDateFull: invitation.wedding.dateFull,
-  weddingYearMonth: "2026.09",
-  weddingDay: "20",
-  weddingWeekday: "일요일",
   weddingTime: invitation.wedding.time,
   venue: invitation.wedding.venue,
   venueHall: invitation.wedding.venueHall,
@@ -225,14 +222,26 @@ function populateContent() {
 function updateCountdown() {
   const target = new Date(invitation.wedding.date).getTime();
   const distance = Math.max(0, target - Date.now());
-  const minutesTotal = Math.floor(distance / 60000);
-  const days = Math.floor(minutesTotal / 1440);
-  const hours = Math.floor((minutesTotal % 1440) / 60);
-  const minutes = minutesTotal % 60;
+  const secondsTotal = Math.floor(distance / 1000);
+  const days = Math.floor(secondsTotal / 86400);
+  const hours = Math.floor((secondsTotal % 86400) / 3600);
+  const minutes = Math.floor((secondsTotal % 3600) / 60);
+  const seconds = secondsTotal % 60;
+  const countdownValues = {
+    days,
+    hours,
+    minutes,
+    seconds,
+    hoursPadded: String(hours).padStart(2, "0"),
+    minutesPadded: String(minutes).padStart(2, "0"),
+    secondsPadded: String(seconds).padStart(2, "0"),
+  };
 
-  document.querySelector("[data-countdown='days']").textContent = days;
-  document.querySelector("[data-countdown='hours']").textContent = hours;
-  document.querySelector("[data-countdown='minutes']").textContent = minutes;
+  Object.entries(countdownValues).forEach(([key, value]) => {
+    document.querySelectorAll(`[data-countdown='${key}']`).forEach((node) => {
+      node.textContent = value;
+    });
+  });
 }
 
 function downloadCalendarInvite() {
@@ -990,7 +999,7 @@ setupRsvp();
 setGuestbookMessages(getLocalGuestbook());
 setupGuestbook();
 loadGuestbookFromRemote();
-window.setInterval(updateCountdown, 60000);
+window.setInterval(updateCountdown, 1000);
 
 window.addEventListener("load", () => {
   if (window.lucide) {

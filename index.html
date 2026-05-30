@@ -20,9 +20,9 @@
     <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg" />
     <title>재혁 &amp; 소진의 모바일 청첩장</title>
     <link rel="preload" href="assets/cover.jpeg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260531-weddingday-minimal" />
+    <link rel="stylesheet" href="styles.css?v=20260531-dday-flower" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script src="script.js?v=20260531-weddingday-minimal" defer></script>
+    <script src="script.js?v=20260531-dday-flower" defer></script>
   </head>
   <body>
     <main class="invitation-shell">
@@ -112,26 +112,24 @@
       </section>
 
       <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
-        <p class="section-kicker">Wedding Day</p>
-        <div class="wedding-day-minimal">
-          <div class="wedding-day-minimal__topline">
-            <h2 id="calendar-title" data-field="weddingDateFull"></h2>
-            <span>D-<strong data-countdown="days">0</strong></span>
+        <div class="d-day-count">
+          <div class="d-day-count__content">
+            <p>D-DAY COUNT</p>
+            <h2 id="calendar-title">
+              <span data-field="groomFirst"></span> &amp; <span data-field="brideFirst"></span>의 결혼식까지
+            </h2>
+            <div class="d-day-count__days">
+              D-<strong data-countdown="days">0</strong>
+            </div>
+            <div class="d-day-count__clock" aria-label="예식까지 남은 시간">
+              <span data-countdown="hoursPadded">00</span>:<span data-countdown="minutesPadded">00</span>:<span data-countdown="secondsPadded">00</span>
+            </div>
+            <button class="d-day-count__save" type="button" data-action="calendar">
+              <i data-lucide="calendar-plus" aria-hidden="true"></i>
+              <span>일정 저장</span>
+            </button>
           </div>
-          <p class="wedding-day-minimal__time" data-field="weddingTime"></p>
-          <p class="wedding-day-minimal__place">
-            <span data-field="venue"></span>
-            <strong data-field="venueHall"></strong>
-          </p>
-          <p class="countdown" aria-label="예식까지 남은 시간">
-            <strong data-countdown="hours">0</strong>시간
-            <strong data-countdown="minutes">0</strong>분 남았습니다
-          </p>
         </div>
-        <button class="primary-button" type="button" data-action="calendar">
-          <i data-lucide="calendar-plus" aria-hidden="true"></i>
-          <span>일정 저장</span>
-        </button>
       </section>
 
       <section id="location" class="location section-band" aria-labelledby="location-title">
@@ -345,6 +343,34 @@
           <i data-lucide="clipboard-check" aria-hidden="true"></i>
           <span>참석 의사 작성하기</span>
         </button>
+      </section>
+
+      <section class="flower section-band" aria-labelledby="flower-title">
+        <p class="section-kicker">축 / 하 / 의 / 마 / 음</p>
+        <h2 id="flower-title">축하 화환 보내기</h2>
+        <p class="section-note">
+          신랑, 신부의 새로운 시작을 축하해주세요.<br />
+          화환은 예식일에 맞춰 웨딩홀로 배송됩니다.
+        </p>
+        <div class="flower-info" aria-label="화환 배송 예식 정보">
+          <p>
+            <i data-lucide="calendar-days" aria-hidden="true"></i>
+            <span><span data-field="weddingDateFull"></span> <span data-field="weddingTime"></span></span>
+          </p>
+          <p>
+            <i data-lucide="map-pin" aria-hidden="true"></i>
+            <span><span data-field="venue"></span> <strong data-field="venueHall"></strong></span>
+          </p>
+        </div>
+        <a
+          class="flower-button"
+          href="https://shop5.flowerbiz.co.kr/gb/products/product-category/61?hide_title=true&amp;hide_product_category=true&amp;agencyid=firstletter&amp;delivery_url=https%3A%2F%2Fourfirstletter.com%2Fw%2Fnatural-green%2Fflower_delivery_info&amp;shopid=frBusiness&amp;agencyidx=2860"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <i data-lucide="gift" aria-hidden="true"></i>
+          <span>축하 화환 보내기</span>
+        </a>
       </section>
 
       <section class="guestbook section-band" aria-labelledby="guestbook-title">
