@@ -240,8 +240,9 @@ img {
 
 .family-line p {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto minmax(4.6rem, auto);
-  gap: 7px;
+  grid-template-columns: 8.6rem auto auto max-content;
+  justify-content: center;
+  column-gap: 8px;
   align-items: baseline;
   margin: 0;
   color: var(--muted);
@@ -250,11 +251,17 @@ img {
   text-align: left;
 }
 
+.family-line span,
+.family-line strong {
+  white-space: nowrap;
+}
+
 .family-line strong {
   color: var(--ink);
   font-size: 1.05rem;
   font-weight: 900;
-  text-align: right;
+  margin-left: 20px;
+  text-align: left;
 }
 
 .contact-trigger {
@@ -1028,13 +1035,14 @@ img {
   }
 
   .family-line p {
-    grid-template-columns: minmax(0, 1fr) auto auto minmax(3.8rem, auto);
-    gap: 6px;
+    grid-template-columns: 7.7rem auto auto max-content;
+    column-gap: 6px;
     font-size: 0.84rem;
   }
 
   .family-line strong {
     font-size: 0.94rem;
+    margin-left: 12px;
   }
 
   .contact-trigger {
