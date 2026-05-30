@@ -295,12 +295,6 @@ function setupActions() {
     });
   });
 
-  document.querySelectorAll("[data-action='copy-link']").forEach((button) => {
-    button.addEventListener("click", () => {
-      copyText(window.location.href.split("#")[0], "청첩장 링크를 복사했어요.");
-    });
-  });
-
   document.querySelectorAll("[data-action='pay-unavailable']").forEach((button) => {
     button.addEventListener("click", () => {
       showToast("카카오페이 송금 링크를 준비 중이에요.");
