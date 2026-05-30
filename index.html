@@ -88,12 +88,17 @@
         </div>
       </section>
 
+      <section class="gallery section-band" aria-labelledby="gallery-title">
+        <p class="section-kicker">Gallery</p>
+        <h2 id="gallery-title">기억하고 싶은 장면들</h2>
+        <div class="gallery-grid" data-gallery-grid aria-label="웨딩 사진"></div>
+      </section>
+
       <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
         <p class="section-kicker">Wedding Day</p>
         <h2 id="calendar-title" data-field="weddingDateFull"></h2>
         <div class="time-place">
           <p data-field="weddingTime"></p>
-          <p data-field="venueDetail"></p>
         </div>
         <div class="countdown" aria-label="예식까지 남은 시간">
           <div>
@@ -115,15 +120,10 @@
         </button>
       </section>
 
-      <section class="gallery section-band" aria-labelledby="gallery-title">
-        <p class="section-kicker">Gallery</p>
-        <h2 id="gallery-title">기억하고 싶은 장면들</h2>
-        <div class="gallery-grid" data-gallery-grid aria-label="웨딩 사진"></div>
-      </section>
-
       <section id="location" class="location section-band" aria-labelledby="location-title">
         <p class="section-kicker">Location</p>
         <h2 id="location-title" data-field="venue"></h2>
+        <p class="section-note" data-field="venueHall"></p>
         <p class="address" data-field="address"></p>
         <div class="map-panel" aria-label="예식장 위치">
           <div class="map-panel__pin">
