@@ -668,36 +668,11 @@ img {
   stroke-width: 2.2;
 }
 
-.information,
 .gift,
 .rsvp,
 .guestbook {
   background: #f3eee7;
   text-align: center;
-}
-
-.notice-list {
-  margin-top: 34px;
-  border-top: 1px solid rgba(220, 200, 176, 0.9);
-}
-
-.notice-item {
-  padding: 28px 0;
-  border-bottom: 1px solid rgba(220, 200, 176, 0.9);
-}
-
-.notice-item h3 {
-  margin: 0;
-  color: var(--ink);
-  font-size: 1.02rem;
-  font-weight: 900;
-}
-
-.notice-item p {
-  margin: 14px 0 0;
-  color: var(--muted);
-  font-size: 0.94rem;
-  line-height: 1.8;
 }
 
 .account-list {
