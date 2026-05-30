@@ -486,18 +486,17 @@ img {
 }
 
 .map-preview {
-  display: block;
   overflow: hidden;
   border-radius: 0;
   background: var(--white);
   box-shadow: 0 14px 34px rgba(66, 52, 39, 0.12);
 }
 
-.map-preview__map {
+.map-preview__frame {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
+  height: clamp(220px, 62vw, 330px);
+  border: 0;
   background: #e8e2d8;
 }
 
