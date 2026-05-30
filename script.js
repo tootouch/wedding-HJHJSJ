@@ -24,8 +24,18 @@ const invitation = {
   contacts: [
     {
       side: "신랑측",
+      name: "허재혁",
+      phone: "010-4546-4170",
+    },
+    {
+      side: "신랑측",
       name: "허승규",
       phone: "010-2856-4170",
+    },
+    {
+      side: "신부측",
+      name: "조소진",
+      phone: "010-6530-1540",
     },
     {
       side: "신부측",
