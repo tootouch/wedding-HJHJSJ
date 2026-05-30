@@ -3,17 +3,23 @@ const invitation = {
     full: "허재혁",
     first: "재혁",
     parents: "허승규",
+    father: "허승규",
     relation: "아들",
     accountName: "허재혁",
     account: "국민은행 123456-78-901234",
+    fatherAccount: "계좌번호 입력 예정",
   },
   bride: {
     full: "조소진",
     first: "소진",
     parents: "조광희 · 정은정",
+    father: "조광희",
+    mother: "정은정",
     relation: "딸",
     accountName: "조소진",
     account: "신한은행 110-123-456789",
+    fatherAccount: "계좌번호 입력 예정",
+    motherAccount: "계좌번호 입력 예정",
   },
   contacts: [
     {
@@ -102,15 +108,21 @@ const fields = {
   groomFirst: invitation.groom.first,
   groomFull: invitation.groom.full,
   groomParents: invitation.groom.parents,
+  groomFather: invitation.groom.father,
   groomRelation: invitation.groom.relation,
   groomAccountName: invitation.groom.accountName,
   groomAccount: invitation.groom.account,
+  groomFatherAccount: invitation.groom.fatherAccount,
   brideFirst: invitation.bride.first,
   brideFull: invitation.bride.full,
   brideParents: invitation.bride.parents,
+  brideFather: invitation.bride.father,
+  brideMother: invitation.bride.mother,
   brideRelation: invitation.bride.relation,
   brideAccountName: invitation.bride.accountName,
   brideAccount: invitation.bride.account,
+  brideFatherAccount: invitation.bride.fatherAccount,
+  brideMotherAccount: invitation.bride.motherAccount,
   weddingDateLabel: invitation.wedding.dateLabel,
   weddingDateFull: invitation.wedding.dateFull,
   weddingTime: invitation.wedding.time,
@@ -282,6 +294,12 @@ function setupActions() {
   document.querySelectorAll("[data-action='copy-link']").forEach((button) => {
     button.addEventListener("click", () => {
       copyText(window.location.href.split("#")[0], "청첩장 링크를 복사했어요.");
+    });
+  });
+
+  document.querySelectorAll("[data-action='pay-unavailable']").forEach((button) => {
+    button.addEventListener("click", () => {
+      showToast("카카오페이 송금 링크를 준비 중이에요.");
     });
   });
 }

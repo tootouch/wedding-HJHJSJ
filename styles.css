@@ -677,26 +677,23 @@ img {
 
 .account-list {
   display: grid;
-  gap: 10px;
-  margin-top: 30px;
+  gap: 22px;
+  margin-top: 34px;
   text-align: left;
 }
 
 .account-group {
-  border-top: 1px solid rgba(220, 200, 176, 0.95);
-  border-bottom: 1px solid rgba(220, 200, 176, 0.95);
-}
-
-.account-group + .account-group {
-  border-top: 0;
+  border: 1px solid rgba(114, 123, 98, 0.24);
+  background: rgba(255, 253, 249, 0.54);
 }
 
 .account-group summary {
-  min-height: 58px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  padding: 0 24px;
   color: var(--ink);
   cursor: pointer;
   font-weight: 900;
@@ -707,62 +704,139 @@ img {
   display: none;
 }
 
-.account-group summary svg {
-  width: 19px;
-  height: 19px;
-  color: var(--champagne);
+.account-group__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 1.2rem;
+}
+
+.account-group__title svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.4;
+}
+
+.account-group__chevron {
+  width: 22px;
+  height: 22px;
   transition: transform 160ms ease;
 }
 
-.account-group[open] summary svg {
+.account-group[open] .account-group__chevron {
   transform: rotate(180deg);
+}
+
+.account-group--groom {
+  border-color: rgba(114, 123, 98, 0.28);
+}
+
+.account-group--groom summary {
+  background: rgba(123, 128, 96, 0.09);
+  color: var(--sage-deep);
+}
+
+.account-group--bride {
+  border-color: rgba(201, 130, 114, 0.24);
+}
+
+.account-group--bride summary {
+  background: rgba(201, 130, 114, 0.08);
+  color: #8f5d50;
+}
+
+.account-rows {
+  border-top: 1px solid rgba(220, 200, 176, 0.72);
 }
 
 .account-card {
   display: grid;
-  gap: 14px;
-  padding: 0 0 20px;
+  gap: 24px;
+  padding: 28px 24px 30px;
+  background: rgba(255, 253, 249, 0.45);
 }
 
-.account-card__info {
+.account-card + .account-card {
+  border-top: 1px solid rgba(220, 200, 176, 0.72);
+}
+
+.account-card__line {
   display: grid;
-  grid-template-columns: 3.2rem 1fr;
-  gap: 8px 12px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.16fr);
+  gap: 18px;
   align-items: baseline;
 }
 
-.account-card p,
-.account-card strong,
-.account-card span {
-  display: block;
-}
-
-.account-card p {
-  grid-row: span 2;
+.account-card__person {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  min-width: 0;
   margin: 0;
-  color: var(--champagne);
-  font-size: 0.82rem;
-  font-weight: 900;
 }
 
-.account-card strong {
-  color: var(--ink);
-  font-size: 1.02rem;
-  font-weight: 900;
-}
-
-.account-card span {
+.account-card__person span {
   color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.account-card__person strong {
+  color: var(--ink);
+  font-size: 1.03rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.account-card__number {
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 800;
   line-height: 1.45;
+  text-align: right;
+  word-break: keep-all;
+}
+
+.account-card__number--empty {
+  color: rgba(116, 103, 91, 0.76);
+  color: color-mix(in srgb, var(--muted) 76%, transparent);
+}
+
+.account-card__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.account-card__actions--single {
+  grid-template-columns: minmax(0, 14.2rem);
+  justify-content: center;
 }
 
 .account-card button {
   width: 100%;
-  min-height: 44px;
-  border-color: rgba(220, 200, 176, 0.95);
-  border-radius: 0;
-  background: rgba(255, 253, 249, 0.72);
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgba(43, 36, 31, 0.08);
+  font-weight: 900;
+}
+
+.account-pay-button {
+  background: #ffdf00;
+  color: #17130f;
+}
+
+.account-copy-button {
+  background: var(--white);
   color: var(--ink);
+}
+
+.account-card button:disabled {
+  cursor: default;
+  opacity: 0.58;
+  box-shadow: none;
 }
 
 .rsvp-form,
@@ -1210,6 +1284,28 @@ img {
 
   .navigation-actions,
   .account-card {
+    grid-template-columns: 1fr;
+  }
+
+  .account-group summary {
+    min-height: 62px;
+    padding: 0 18px;
+  }
+
+  .account-card {
+    padding: 24px 18px 26px;
+  }
+
+  .account-card__line,
+  .account-card__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .account-card__number {
+    text-align: left;
+  }
+
+  .account-card__actions--single {
     grid-template-columns: 1fr;
   }
 

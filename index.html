@@ -221,39 +221,110 @@
           따뜻한 진심을 감사히 오래도록 간직하겠습니다.
         </p>
         <div class="account-list">
-          <details class="account-group">
+          <details class="account-group account-group--groom" open>
             <summary>
-              <span>신랑측</span>
-              <i data-lucide="chevron-down" aria-hidden="true"></i>
+              <span class="account-group__title">
+                <i data-lucide="sprout" aria-hidden="true"></i>
+                <span>신랑측</span>
+              </span>
+              <i class="account-group__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
             </summary>
-            <article class="account-card">
-              <div class="account-card__info">
-                <p>신랑</p>
-                <strong data-field="groomAccountName"></strong>
-                <span data-field="groomAccount"></span>
-              </div>
-              <button type="button" data-copy="groomAccount">
-                <i data-lucide="copy" aria-hidden="true"></i>
-                <span>계좌번호 복사</span>
-              </button>
-            </article>
+            <div class="account-rows">
+              <article class="account-card">
+                <div class="account-card__line">
+                  <p class="account-card__person">
+                    <span>신랑</span>
+                    <strong data-field="groomAccountName"></strong>
+                  </p>
+                  <span class="account-card__number" data-field="groomAccount"></span>
+                </div>
+                <div class="account-card__actions">
+                  <button class="account-pay-button" type="button" data-action="pay-unavailable">
+                    <i data-lucide="message-circle" aria-hidden="true"></i>
+                    <span>카카오페이 송금</span>
+                  </button>
+                  <button class="account-copy-button" type="button" data-copy="groomAccount">
+                    <i data-lucide="copy" aria-hidden="true"></i>
+                    <span>계좌번호 복사</span>
+                  </button>
+                </div>
+              </article>
+              <article class="account-card">
+                <div class="account-card__line">
+                  <p class="account-card__person">
+                    <span>혼주</span>
+                    <strong data-field="groomFather"></strong>
+                  </p>
+                  <span class="account-card__number account-card__number--empty" data-field="groomFatherAccount"></span>
+                </div>
+                <div class="account-card__actions account-card__actions--single">
+                  <button class="account-copy-button" type="button" disabled aria-disabled="true">
+                    <i data-lucide="copy" aria-hidden="true"></i>
+                    <span>계좌번호 입력 예정</span>
+                  </button>
+                </div>
+              </article>
+            </div>
           </details>
-          <details class="account-group">
+          <details class="account-group account-group--bride" open>
             <summary>
-              <span>신부측</span>
-              <i data-lucide="chevron-down" aria-hidden="true"></i>
+              <span class="account-group__title">
+                <i data-lucide="sprout" aria-hidden="true"></i>
+                <span>신부측</span>
+              </span>
+              <i class="account-group__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
             </summary>
-            <article class="account-card">
-              <div class="account-card__info">
-                <p>신부</p>
-                <strong data-field="brideAccountName"></strong>
-                <span data-field="brideAccount"></span>
-              </div>
-              <button type="button" data-copy="brideAccount">
-                <i data-lucide="copy" aria-hidden="true"></i>
-                <span>계좌번호 복사</span>
-              </button>
-            </article>
+            <div class="account-rows">
+              <article class="account-card">
+                <div class="account-card__line">
+                  <p class="account-card__person">
+                    <span>신부</span>
+                    <strong data-field="brideAccountName"></strong>
+                  </p>
+                  <span class="account-card__number" data-field="brideAccount"></span>
+                </div>
+                <div class="account-card__actions">
+                  <button class="account-pay-button" type="button" data-action="pay-unavailable">
+                    <i data-lucide="message-circle" aria-hidden="true"></i>
+                    <span>카카오페이 송금</span>
+                  </button>
+                  <button class="account-copy-button" type="button" data-copy="brideAccount">
+                    <i data-lucide="copy" aria-hidden="true"></i>
+                    <span>계좌번호 복사</span>
+                  </button>
+                </div>
+              </article>
+              <article class="account-card">
+                <div class="account-card__line">
+                  <p class="account-card__person">
+                    <span>혼주</span>
+                    <strong data-field="brideFather"></strong>
+                  </p>
+                  <span class="account-card__number account-card__number--empty" data-field="brideFatherAccount"></span>
+                </div>
+                <div class="account-card__actions account-card__actions--single">
+                  <button class="account-copy-button" type="button" disabled aria-disabled="true">
+                    <i data-lucide="copy" aria-hidden="true"></i>
+                    <span>계좌번호 입력 예정</span>
+                  </button>
+                </div>
+              </article>
+              <article class="account-card">
+                <div class="account-card__line">
+                  <p class="account-card__person">
+                    <span>혼주</span>
+                    <strong data-field="brideMother"></strong>
+                  </p>
+                  <span class="account-card__number account-card__number--empty" data-field="brideMotherAccount"></span>
+                </div>
+                <div class="account-card__actions account-card__actions--single">
+                  <button class="account-copy-button" type="button" disabled aria-disabled="true">
+                    <i data-lucide="copy" aria-hidden="true"></i>
+                    <span>계좌번호 입력 예정</span>
+                  </button>
+                </div>
+              </article>
+            </div>
           </details>
         </div>
       </section>
