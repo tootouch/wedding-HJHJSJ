@@ -9,8 +9,8 @@
 3. `main` 브랜치를 push합니다.
 4. GitHub 저장소의 `Settings > Pages`에서 `Deploy from a branch`, `main`, `/root`를 선택합니다.
 
-배포 후 기본 주소는 아래 형식입니다.
+배포 후 기본 주소는 아래와 같습니다.
 
 ```text
-https://<github-username>.github.io/wedding-HJHJSJ/
+https://tootouch.github.io/wedding-HJHJSJ/
 ```
