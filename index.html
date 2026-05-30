@@ -113,22 +113,21 @@
 
       <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
         <p class="section-kicker">Wedding Day</p>
-        <h2 id="calendar-title" data-field="weddingDateFull"></h2>
-        <div class="time-place">
-          <p data-field="weddingTime"></p>
-        </div>
-        <div class="countdown" aria-label="예식까지 남은 시간">
-          <div>
-            <strong data-countdown="days">0</strong>
-            <span>Days</span>
+        <div class="wedding-day-card">
+          <p class="wedding-day-card__date" id="calendar-title" data-field="weddingDateFull"></p>
+          <div class="wedding-day-card__time">
+            <span data-field="weddingTime"></span>
           </div>
-          <div>
-            <strong data-countdown="hours">0</strong>
-            <span>Hours</span>
+          <div class="wedding-day-card__venue">
+            <span data-field="venue"></span>
+            <strong data-field="venueHall"></strong>
           </div>
-          <div>
-            <strong data-countdown="minutes">0</strong>
-            <span>Min</span>
+          <div class="countdown" aria-label="예식까지 남은 시간">
+            <span>D-<strong data-countdown="days">0</strong></span>
+            <small>
+              <strong data-countdown="hours">0</strong>시간
+              <strong data-countdown="minutes">0</strong>분 남았습니다
+            </small>
           </div>
         </div>
         <button class="primary-button" type="button" data-action="calendar">
