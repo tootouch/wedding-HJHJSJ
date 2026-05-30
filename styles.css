@@ -222,12 +222,21 @@ img {
     var(--white);
 }
 
-.intro > p:not(.section-kicker) {
-  max-width: 22rem;
+.intro-message {
+  max-width: 24rem;
   margin: 28px auto 0;
   color: var(--muted);
-  font-size: 1rem;
-  line-height: 2.08;
+  font-size: 0.98rem;
+  line-height: 1.95;
+  text-align: center;
+}
+
+.intro-message p {
+  margin: 0;
+}
+
+.intro-message p + p {
+  margin-top: 18px;
 }
 
 .family-line {
