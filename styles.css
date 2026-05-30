@@ -232,27 +232,27 @@ img {
 
 .family-line {
   display: grid;
-  gap: 15px;
-  width: min(100%, 24rem);
-  margin: 40px auto 0;
+  gap: 8px;
+  width: min(100%, 20rem);
+  margin: 24px auto 0;
   color: var(--ink);
 }
 
 .family-line p {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto minmax(4.6rem, auto);
-  gap: 10px;
+  gap: 7px;
   align-items: baseline;
   margin: 0;
   color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
+  line-height: 1.38;
   text-align: left;
 }
 
 .family-line strong {
   color: var(--ink);
-  font-size: 1.14rem;
+  font-size: 1.05rem;
   font-weight: 900;
   text-align: right;
 }
@@ -907,17 +907,18 @@ img {
 
   .family-line {
     width: 100%;
-    gap: 12px;
+    gap: 7px;
+    margin-top: 20px;
   }
 
   .family-line p {
     grid-template-columns: minmax(0, 1fr) auto auto minmax(3.8rem, auto);
-    gap: 7px;
-    font-size: 0.9rem;
+    gap: 6px;
+    font-size: 0.84rem;
   }
 
   .family-line strong {
-    font-size: 1rem;
+    font-size: 0.94rem;
   }
 
   .map-actions,
