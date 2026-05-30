@@ -593,6 +593,29 @@ function requestJsonp(params) {
   });
 }
 
+async function requestEndpoint(params) {
+  const endpoint = getIntegrationEndpoint();
+  if (!endpoint) {
+    throw new Error("No integration endpoint configured.");
+  }
+
+  const url = withEndpointParams({ ...params, _: Date.now() });
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("Endpoint request failed.");
+    }
+
+    return response.json();
+  } catch {
+    return requestJsonp({ ...params, _: Date.now() });
+  }
+}
+
 function createGuestbookId() {
   return `guestbook-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
@@ -690,13 +713,20 @@ function renderGuestbook() {
   }
 }
 
+function revealGuestbookList() {
+  const list = document.querySelector("[data-guestbook-list]");
+  if (list && list.scrollIntoView) {
+    list.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 async function loadGuestbookFromRemote() {
   if (!getIntegrationEndpoint()) {
     return;
   }
 
   try {
-    const payload = await requestJsonp({ action: "listGuestbook" });
+    const payload = await requestEndpoint({ action: "listGuestbook" });
     if (!payload || !payload.ok || !Array.isArray(payload.messages)) {
       throw new Error("Invalid guestbook response.");
     }
@@ -745,7 +775,7 @@ async function deleteGuestbookMessage(password) {
   }
 
   if (guestbookState.remoteReady && getIntegrationEndpoint()) {
-    return requestJsonp({
+    return requestEndpoint({
       action: "deleteGuestbook",
       id,
       password,
@@ -809,6 +839,7 @@ function setupGuestbook() {
       );
       form.reset();
       dialog.close();
+      window.setTimeout(revealGuestbookList, 80);
 
       if (sent) {
         window.setTimeout(loadGuestbookFromRemote, 1200);
