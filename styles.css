@@ -508,14 +508,12 @@ img {
 
 .contact-row {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
+  grid-template-columns: 3.4rem 1fr auto;
+  gap: 12px;
   align-items: center;
   min-height: 48px;
-  padding: 8px 10px 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--field-bg);
+  padding: 3px 0;
+  background: transparent;
 }
 
 .contact-row span,
@@ -524,15 +522,16 @@ img {
 }
 
 .contact-row span {
-  margin-bottom: 2px;
-  color: var(--champagne);
-  font-size: 0.7rem;
-  font-weight: 900;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: right;
 }
 
 .contact-row strong {
   color: var(--ink);
-  font-size: 0.94rem;
+  font-size: 1.2rem;
+  font-weight: 900;
 }
 
 .contact-actions {
@@ -541,20 +540,21 @@ img {
 }
 
 .contact-actions a {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(109, 122, 104, 0.28);
+  border: 0;
   border-radius: 50%;
-  background: var(--white);
-  color: var(--sage-deep);
+  background: transparent;
+  color: #55545a;
 }
 
 .contact-actions svg {
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.2;
 }
 
 .gift {
@@ -833,8 +833,8 @@ img {
 .contact-dialog__content {
   position: relative;
   display: grid;
-  gap: 24px;
-  padding: 34px 28px 28px;
+  gap: 54px;
+  padding: 58px 46px 54px;
   border-radius: 8px;
   background: var(--white);
   box-shadow: var(--shadow);
@@ -857,15 +857,15 @@ img {
 
 .contact-dialog__group {
   display: grid;
-  gap: 8px;
+  gap: 18px;
 }
 
 .contact-dialog__group h2 {
-  margin: 0 0 4px;
-  padding-bottom: 10px;
+  margin: 0;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(85, 95, 62, 0.26);
   color: var(--sage-deep);
-  font-size: 1.18rem;
+  font-size: 1.55rem;
   font-weight: 900;
   text-align: center;
 }
@@ -1058,7 +1058,35 @@ img {
   }
 
   .contact-dialog__content {
-    padding: 30px 20px 22px;
+    gap: 38px;
+    padding: 48px 28px 36px;
+  }
+
+  .contact-dialog__group {
+    gap: 14px;
+  }
+
+  .contact-row {
+    grid-template-columns: 3rem 1fr auto;
+    gap: 8px;
+  }
+
+  .contact-row span {
+    font-size: 0.92rem;
+  }
+
+  .contact-row strong {
+    font-size: 1.08rem;
+  }
+
+  .contact-actions a {
+    width: 32px;
+    height: 32px;
+  }
+
+  .contact-actions svg {
+    width: 20px;
+    height: 20px;
   }
 
   .gallery-dialog {
