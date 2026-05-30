@@ -1,0 +1,34 @@
+{
+  "address": "서울특별시 구로구 경인로 624",
+  "address_detail": "라마다 서울 신도림 호텔 5층 세인트그레이스홀",
+  "delivery_datetime": "2026-09-20 18:10:00",
+  "receiver": [
+    {
+      "name": "허재혁",
+      "relationship": "신랑",
+      "tel": "010-4546-4170"
+    },
+    {
+      "name": "허승규",
+      "relationship": "신랑아버지",
+      "tel": "010-2856-4170"
+    },
+    {
+      "name": "조소진",
+      "relationship": "신부",
+      "tel": "010-6530-1540"
+    },
+    {
+      "name": "조광희",
+      "relationship": "신부아버지",
+      "tel": "010-7797-4546"
+    },
+    {
+      "name": "정은정",
+      "relationship": "신부어머니",
+      "tel": "010-3771-9204"
+    }
+  ],
+  "url": "https://tootouch.github.io/wedding-HJHJSJ/",
+  "zipcode": ""
+}
