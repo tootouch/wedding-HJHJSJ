@@ -173,8 +173,6 @@ const guestbookState = {
   pendingDeleteId: "",
 };
 
-const galleryPreviewCount = 4;
-
 function showToast(message) {
   window.clearTimeout(toastTimer);
   toast.textContent = message;
@@ -380,21 +378,15 @@ function setupContactLinks() {
   });
 }
 
-function renderGalleryGrid(grid, items, options = {}) {
+function renderGalleryGrid(grid, items) {
   grid.replaceChildren();
 
-  items.forEach((item, itemIndex) => {
+  items.forEach((item) => {
     const index = invitation.gallery.indexOf(item);
     const button = document.createElement("button");
     const image = document.createElement("img");
 
     button.className = "gallery-tile";
-    if (options.featureFirst && itemIndex === 0) {
-      button.classList.add("gallery-tile--large");
-    }
-    if (options.allowWide && itemIndex > 0 && itemIndex % 5 === 0) {
-      button.classList.add("gallery-tile--wide");
-    }
     button.type = "button";
     button.dataset.gallery = String(index);
     button.setAttribute("aria-label", `${item.caption || item.alt} 크게 보기`);
@@ -417,10 +409,7 @@ function renderGalleryGrid(grid, items, options = {}) {
 function setupGallery() {
   const dialog = document.querySelector("[data-gallery-dialog]");
   const grid = document.querySelector("[data-gallery-grid]");
-  const allDialog = document.querySelector("[data-gallery-all-dialog]");
-  const allGrid = document.querySelector("[data-gallery-all-grid]");
-  const allOpen = document.querySelector("[data-gallery-all-open]");
-  const allClose = document.querySelector("[data-gallery-all-close]");
+  const progress = document.querySelector("[data-gallery-progress]");
   const image = document.querySelector("[data-gallery-image]");
   const caption = document.querySelector("[data-gallery-caption]");
   const counter = document.querySelector("[data-gallery-counter]");
@@ -441,43 +430,48 @@ function setupGallery() {
 
   function openImage(index) {
     showImage(index);
-    if (allDialog.open) {
-      allDialog.close();
-    }
     dialog.showModal();
   }
 
-  renderGalleryGrid(
-    grid,
-    invitation.gallery.slice(0, galleryPreviewCount),
-  );
-  renderGalleryGrid(allGrid, invitation.gallery);
-  allOpen.hidden = invitation.gallery.length <= galleryPreviewCount;
-  if (invitation.gallery.length > galleryPreviewCount) {
-    allOpen.querySelector("span").textContent = `사진 ${invitation.gallery.length}장 전체보기`;
+  function getCurrentGalleryIndex() {
+    const tiles = Array.from(grid.querySelectorAll("[data-gallery]"));
+    const viewportCenter = (grid.scrollLeft || 0) + (grid.clientWidth || 0) / 2;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    tiles.forEach((tile, index) => {
+      const tileCenter = (tile.offsetLeft || 0) + (tile.offsetWidth || 0) / 2;
+      const distance = Math.abs(tileCenter - viewportCenter);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    return Number(tiles[closestIndex]?.dataset.gallery || 0);
   }
 
-  document.querySelectorAll("[data-gallery]").forEach((tile) => {
+  function updateGalleryProgress() {
+    progress.textContent = `${getCurrentGalleryIndex() + 1} / ${invitation.gallery.length}`;
+  }
+
+  renderGalleryGrid(grid, invitation.gallery);
+  updateGalleryProgress();
+
+  grid.querySelectorAll("[data-gallery]").forEach((tile) => {
     tile.addEventListener("click", () => {
       openImage(Number(tile.dataset.gallery));
     });
   });
 
+  grid.addEventListener("scroll", updateGalleryProgress, { passive: true });
   close.addEventListener("click", () => dialog.close());
-  allOpen.addEventListener("click", () => allDialog.showModal());
-  allClose.addEventListener("click", () => allDialog.close());
   prev.addEventListener("click", () => showImage(activeIndex - 1));
   next.addEventListener("click", () => showImage(activeIndex + 1));
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
       dialog.close();
-    }
-  });
-
-  allDialog.addEventListener("click", (event) => {
-    if (event.target === allDialog) {
-      allDialog.close();
     }
   });
 
