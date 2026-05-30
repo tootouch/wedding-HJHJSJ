@@ -542,7 +542,7 @@ img {
 
 .navigation-actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   margin-top: 18px;
 }
@@ -559,7 +559,7 @@ img {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px solid rgba(109, 122, 104, 0.18);
+  border: 1px solid transparent;
   border-radius: 8px;
   background: var(--white);
   box-shadow: 0 10px 22px rgba(66, 52, 39, 0.09);
@@ -568,10 +568,66 @@ img {
   font-weight: 900;
 }
 
-.navigation-button svg {
-  width: 18px;
-  height: 18px;
-  color: var(--sage-deep);
+.navigation-button--naver {
+  border-color: rgba(3, 199, 90, 0.22);
+  background: rgba(3, 199, 90, 0.1);
+  color: #0b5f33;
+}
+
+.navigation-button--kakao {
+  border-color: rgba(254, 229, 0, 0.58);
+  background: rgba(254, 229, 0, 0.24);
+  color: #3c1e1e;
+}
+
+.navigation-button--tmap {
+  border-color: rgba(0, 119, 255, 0.22);
+  background: rgba(0, 119, 255, 0.1);
+  color: #064c99;
+}
+
+.navigation-button--copy {
+  border-color: rgba(43, 36, 31, 0.12);
+  background: rgba(255, 253, 249, 0.86);
+  color: var(--ink);
+}
+
+.app-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  flex: 0 0 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.app-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.app-icon--naver {
+  background: #03c75a;
+  color: var(--white);
+}
+
+.app-icon--kakao {
+  background: #fee500;
+  color: #3c1e1e;
+}
+
+.app-icon--tmap {
+  background: linear-gradient(135deg, #0077ff, #00c2ff);
+  color: var(--white);
+}
+
+.app-icon--copy {
+  background: var(--ink);
+  color: var(--white);
 }
 
 .direction-guide {

@@ -165,16 +165,24 @@
               <h3>내비게이션</h3>
               <p>버튼을 누르면 앱에서 길안내가 시작됩니다.</p>
               <div class="navigation-actions">
-                <a class="navigation-button" data-map="naver" target="_blank" rel="noreferrer">
-                  <i data-lucide="navigation" aria-hidden="true"></i>
+                <a class="navigation-button navigation-button--naver" data-map="naver" target="_blank" rel="noreferrer">
+                  <span class="app-icon app-icon--naver" aria-hidden="true">N</span>
                   <span>네이버지도</span>
                 </a>
-                <a class="navigation-button" data-map="kakao" target="_blank" rel="noreferrer">
-                  <i data-lucide="route" aria-hidden="true"></i>
+                <a class="navigation-button navigation-button--kakao" data-map="kakao" target="_blank" rel="noreferrer">
+                  <span class="app-icon app-icon--kakao" aria-hidden="true">
+                    <i data-lucide="map-pin" aria-hidden="true"></i>
+                  </span>
                   <span>카카오맵</span>
                 </a>
-                <button class="navigation-button" type="button" data-copy="address" data-copy-message="주소를 복사했어요.">
-                  <i data-lucide="copy" aria-hidden="true"></i>
+                <a class="navigation-button navigation-button--tmap" data-map="tmap">
+                  <span class="app-icon app-icon--tmap" aria-hidden="true">T</span>
+                  <span>티맵</span>
+                </a>
+                <button class="navigation-button navigation-button--copy" type="button" data-copy="address" data-copy-message="주소를 복사했어요.">
+                  <span class="app-icon app-icon--copy" aria-hidden="true">
+                    <i data-lucide="copy" aria-hidden="true"></i>
+                  </span>
                   <span>주소복사</span>
                 </button>
               </div>

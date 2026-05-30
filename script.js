@@ -50,6 +50,8 @@ const invitation = {
     address: "서울특별시 구로구 경인로 624",
     addressShort: "서울특별시 구로구 경인로 624",
     mapQuery: "라마다서울신도림호텔",
+    latitude: "37.5069",
+    longitude: "126.8868",
   },
   gallery: [
     {
@@ -192,9 +194,11 @@ function populateContent() {
   });
 
   const query = encodeURIComponent(invitation.wedding.mapQuery);
+  const tmapName = encodeURIComponent(invitation.wedding.mapQuery);
   const mapUrls = {
     naver: `https://map.naver.com/p/search/${query}`,
     kakao: `https://map.kakao.com/link/search/${query}`,
+    tmap: `tmap://route?goalname=${tmapName}&goalx=${invitation.wedding.longitude}&goaly=${invitation.wedding.latitude}`,
   };
 
   document.querySelectorAll("[data-map]").forEach((node) => {
