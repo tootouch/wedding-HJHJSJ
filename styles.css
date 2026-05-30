@@ -329,10 +329,6 @@ img {
 }
 
 .person-card {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: center;
   min-height: 112px;
   padding: 20px;
   border: 1px solid var(--line);
@@ -360,12 +356,6 @@ img {
   line-height: 1.55;
 }
 
-.person-card__actions {
-  display: flex;
-  gap: 8px;
-}
-
-.person-card__actions a,
 .icon-button {
   width: 42px;
   height: 42px;

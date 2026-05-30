@@ -1,18 +1,16 @@
 const invitation = {
   groom: {
-    full: "김도윤",
-    first: "도윤",
-    phone: "010-1234-5678",
-    parents: "김민수 · 박정희의 장남",
-    accountName: "김도윤",
+    full: "허재혁",
+    first: "재혁",
+    parents: "허승규의 차남",
+    accountName: "허재혁",
     account: "국민은행 123456-78-901234",
   },
   bride: {
-    full: "이서연",
-    first: "서연",
-    phone: "010-9876-5432",
-    parents: "이상훈 · 최미영의 장녀",
-    accountName: "이서연",
+    full: "조소진",
+    first: "소진",
+    parents: "조광희 · 정은정의 차녀",
+    accountName: "조소진",
     account: "신한은행 110-123-456789",
   },
   wedding: {
@@ -100,13 +98,6 @@ const fields = {
   addressShort: invitation.wedding.addressShort,
 };
 
-const links = {
-  groomTel: `tel:${invitation.groom.phone}`,
-  groomSms: `sms:${invitation.groom.phone}`,
-  brideTel: `tel:${invitation.bride.phone}`,
-  brideSms: `sms:${invitation.bride.phone}`,
-};
-
 const toast = document.querySelector("[data-toast]");
 let toastTimer;
 const storageKeys = {
@@ -158,11 +149,6 @@ function populateContent() {
   document.querySelectorAll("[data-field]").forEach((node) => {
     const key = node.dataset.field;
     node.textContent = fields[key] ?? "";
-  });
-
-  document.querySelectorAll("[data-link]").forEach((node) => {
-    const key = node.dataset.link;
-    node.href = links[key] ?? "#";
   });
 
   const query = encodeURIComponent(`${invitation.wedding.venue} ${invitation.wedding.address}`);
