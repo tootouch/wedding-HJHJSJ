@@ -222,7 +222,7 @@ img {
     var(--white);
 }
 
-.intro p:not(.section-kicker) {
+.intro > p:not(.section-kicker) {
   max-width: 22rem;
   margin: 28px auto 0;
   color: var(--muted);
@@ -234,7 +234,7 @@ img {
   display: grid;
   gap: 4px;
   width: min(100%, 20rem);
-  margin: 24px auto 0;
+  margin: 16px auto 0;
   color: var(--ink);
 }
 
@@ -1024,7 +1024,7 @@ img {
   .family-line {
     width: 100%;
     gap: 3px;
-    margin-top: 20px;
+    margin-top: 14px;
   }
 
   .family-line p {
