@@ -65,45 +65,52 @@ const invitation = {
   },
   gallery: [
     {
-      src: "assets/wedding-cover.png",
-      alt: "꽃과 반지가 놓인 웨딩 이미지",
-      caption: "가을 햇살 아래",
-      focus: "50% 58%",
+      src: "assets/cover.jpeg",
+      alt: "재혁과 소진의 웨딩 대표 사진",
+      caption: "우리의 시작",
+      focus: "50% 42%",
     },
     {
-      src: "assets/wedding-cover.png",
-      alt: "웨딩 꽃 장식 클로즈업",
-      caption: "부드러운 꽃 장식",
-      focus: "30% 50%",
-      scale: 1.14,
+      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20002.jpeg",
+      alt: "재혁과 소진의 웨딩 사진 1",
+      caption: "같은 곳을 바라보며",
+      focus: "50% 44%",
     },
     {
-      src: "assets/wedding-cover.png",
-      alt: "웨딩 반지 클로즈업",
-      caption: "서로의 약속",
-      focus: "72% 58%",
-      scale: 1.22,
+      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20003.jpeg",
+      alt: "재혁과 소진의 웨딩 사진 2",
+      caption: "다정한 순간",
+      focus: "50% 44%",
     },
     {
-      src: "assets/wedding-cover.png",
-      alt: "아이보리 배경의 웨딩 디테일",
-      caption: "작은 디테일",
-      focus: "46% 24%",
-      scale: 1.18,
+      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20004.jpeg",
+      alt: "재혁과 소진의 웨딩 사진 3",
+      caption: "가을의 온도",
+      focus: "50% 44%",
     },
     {
-      src: "assets/wedding-cover.png",
-      alt: "실크 리본과 웨딩 플라워",
-      caption: "고요한 오후",
-      focus: "42% 76%",
-      scale: 1.2,
+      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20005.jpeg",
+      alt: "재혁과 소진의 웨딩 사진 4",
+      caption: "손끝의 약속",
+      focus: "50% 44%",
     },
     {
-      src: "assets/wedding-cover.png",
-      alt: "웨딩 반지와 꽃이 함께 놓인 장면",
-      caption: "함께 놓인 마음",
-      focus: "64% 66%",
-      scale: 1.1,
+      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20006.jpeg",
+      alt: "재혁과 소진의 웨딩 사진 5",
+      caption: "서로의 곁에서",
+      focus: "50% 44%",
+    },
+    {
+      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20007.jpeg",
+      alt: "재혁과 소진의 웨딩 사진 6",
+      caption: "환한 마음",
+      focus: "50% 44%",
+    },
+    {
+      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20008.jpeg",
+      alt: "재혁과 소진의 웨딩 사진 7",
+      caption: "함께 걷는 길",
+      focus: "50% 44%",
     },
   ],
   shareMessages: {
@@ -165,6 +172,8 @@ const guestbookState = {
   remoteReady: false,
   pendingDeleteId: "",
 };
+
+const galleryPreviewCount = 4;
 
 function showToast(message) {
   window.clearTimeout(toastTimer);
@@ -371,19 +380,19 @@ function setupContactLinks() {
   });
 }
 
-function renderGalleryGrid() {
-  const grid = document.querySelector("[data-gallery-grid]");
+function renderGalleryGrid(grid, items, options = {}) {
   grid.replaceChildren();
 
-  invitation.gallery.forEach((item, index) => {
+  items.forEach((item, itemIndex) => {
+    const index = invitation.gallery.indexOf(item);
     const button = document.createElement("button");
     const image = document.createElement("img");
 
     button.className = "gallery-tile";
-    if (index === 0) {
+    if (options.featureFirst && itemIndex === 0) {
       button.classList.add("gallery-tile--large");
     }
-    if (index > 0 && index % 5 === 0) {
+    if (options.allowWide && itemIndex > 0 && itemIndex % 5 === 0) {
       button.classList.add("gallery-tile--wide");
     }
     button.type = "button";
@@ -407,6 +416,11 @@ function renderGalleryGrid() {
 
 function setupGallery() {
   const dialog = document.querySelector("[data-gallery-dialog]");
+  const grid = document.querySelector("[data-gallery-grid]");
+  const allDialog = document.querySelector("[data-gallery-all-dialog]");
+  const allGrid = document.querySelector("[data-gallery-all-grid]");
+  const allOpen = document.querySelector("[data-gallery-all-open]");
+  const allClose = document.querySelector("[data-gallery-all-close]");
   const image = document.querySelector("[data-gallery-image]");
   const caption = document.querySelector("[data-gallery-caption]");
   const counter = document.querySelector("[data-gallery-counter]");
@@ -425,22 +439,46 @@ function setupGallery() {
     counter.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
   }
 
-  renderGalleryGrid();
+  function openImage(index) {
+    showImage(index);
+    if (allDialog.open) {
+      allDialog.close();
+    }
+    dialog.showModal();
+  }
+
+  renderGalleryGrid(
+    grid,
+    invitation.gallery.slice(0, galleryPreviewCount),
+    { featureFirst: true },
+  );
+  renderGalleryGrid(allGrid, invitation.gallery);
+  allOpen.hidden = invitation.gallery.length <= galleryPreviewCount;
+  if (invitation.gallery.length > galleryPreviewCount) {
+    allOpen.querySelector("span").textContent = `사진 ${invitation.gallery.length}장 전체보기`;
+  }
 
   document.querySelectorAll("[data-gallery]").forEach((tile) => {
     tile.addEventListener("click", () => {
-      showImage(Number(tile.dataset.gallery));
-      dialog.showModal();
+      openImage(Number(tile.dataset.gallery));
     });
   });
 
   close.addEventListener("click", () => dialog.close());
+  allOpen.addEventListener("click", () => allDialog.showModal());
+  allClose.addEventListener("click", () => allDialog.close());
   prev.addEventListener("click", () => showImage(activeIndex - 1));
   next.addEventListener("click", () => showImage(activeIndex + 1));
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
       dialog.close();
+    }
+  });
+
+  allDialog.addEventListener("click", (event) => {
+    if (event.target === allDialog) {
+      allDialog.close();
     }
   });
 

@@ -410,6 +410,16 @@ img {
   margin-top: 24px;
 }
 
+.gallery-grid--all {
+  max-height: min(64vh, 650px);
+  overflow: auto;
+  padding: 2px 6px 2px 2px;
+}
+
+.gallery-grid--all .gallery-tile {
+  aspect-ratio: 4 / 5;
+}
+
 .gallery-tile {
   position: relative;
   min-width: 0;
@@ -450,6 +460,29 @@ img {
   height: 100%;
   object-fit: cover;
   transition: transform 220ms ease;
+}
+
+.gallery-more-button {
+  width: 100%;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 18px;
+  border: 1px solid rgba(109, 122, 104, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 253, 249, 0.72);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.gallery-more-button svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sage-deep);
 }
 
 .location {
@@ -1290,6 +1323,10 @@ img {
 }
 
 .form-dialog--guestbook-all {
+  width: min(92vw, 620px);
+}
+
+.form-dialog--gallery-all {
   width: min(92vw, 620px);
 }
 

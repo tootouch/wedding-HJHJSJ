@@ -15,22 +15,22 @@
       property="og:description"
       content="2026년 9월 20일 일요일 오후 6시 10분, 라마다 서울 신도림 호텔 5층 세인트그레이스홀"
     />
-    <meta property="og:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/wedding-cover.png" />
+    <meta property="og:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/wedding-cover.png" />
+    <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg" />
     <title>재혁 &amp; 소진의 모바일 청첩장</title>
-    <link rel="preload" href="assets/wedding-cover.png" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260531-guestbook-preview" />
+    <link rel="preload" href="assets/cover.jpeg" as="image" />
+    <link rel="stylesheet" href="styles.css?v=20260531-gallery-preview" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script src="script.js?v=20260531-guestbook-preview" defer></script>
+    <script src="script.js?v=20260531-gallery-preview" defer></script>
   </head>
   <body>
     <main class="invitation-shell">
       <section class="hero" aria-labelledby="couple-names">
         <img
           class="hero__image"
-          src="assets/wedding-cover.png"
-          alt="꽃과 반지가 놓인 웨딩 이미지"
+          src="assets/cover.jpeg"
+          alt="재혁과 소진의 웨딩 대표 사진"
         />
         <div class="hero__shade"></div>
         <div class="hero__content">
@@ -108,6 +108,10 @@
         <p class="section-kicker">Gallery</p>
         <h2 id="gallery-title">기억하고 싶은 장면들</h2>
         <div class="gallery-grid" data-gallery-grid aria-label="웨딩 사진"></div>
+        <button class="gallery-more-button" type="button" data-gallery-all-open hidden>
+          <i data-lucide="images" aria-hidden="true"></i>
+          <span>사진 전체보기</span>
+        </button>
       </section>
 
       <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
@@ -377,7 +381,7 @@
         <i data-lucide="chevron-left" aria-hidden="true"></i>
       </button>
       <figure class="gallery-dialog__figure">
-        <img src="assets/wedding-cover.png" alt="확대된 웨딩 이미지" data-gallery-image />
+        <img src="assets/cover.jpeg" alt="확대된 웨딩 이미지" data-gallery-image />
         <figcaption>
           <span data-gallery-caption></span>
           <span data-gallery-counter></span>
@@ -386,6 +390,16 @@
       <button class="gallery-dialog__nav gallery-dialog__nav--next" type="button" data-gallery-next aria-label="다음 사진">
         <i data-lucide="chevron-right" aria-hidden="true"></i>
       </button>
+    </dialog>
+
+    <dialog class="form-dialog form-dialog--gallery-all" data-gallery-all-dialog>
+      <div class="form-dialog__content">
+        <button class="icon-button form-dialog__close" type="button" data-gallery-all-close aria-label="닫기">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+        <h2>사진 전체보기</h2>
+        <div class="gallery-grid gallery-grid--all" data-gallery-all-grid aria-label="전체 웨딩 사진"></div>
+      </div>
     </dialog>
 
     <dialog class="share-dialog" data-share-dialog>
