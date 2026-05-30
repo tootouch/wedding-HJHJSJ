@@ -820,7 +820,7 @@ img {
 }
 
 .flower .section-kicker {
-  color: #9ab0cb;
+  color: var(--champagne);
 }
 
 .flower h2 {
@@ -832,9 +832,9 @@ img {
   gap: 14px;
   margin: 32px auto 0;
   padding: 20px 0;
-  border-top: 1px solid rgba(154, 176, 203, 0.34);
-  border-bottom: 1px solid rgba(154, 176, 203, 0.34);
-  color: #24435a;
+  border-top: 1px solid rgba(220, 200, 176, 0.95);
+  border-bottom: 1px solid rgba(220, 200, 176, 0.95);
+  color: var(--sage-deep);
   text-align: left;
 }
 
@@ -854,13 +854,13 @@ img {
   width: 21px;
   height: 21px;
   margin-top: 2px;
-  color: #24435a;
+  color: var(--champagne);
 }
 
 .flower-info strong {
   display: block;
   margin-top: 2px;
-  color: #24435a;
+  color: var(--sage-deep);
 }
 
 .flower-button {
@@ -872,8 +872,8 @@ img {
   gap: 10px;
   margin-top: 34px;
   border-radius: 8px;
-  background: #294e6b;
-  box-shadow: 0 16px 28px rgba(41, 78, 107, 0.22);
+  background: #463a30;
+  box-shadow: 0 14px 28px rgba(66, 52, 39, 0.2);
   color: var(--white);
   font-weight: 900;
 }
