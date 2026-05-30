@@ -479,7 +479,22 @@ function setupGallery() {
 }
 
 function setupRsvp() {
+  const trigger = document.querySelector("[data-rsvp-open]");
+  const dialog = document.querySelector("[data-rsvp-dialog]");
+  const close = document.querySelector("[data-rsvp-close]");
   const form = document.querySelector("[data-rsvp-form]");
+
+  trigger.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  close.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(form));
@@ -488,6 +503,7 @@ function setupRsvp() {
     writeStorage(storageKeys.rsvp, savedList);
     showToast(`${data.name}님, 마음을 전했어요.`);
     form.reset();
+    dialog.close();
   });
 }
 
@@ -528,7 +544,22 @@ function renderGuestbook() {
 }
 
 function setupGuestbook() {
+  const trigger = document.querySelector("[data-guestbook-open]");
+  const dialog = document.querySelector("[data-guestbook-dialog]");
+  const close = document.querySelector("[data-guestbook-close]");
   const form = document.querySelector("[data-guestbook-form]");
+
+  trigger.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  close.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(form));
@@ -544,6 +575,7 @@ function setupGuestbook() {
     renderGuestbook();
     showToast("축하 메시지를 남겼어요.");
     form.reset();
+    dialog.close();
   });
 }
 
