@@ -115,12 +115,12 @@ const invitation = {
   ],
   music: [
     {
-      id: "5lK3W7Wh9tI",
-      label: "BGM 1",
+      src: "music/Everything.mp3",
+      label: "Everything",
     },
     {
-      id: "Dh7enXPvFMI",
-      label: "BGM 2",
+      src: "music/The%20Amazing%20Digital%20Circus%20-%20Main%20Theme%20but%20its%20by%20HANS%20ZIMMER%20%20EPIC%20VERSION%20%28Your%20New%20Home%29.mp3",
+      label: "Your New Home",
     },
   ],
   shareMessages: {
@@ -184,10 +184,8 @@ const guestbookState = {
 };
 
 const musicState = {
-  player: null,
-  ready: false,
   playing: false,
-  requestedPlay: false,
+  started: false,
   currentIndex: 0,
 };
 
@@ -349,8 +347,9 @@ function setupMusicPlayer() {
   const control = document.querySelector("[data-music-control]");
   const toggle = document.querySelector("[data-music-toggle]");
   const next = document.querySelector("[data-music-next]");
+  const audio = document.querySelector("[data-music-audio]");
 
-  if (!control || !toggle || !next || !invitation.music.length) {
+  if (!control || !toggle || !next || !audio || !invitation.music.length) {
     return;
   }
 
@@ -375,124 +374,45 @@ function setupMusicPlayer() {
     }
   };
 
-  const playMusic = (quiet = false) => {
-    musicState.requestedPlay = true;
+  const loadTrack = (index) => {
+    const normalizedIndex =
+      (index + invitation.music.length) % invitation.music.length;
+    const current = invitation.music[normalizedIndex];
 
-    if (!musicState.ready || !musicState.player) {
-      if (!quiet) {
-        showToast("음악을 준비 중이에요.");
-      }
-      updateControl();
-      return;
+    musicState.currentIndex = normalizedIndex;
+
+    if (audio.dataset.trackIndex !== String(normalizedIndex)) {
+      audio.src = current.src;
+      audio.dataset.trackIndex = String(normalizedIndex);
+      audio.load();
     }
+  };
+
+  const playMusic = async () => {
+    loadTrack(musicState.currentIndex);
+    musicState.started = true;
 
     try {
-      musicState.player.playVideo();
+      await audio.play();
+      musicState.playing = true;
     } catch {
-      if (!quiet) {
-        showToast("음악을 재생하지 못했어요.");
-      }
+      musicState.playing = false;
+      showToast("음악 버튼을 한 번 더 눌러주세요.");
+    } finally {
+      updateControl();
     }
-
-    updateControl();
   };
 
   const pauseMusic = () => {
-    musicState.requestedPlay = false;
-
-    if (musicState.player && musicState.ready) {
-      musicState.player.pauseVideo();
-    }
-
+    audio.pause();
     musicState.playing = false;
     updateControl();
   };
 
   const playTrack = (index) => {
-    musicState.currentIndex =
-      (index + invitation.music.length) % invitation.music.length;
-    musicState.requestedPlay = true;
-
-    if (musicState.player && musicState.ready) {
-      musicState.player.loadVideoById(invitation.music[musicState.currentIndex].id);
-    }
-
+    loadTrack(index);
+    playMusic();
     updateControl();
-  };
-
-  const loadYouTubeApi = () => {
-    if (window.YT && window.YT.Player) {
-      window.onYouTubeIframeAPIReady();
-      return;
-    }
-
-    if (document.querySelector("script[data-youtube-api]")) {
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://www.youtube.com/iframe_api";
-    script.dataset.youtubeApi = "true";
-    document.head.append(script);
-  };
-
-  window.onYouTubeIframeAPIReady = () => {
-    if (musicState.player || !window.YT || !window.YT.Player) {
-      return;
-    }
-
-    musicState.player = new window.YT.Player("youtube-music-player", {
-      width: "1",
-      height: "1",
-      videoId: invitation.music[musicState.currentIndex].id,
-      playerVars: {
-        controls: 0,
-        disablekb: 1,
-        fs: 0,
-        modestbranding: 1,
-        playsinline: 1,
-        rel: 0,
-        origin: window.location.origin,
-      },
-      events: {
-        onReady: () => {
-          musicState.ready = true;
-          updateControl();
-          playMusic(true);
-        },
-        onStateChange: (event) => {
-          const states = window.YT.PlayerState;
-
-          if (event.data === states.PLAYING) {
-            musicState.playing = true;
-          } else if (event.data === states.PAUSED || event.data === states.ENDED) {
-            musicState.playing = false;
-          }
-
-          if (event.data === states.ENDED) {
-            playTrack(musicState.currentIndex + 1);
-          }
-
-          updateControl();
-        },
-        onError: () => {
-          musicState.playing = false;
-          musicState.requestedPlay = false;
-          updateControl();
-          showToast("배경음악을 불러오지 못했어요.");
-        },
-      },
-    });
-  };
-
-  const unlockOnFirstInteraction = (event) => {
-    if (event.target.closest && event.target.closest("[data-music-control]")) {
-      return;
-    }
-
-    playMusic(true);
-    document.removeEventListener("pointerdown", unlockOnFirstInteraction);
-    document.removeEventListener("keydown", unlockOnFirstInteraction);
   };
 
   toggle.addEventListener("click", () => {
@@ -508,13 +428,28 @@ function setupMusicPlayer() {
     playTrack(musicState.currentIndex + 1);
   });
 
-  document.addEventListener("pointerdown", unlockOnFirstInteraction, {
-    passive: true,
+  audio.addEventListener("play", () => {
+    musicState.playing = true;
+    updateControl();
   });
-  document.addEventListener("keydown", unlockOnFirstInteraction);
 
+  audio.addEventListener("pause", () => {
+    musicState.playing = false;
+    updateControl();
+  });
+
+  audio.addEventListener("ended", () => {
+    playTrack(musicState.currentIndex + 1);
+  });
+
+  audio.addEventListener("error", () => {
+    musicState.playing = false;
+    updateControl();
+    showToast("음악 파일을 불러오지 못했어요.");
+  });
+
+  loadTrack(0);
   updateControl();
-  loadYouTubeApi();
 }
 
 function setupShareDialog() {

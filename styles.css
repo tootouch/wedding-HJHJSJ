@@ -1668,14 +1668,10 @@ img {
   gap: 7px;
 }
 
-.music-control__player {
-  position: fixed;
-  left: -9999px;
-  bottom: 0;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
+.music-control__buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
 }
 
 .music-control button {
