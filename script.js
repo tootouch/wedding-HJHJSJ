@@ -388,7 +388,7 @@ function setupMusicPlayer() {
     }
   };
 
-  const playMusic = async () => {
+  const playMusic = async (quiet = false) => {
     loadTrack(musicState.currentIndex);
     musicState.started = true;
 
@@ -397,7 +397,9 @@ function setupMusicPlayer() {
       musicState.playing = true;
     } catch {
       musicState.playing = false;
-      showToast("음악 버튼을 한 번 더 눌러주세요.");
+      if (!quiet) {
+        showToast("음악 버튼을 한 번 더 눌러주세요.");
+      }
     } finally {
       updateControl();
     }
@@ -428,6 +430,16 @@ function setupMusicPlayer() {
     playTrack(musicState.currentIndex + 1);
   });
 
+  const playOnFirstInteraction = () => {
+    if (!musicState.playing) {
+      playMusic(true);
+    }
+
+    document.removeEventListener("pointerdown", playOnFirstInteraction);
+    document.removeEventListener("touchstart", playOnFirstInteraction);
+    document.removeEventListener("keydown", playOnFirstInteraction);
+  };
+
   audio.addEventListener("play", () => {
     musicState.playing = true;
     updateControl();
@@ -450,6 +462,18 @@ function setupMusicPlayer() {
 
   loadTrack(0);
   updateControl();
+
+  document.addEventListener("pointerdown", playOnFirstInteraction, {
+    passive: true,
+  });
+  document.addEventListener("touchstart", playOnFirstInteraction, {
+    passive: true,
+  });
+  document.addEventListener("keydown", playOnFirstInteraction);
+
+  window.setTimeout(() => {
+    playMusic(true);
+  }, 600);
 }
 
 function setupShareDialog() {
