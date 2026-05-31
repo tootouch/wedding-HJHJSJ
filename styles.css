@@ -1025,10 +1025,23 @@ img {
 .account-card button {
   width: 100%;
   min-height: 48px;
+  padding: 0 14px;
   border: 0;
   border-radius: 999px;
   box-shadow: 0 12px 28px rgba(43, 36, 31, 0.08);
+  font-size: 0.9rem;
   font-weight: 900;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.account-card button svg {
+  flex: 0 0 auto;
+}
+
+.account-card button span {
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .account-pay-button {
@@ -1039,6 +1052,24 @@ img {
 .account-copy-button {
   background: var(--white);
   color: var(--ink);
+}
+
+@media (max-width: 420px) {
+  .account-card__actions {
+    gap: 8px;
+  }
+
+  .account-card button {
+    min-height: 46px;
+    gap: 6px;
+    padding: 0 10px;
+    font-size: 0.8rem;
+  }
+
+  .account-card button svg {
+    width: 17px;
+    height: 17px;
+  }
 }
 
 .account-card button:disabled {
