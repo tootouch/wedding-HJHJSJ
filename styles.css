@@ -1658,6 +1658,73 @@ img {
   right: max(16px, calc((100vw - 720px) / 2 - 64px));
 }
 
+.music-control {
+  position: fixed;
+  right: max(14px, calc((100vw - 480px) / 2 + 14px));
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 19;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.music-control__player {
+  position: fixed;
+  left: -9999px;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.music-control button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(220, 200, 176, 0.84);
+  background: rgba(255, 253, 249, 0.88);
+  box-shadow: 0 14px 28px rgba(66, 52, 39, 0.18);
+  color: var(--ink);
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+}
+
+.music-control__toggle {
+  gap: 7px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.music-control__toggle small {
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.music-control__next {
+  width: 42px;
+  border-radius: 50%;
+}
+
+.music-control svg {
+  width: 17px;
+  height: 17px;
+}
+
+.music-control.is-playing .music-control__toggle {
+  border-color: #463a30;
+  background: #463a30;
+  color: var(--white);
+}
+
+.music-control.is-playing .music-control__toggle small {
+  color: rgba(255, 253, 249, 0.72);
+}
+
 .toast {
   position: fixed;
   left: 50%;

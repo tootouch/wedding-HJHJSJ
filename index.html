@@ -20,9 +20,9 @@
     <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg" />
     <title>재혁 &amp; 소진의 모바일 청첩장</title>
     <link rel="preload" href="assets/cover.jpeg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260531-account-nowrap" />
+    <link rel="stylesheet" href="styles.css?v=20260531-music" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script src="script.js?v=20260531-dday-flower" defer></script>
+    <script src="script.js?v=20260531-music" defer></script>
   </head>
   <body>
     <main class="invitation-shell">
@@ -656,6 +656,18 @@
         </div>
       </div>
     </dialog>
+
+    <div class="music-control" data-music-control>
+      <div id="youtube-music-player" class="music-control__player" aria-hidden="true"></div>
+      <button class="music-control__toggle" type="button" data-music-toggle aria-pressed="false">
+        <i data-lucide="music-2" aria-hidden="true"></i>
+        <span data-music-status>음악</span>
+        <small data-music-track>BGM 1</small>
+      </button>
+      <button class="music-control__next" type="button" data-music-next aria-label="다음 배경음악">
+        <i data-lucide="skip-forward" aria-hidden="true"></i>
+      </button>
+    </div>
 
     <div class="toast" data-toast role="status" aria-live="polite"></div>
   </body>

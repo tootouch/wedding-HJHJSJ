@@ -113,6 +113,16 @@ const invitation = {
       focus: "50% 44%",
     },
   ],
+  music: [
+    {
+      id: "5lK3W7Wh9tI",
+      label: "BGM 1",
+    },
+    {
+      id: "Dh7enXPvFMI",
+      label: "BGM 2",
+    },
+  ],
   shareMessages: {
     default:
       "저희 두 사람이 결혼합니다. 소중한 날 함께 축복해 주시면 감사하겠습니다.",
@@ -171,6 +181,14 @@ const guestbookState = {
   messages: [],
   remoteReady: false,
   pendingDeleteId: "",
+};
+
+const musicState = {
+  player: null,
+  ready: false,
+  playing: false,
+  requestedPlay: false,
+  currentIndex: 0,
 };
 
 function showToast(message) {
@@ -325,6 +343,178 @@ function setupActions() {
       showToast("카카오페이 송금 링크를 준비 중이에요.");
     });
   });
+}
+
+function setupMusicPlayer() {
+  const control = document.querySelector("[data-music-control]");
+  const toggle = document.querySelector("[data-music-toggle]");
+  const next = document.querySelector("[data-music-next]");
+
+  if (!control || !toggle || !next || !invitation.music.length) {
+    return;
+  }
+
+  const updateControl = () => {
+    const current = invitation.music[musicState.currentIndex];
+    const status = document.querySelector("[data-music-status]");
+    const track = document.querySelector("[data-music-track]");
+
+    control.classList.toggle("is-playing", musicState.playing);
+    toggle.setAttribute("aria-pressed", String(musicState.playing));
+    toggle.setAttribute(
+      "aria-label",
+      musicState.playing ? "배경음악 일시정지" : "배경음악 재생",
+    );
+
+    if (status) {
+      status.textContent = musicState.playing ? "재생 중" : "음악";
+    }
+
+    if (track && current) {
+      track.textContent = current.label;
+    }
+  };
+
+  const playMusic = (quiet = false) => {
+    musicState.requestedPlay = true;
+
+    if (!musicState.ready || !musicState.player) {
+      if (!quiet) {
+        showToast("음악을 준비 중이에요.");
+      }
+      updateControl();
+      return;
+    }
+
+    try {
+      musicState.player.playVideo();
+    } catch {
+      if (!quiet) {
+        showToast("음악을 재생하지 못했어요.");
+      }
+    }
+
+    updateControl();
+  };
+
+  const pauseMusic = () => {
+    musicState.requestedPlay = false;
+
+    if (musicState.player && musicState.ready) {
+      musicState.player.pauseVideo();
+    }
+
+    musicState.playing = false;
+    updateControl();
+  };
+
+  const playTrack = (index) => {
+    musicState.currentIndex =
+      (index + invitation.music.length) % invitation.music.length;
+    musicState.requestedPlay = true;
+
+    if (musicState.player && musicState.ready) {
+      musicState.player.loadVideoById(invitation.music[musicState.currentIndex].id);
+    }
+
+    updateControl();
+  };
+
+  const loadYouTubeApi = () => {
+    if (window.YT && window.YT.Player) {
+      window.onYouTubeIframeAPIReady();
+      return;
+    }
+
+    if (document.querySelector("script[data-youtube-api]")) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://www.youtube.com/iframe_api";
+    script.dataset.youtubeApi = "true";
+    document.head.append(script);
+  };
+
+  window.onYouTubeIframeAPIReady = () => {
+    if (musicState.player || !window.YT || !window.YT.Player) {
+      return;
+    }
+
+    musicState.player = new window.YT.Player("youtube-music-player", {
+      width: "1",
+      height: "1",
+      videoId: invitation.music[musicState.currentIndex].id,
+      playerVars: {
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        modestbranding: 1,
+        playsinline: 1,
+        rel: 0,
+        origin: window.location.origin,
+      },
+      events: {
+        onReady: () => {
+          musicState.ready = true;
+          updateControl();
+          playMusic(true);
+        },
+        onStateChange: (event) => {
+          const states = window.YT.PlayerState;
+
+          if (event.data === states.PLAYING) {
+            musicState.playing = true;
+          } else if (event.data === states.PAUSED || event.data === states.ENDED) {
+            musicState.playing = false;
+          }
+
+          if (event.data === states.ENDED) {
+            playTrack(musicState.currentIndex + 1);
+          }
+
+          updateControl();
+        },
+        onError: () => {
+          musicState.playing = false;
+          musicState.requestedPlay = false;
+          updateControl();
+          showToast("배경음악을 불러오지 못했어요.");
+        },
+      },
+    });
+  };
+
+  const unlockOnFirstInteraction = (event) => {
+    if (event.target.closest && event.target.closest("[data-music-control]")) {
+      return;
+    }
+
+    playMusic(true);
+    document.removeEventListener("pointerdown", unlockOnFirstInteraction);
+    document.removeEventListener("keydown", unlockOnFirstInteraction);
+  };
+
+  toggle.addEventListener("click", () => {
+    if (musicState.playing) {
+      pauseMusic();
+      return;
+    }
+
+    playMusic();
+  });
+
+  next.addEventListener("click", () => {
+    playTrack(musicState.currentIndex + 1);
+  });
+
+  document.addEventListener("pointerdown", unlockOnFirstInteraction, {
+    passive: true,
+  });
+  document.addEventListener("keydown", unlockOnFirstInteraction);
+
+  updateControl();
+  loadYouTubeApi();
 }
 
 function setupShareDialog() {
@@ -996,6 +1186,7 @@ setupActions();
 setupContactLinks();
 setupGallery();
 setupRsvp();
+setupMusicPlayer();
 setGuestbookMessages(getLocalGuestbook());
 setupGuestbook();
 loadGuestbookFromRemote();
