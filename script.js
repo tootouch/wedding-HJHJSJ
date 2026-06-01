@@ -630,7 +630,8 @@ function setupGallery() {
   let activeIndex = 0;
   let touchStartX = 0;
 
-  function showImage(index) {
+  function showImage(index, options = {}) {
+    const { scrollThumb = true } = options;
     activeIndex = (index + invitation.gallery.length) % invitation.gallery.length;
     const item = invitation.gallery[activeIndex];
     mainImage.src = item.src;
@@ -647,7 +648,7 @@ function setupGallery() {
       tile.classList.toggle("is-active", isActive);
       tile.setAttribute("aria-current", isActive ? "true" : "false");
 
-      if (isActive) {
+      if (isActive && scrollThumb) {
         tile.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
       }
     });
@@ -659,7 +660,7 @@ function setupGallery() {
   }
 
   renderGalleryGrid(grid, invitation.gallery);
-  showImage(0);
+  showImage(0, { scrollThumb: false });
 
   grid.querySelectorAll("[data-gallery]").forEach((tile) => {
     tile.addEventListener("click", () => {
