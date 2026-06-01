@@ -519,6 +519,11 @@ img {
 
 .gallery-main {
   width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   border: 0;
   background: #fbfbf7;
@@ -527,7 +532,7 @@ img {
 
 .gallery-main img {
   width: 100%;
-  height: min(68svh, 520px);
+  height: 100%;
   display: block;
   object-fit: contain;
   background: #fbfbf7;
