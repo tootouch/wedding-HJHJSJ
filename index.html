@@ -20,9 +20,11 @@
     <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg" />
     <title>재혁 &amp; 소진의 모바일 청첩장</title>
     <link rel="preload" href="assets/cover.jpeg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260531-audio-autoplay" />
+    <link rel="stylesheet" href="styles.css?v=20260601-gallery-refresh" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script src="script.js?v=20260531-audio-autoplay" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+    <script src="assets/gallery-manifest.js?v=20260601-gallery-refresh" defer></script>
+    <script src="script.js?v=20260601-gallery-refresh" defer></script>
   </head>
   <body>
     <main class="invitation-shell">
@@ -37,7 +39,7 @@
           <p class="hero__eyebrow">Wedding Invitation</p>
           <h1 id="couple-names"><span data-field="groomFirst"></span> &amp; <span data-field="brideFirst"></span></h1>
           <p class="hero__date" data-field="weddingDateLabel"></p>
-          <p class="hero__venue" data-field="venue"></p>
+          <p class="hero__venue" data-field="venueDetail"></p>
         </div>
       </section>
 
@@ -107,8 +109,21 @@
       <section class="gallery section-band" aria-labelledby="gallery-title">
         <p class="section-kicker">Gallery</p>
         <h2 id="gallery-title">기억하고 싶은 장면들</h2>
-        <div class="gallery-carousel" data-gallery-grid aria-label="웨딩 사진"></div>
-        <p class="gallery-progress" data-gallery-progress>1 / 1</p>
+        <div class="gallery-viewer" aria-label="웨딩 사진">
+          <div class="gallery-stage">
+            <button class="gallery-inline-nav gallery-inline-nav--prev" type="button" data-gallery-inline-prev aria-label="이전 사진">
+              <i data-lucide="chevron-left" aria-hidden="true"></i>
+            </button>
+            <button class="gallery-main" type="button" data-gallery-main-open aria-label="사진 크게 보기">
+              <img src="assets/gallery-large/HKS00178.jpg" alt="재혁과 소진의 웨딩 사진" data-gallery-main-image />
+            </button>
+            <button class="gallery-inline-nav gallery-inline-nav--next" type="button" data-gallery-inline-next aria-label="다음 사진">
+              <i data-lucide="chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="gallery-thumbs" data-gallery-grid aria-label="웨딩 사진 썸네일"></div>
+          <p class="gallery-progress" data-gallery-progress>1 / 53</p>
+        </div>
       </section>
 
       <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
@@ -136,11 +151,11 @@
         <p class="section-kicker">LOCATION</p>
         <h2 id="location-title">오시는 길</h2>
         <div class="location-meta" aria-label="예식장 주소와 홀 정보">
-          <p data-field="address"></p>
-          <p>
-            <span data-field="venue"></span>
-            <strong data-field="venueHall"></strong>
+          <p class="location-meta__venue">
+            <span class="location-meta__building" data-field="venue"></span>
+            <strong class="location-meta__hall" data-field="venueHall"></strong>
           </p>
+          <p class="location-meta__address" data-field="address"></p>
         </div>
         <div class="location-layout">
           <div class="location-map-column">
@@ -148,7 +163,7 @@
               <iframe
                 class="map-preview__frame"
                 title="라마다 서울 신도림 호텔 위치 지도"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=126.8819%2C37.5048%2C126.8917%2C37.5094&amp;layer=mapnik&amp;marker=37.5069%2C126.8868"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=126.8829%2C37.5047%2C126.8878%2C37.5079&amp;layer=mapnik&amp;marker=37.50625443087106%2C126.88535657308628"
                 loading="lazy"
               ></iframe>
               <a class="map-preview__button" data-map="kakao" target="_blank" rel="noreferrer" aria-label="카카오맵에서 길찾기">
@@ -352,16 +367,6 @@
           신랑, 신부의 새로운 시작을 축하해주세요.<br />
           화환은 예식일에 맞춰 웨딩홀로 배송됩니다.
         </p>
-        <div class="flower-info" aria-label="화환 배송 예식 정보">
-          <p>
-            <i data-lucide="calendar-days" aria-hidden="true"></i>
-            <span><span data-field="weddingDateFull"></span> <span data-field="weddingTime"></span></span>
-          </p>
-          <p>
-            <i data-lucide="map-pin" aria-hidden="true"></i>
-            <span><span data-field="venue"></span> <strong data-field="venueHall"></strong></span>
-          </p>
-        </div>
         <a
           class="flower-button"
           href="https://shop5.flowerbiz.co.kr/gb/products/product-category/61?hide_title=true&amp;hide_product_category=true&amp;agencyid=firstletter&amp;delivery_url=https%3A%2F%2Ftootouch.github.io%2Fwedding-HJHJSJ%2Fflower_delivery_info.json%3Fv%3D20260531-receiver&amp;shopid=frBusiness&amp;agencyidx=2860"
@@ -377,17 +382,12 @@
         <p class="section-kicker">GUEST BOOK</p>
         <h2 id="guestbook-title">축하 메시지를 남겨주세요</h2>
         <p class="section-note">
-          신랑 &amp; 신부의 행복한 앞날을 위해 따뜻한 덕담 한 말씀 남겨주세요.
-          소중한 추억으로 간직하겠습니다.
+          남겨주신 축하 메시지는 신랑 &amp; 신부에게만 전달됩니다.
+          따뜻한 마음을 조용히 간직하겠습니다.
         </p>
         <button class="form-open-button" type="button" data-guestbook-open>
           <i data-lucide="mail" aria-hidden="true"></i>
           <span>축하 메시지 작성하기</span>
-        </button>
-        <div class="guestbook-list" data-guestbook-list aria-live="polite"></div>
-        <button class="guestbook-more-button" type="button" data-guestbook-all-open hidden>
-          <i data-lucide="list" aria-hidden="true"></i>
-          <span>축하 메시지 전체보기</span>
         </button>
       </section>
 
@@ -410,30 +410,6 @@
       <button class="gallery-dialog__nav gallery-dialog__nav--next" type="button" data-gallery-next aria-label="다음 사진">
         <i data-lucide="chevron-right" aria-hidden="true"></i>
       </button>
-    </dialog>
-
-    <dialog class="share-dialog" data-share-dialog>
-      <div class="share-dialog__content">
-        <button class="icon-button share-dialog__close" type="button" data-share-close aria-label="닫기">
-          <i data-lucide="x" aria-hidden="true"></i>
-        </button>
-        <p class="section-kicker">Share</p>
-        <h2>초대장 공유</h2>
-        <div class="share-presets">
-          <button type="button" data-share-preset="default">
-            <i data-lucide="heart" aria-hidden="true"></i>
-            <span>전체</span>
-          </button>
-          <button type="button" data-share-preset="parents">
-            <i data-lucide="flower-2" aria-hidden="true"></i>
-            <span>부모님용</span>
-          </button>
-          <button type="button" data-share-preset="friends">
-            <i data-lucide="sparkles" aria-hidden="true"></i>
-            <span>친구용</span>
-          </button>
-        </div>
-      </div>
     </dialog>
 
     <dialog class="form-dialog" data-rsvp-dialog>
@@ -532,7 +508,7 @@
           </label>
           <label>
             <span>성함 <em>*</em></span>
-            <small>방명록에 보여질 이름을 적어주세요.</small>
+            <small>신랑신부에게 전달될 이름을 적어주세요.</small>
             <input name="name" type="text" autocomplete="name" required placeholder="홍길동" />
           </label>
           <label>
@@ -540,44 +516,9 @@
             <small>신랑 또는 신부와의 관계를 적어주세요. (생략 가능)</small>
             <input name="relation" type="text" placeholder="한국고 동문, 친구, 사촌동생" />
           </label>
-          <label>
-            <span>비밀번호 <em>*</em></span>
-            <small>방명록 삭제에 필요한 숫자 4자리를 적어주세요.</small>
-            <input name="password" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="1234 (숫자 4자리)" />
-          </label>
           <button class="secondary-button" type="submit">
             <i data-lucide="mail" aria-hidden="true"></i>
             <span>축하 메시지 보내기</span>
-          </button>
-        </form>
-      </div>
-    </dialog>
-
-    <dialog class="form-dialog form-dialog--guestbook-all" data-guestbook-all-dialog>
-      <div class="form-dialog__content">
-        <button class="icon-button form-dialog__close" type="button" data-guestbook-all-close aria-label="닫기">
-          <i data-lucide="x" aria-hidden="true"></i>
-        </button>
-        <h2>축하 메시지 전체보기</h2>
-        <div class="guestbook-list guestbook-list--all" data-guestbook-all-list aria-live="polite"></div>
-      </div>
-    </dialog>
-
-    <dialog class="form-dialog form-dialog--delete" data-guestbook-delete-dialog>
-      <div class="form-dialog__content">
-        <button class="icon-button form-dialog__close" type="button" data-guestbook-delete-close aria-label="닫기">
-          <i data-lucide="x" aria-hidden="true"></i>
-        </button>
-        <h2>축하 메시지 삭제하기</h2>
-        <p class="delete-dialog__target" data-guestbook-delete-title></p>
-        <form class="delete-form" data-guestbook-delete-form>
-          <label>
-            <span>비밀번호</span>
-            <input name="password" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="작성 시 입력한 숫자 4자리" />
-          </label>
-          <button class="primary-button" type="submit">
-            <i data-lucide="trash-2" aria-hidden="true"></i>
-            <span>삭제하기</span>
           </button>
         </form>
       </div>
@@ -656,6 +597,31 @@
         </div>
       </div>
     </dialog>
+
+    <div class="message-effect" data-message-effect role="status" aria-live="polite" aria-hidden="true">
+      <div class="message-effect__card">
+        <div class="message-effect__petals" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="message-effect__envelope" aria-hidden="true">
+          <span class="message-effect__letter"></span>
+          <span class="message-effect__flap"></span>
+          <span class="message-effect__body"></span>
+        </div>
+        <p>소중한 마음이 전해졌습니다</p>
+      </div>
+    </div>
 
     <div class="music-control" data-music-control>
       <audio data-music-audio preload="metadata"></audio>

@@ -60,57 +60,81 @@ const invitation = {
     address: "서울특별시 구로구 경인로 624",
     addressShort: "서울특별시 구로구 경인로 624",
     mapQuery: "라마다서울신도림호텔",
-    latitude: "37.5069",
-    longitude: "126.8868",
+    latitude: "37.50625443087106",
+    longitude: "126.88535657308628",
   },
-  gallery: [
+  gallery: globalThis.galleryImages || [
     {
-      src: "assets/cover.jpeg",
-      alt: "재혁과 소진의 웨딩 대표 사진",
-      caption: "우리의 시작",
-      focus: "50% 42%",
-    },
-    {
-      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20002.jpeg",
+      src: "assets/gallery-large/HKS00178.jpg",
+      thumb: "assets/gallery-thumb/HKS00178.jpg",
       alt: "재혁과 소진의 웨딩 사진 1",
-      caption: "같은 곳을 바라보며",
-      focus: "50% 44%",
+      caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20003.jpeg",
+      src: "assets/gallery-large/HKS00253.jpg",
+      thumb: "assets/gallery-thumb/HKS00253.jpg",
       alt: "재혁과 소진의 웨딩 사진 2",
-      caption: "다정한 순간",
-      focus: "50% 44%",
+      caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20004.jpeg",
+      src: "assets/gallery-large/HKS00273.jpg",
+      thumb: "assets/gallery-thumb/HKS00273.jpg",
       alt: "재혁과 소진의 웨딩 사진 3",
-      caption: "가을의 온도",
-      focus: "50% 44%",
+      caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20005.jpeg",
+      src: "assets/gallery-large/HKS00294.jpg",
+      thumb: "assets/gallery-thumb/HKS00294.jpg",
       alt: "재혁과 소진의 웨딩 사진 4",
-      caption: "손끝의 약속",
-      focus: "50% 44%",
+      caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20006.jpeg",
+      src: "assets/gallery-large/HKS00301.jpg",
+      thumb: "assets/gallery-thumb/HKS00301.jpg",
       alt: "재혁과 소진의 웨딩 사진 5",
-      caption: "서로의 곁에서",
-      focus: "50% 44%",
+      caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20007.jpeg",
+      src: "assets/gallery-large/HKS00345.jpg",
+      thumb: "assets/gallery-thumb/HKS00345.jpg",
       alt: "재혁과 소진의 웨딩 사진 6",
-      caption: "환한 마음",
-      focus: "50% 44%",
+      caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/KakaoTalk_Photo_2026-05-31-02-07-44%20008.jpeg",
+      src: "assets/gallery-large/HKS00351.jpg",
+      thumb: "assets/gallery-thumb/HKS00351.jpg",
       alt: "재혁과 소진의 웨딩 사진 7",
-      caption: "함께 걷는 길",
-      focus: "50% 44%",
+      caption: "재혁과 소진의 웨딩 사진",
+    },
+    {
+      src: "assets/gallery-large/HKS00394.jpg",
+      thumb: "assets/gallery-thumb/HKS00394.jpg",
+      alt: "재혁과 소진의 웨딩 사진 8",
+      caption: "재혁과 소진의 웨딩 사진",
+    },
+    {
+      src: "assets/gallery-large/HKS00405.jpg",
+      thumb: "assets/gallery-thumb/HKS00405.jpg",
+      alt: "재혁과 소진의 웨딩 사진 9",
+      caption: "재혁과 소진의 웨딩 사진",
+    },
+    {
+      src: "assets/gallery-large/HKS00417.jpg",
+      thumb: "assets/gallery-thumb/HKS00417.jpg",
+      alt: "재혁과 소진의 웨딩 사진 10",
+      caption: "재혁과 소진의 웨딩 사진",
+    },
+    {
+      src: "assets/gallery-large/HKS00425.jpg",
+      thumb: "assets/gallery-thumb/HKS00425.jpg",
+      alt: "재혁과 소진의 웨딩 사진 11",
+      caption: "재혁과 소진의 웨딩 사진",
+    },
+    {
+      src: "assets/gallery-large/HKS00442.jpg",
+      thumb: "assets/gallery-thumb/HKS00442.jpg",
+      alt: "재혁과 소진의 웨딩 사진 12",
+      caption: "재혁과 소진의 웨딩 사진",
     },
   ],
   music: [
@@ -126,10 +150,6 @@ const invitation = {
   shareMessages: {
     default:
       "저희 두 사람이 결혼합니다. 소중한 날 함께 축복해 주시면 감사하겠습니다.",
-    parents:
-      "저희 아이들의 결혼식에 귀한 분들을 모시고자 합니다. 따뜻한 축복으로 함께해 주세요.",
-    friends:
-      "우리 결혼해요. 와서 같이 웃고 축하해 주면 정말 든든할 것 같아요.",
   },
   integrations: {
     // Google Apps Script web app URL. Leave empty until the RSVP sheet is deployed.
@@ -169,18 +189,11 @@ const fields = {
 };
 
 const toast = document.querySelector("[data-toast]");
+const messageEffect = document.querySelector("[data-message-effect]");
 let toastTimer;
+let messageEffectTimer;
 const storageKeys = {
   rsvp: "wedding-rsvp-list",
-  guestbook: "wedding-guestbook-v2",
-};
-
-const fallbackGuestbook = [];
-
-const guestbookState = {
-  messages: [],
-  remoteReady: false,
-  pendingDeleteId: "",
 };
 
 const musicState = {
@@ -196,6 +209,71 @@ function showToast(message) {
   toastTimer = window.setTimeout(() => {
     toast.classList.remove("is-visible");
   }, 2200);
+}
+
+function launchMessageConfetti() {
+  if (typeof window.confetti !== "function") {
+    messageEffect.classList.add("message-effect--fallback-petals");
+    return;
+  }
+
+  messageEffect.classList.remove("message-effect--fallback-petals");
+
+  const defaults = {
+    colors: ["#c98272", "#d8b682", "#7b8060", "#f6eadb", "#fffdf9"],
+    disableForReducedMotion: true,
+    gravity: 0.72,
+    scalar: 0.78,
+    ticks: 165,
+    zIndex: 25,
+  };
+
+  window.confetti({
+    ...defaults,
+    angle: 64,
+    particleCount: 42,
+    origin: { x: 0.28, y: 0.58 },
+    spread: 48,
+    startVelocity: 28,
+  });
+
+  window.confetti({
+    ...defaults,
+    angle: 116,
+    particleCount: 42,
+    origin: { x: 0.72, y: 0.58 },
+    spread: 48,
+    startVelocity: 28,
+  });
+
+  window.setTimeout(() => {
+    window.confetti({
+      ...defaults,
+      particleCount: 26,
+      origin: { x: 0.5, y: 0.52 },
+      spread: 72,
+      startVelocity: 22,
+    });
+  }, 170);
+}
+
+function showMessageDeliveryEffect() {
+  if (!messageEffect) {
+    showToast("소중한 마음이 전해졌습니다.");
+    return;
+  }
+
+  window.clearTimeout(messageEffectTimer);
+  messageEffect.classList.remove("is-visible");
+  messageEffect.setAttribute("aria-hidden", "false");
+  void messageEffect.offsetWidth;
+  messageEffect.classList.add("is-visible");
+  launchMessageConfetti();
+
+  messageEffectTimer = window.setTimeout(() => {
+    messageEffect.classList.remove("is-visible");
+    messageEffect.setAttribute("aria-hidden", "true");
+  }, 3400);
 }
 
 function readStorage(key, fallbackValue) {
@@ -305,8 +383,8 @@ async function copyText(text, successMessage) {
   }
 }
 
-async function shareInvitation(preset = "default") {
-  const text = invitation.shareMessages[preset] || invitation.shareMessages.default;
+async function shareInvitation() {
+  const text = invitation.shareMessages.default;
   const shareData = {
     title: `${invitation.groom.full} & ${invitation.bride.full} 결혼식`,
     text: `${text}\n${invitation.wedding.dateFull} ${invitation.wedding.time}, ${invitation.wedding.venue}`,
@@ -326,7 +404,12 @@ async function shareInvitation(preset = "default") {
 
 function setupActions() {
   document.querySelector("[data-action='calendar']").addEventListener("click", downloadCalendarInvite);
-  setupShareDialog();
+
+  document.querySelectorAll("[data-action='share']").forEach((button) => {
+    button.addEventListener("click", () => {
+      shareInvitation().catch(() => showToast("공유를 완료하지 못했어요."));
+    });
+  });
 
   document.querySelectorAll("[data-copy]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -476,39 +559,6 @@ function setupMusicPlayer() {
   }, 600);
 }
 
-function setupShareDialog() {
-  const triggers = document.querySelectorAll("[data-action='share']");
-  const dialog = document.querySelector("[data-share-dialog]");
-  const close = document.querySelector("[data-share-close]");
-
-  triggers.forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      if (dialog.showModal) {
-        dialog.showModal();
-        return;
-      }
-
-      shareInvitation("default").catch(() => showToast("공유를 완료하지 못했어요."));
-    });
-  });
-
-  close.addEventListener("click", () => dialog.close());
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) {
-      dialog.close();
-    }
-  });
-
-  document.querySelectorAll("[data-share-preset]").forEach((button) => {
-    button.addEventListener("click", () => {
-      dialog.close();
-      shareInvitation(button.dataset.sharePreset).catch(() => {
-        showToast("공유를 완료하지 못했어요.");
-      });
-    });
-  });
-}
-
 function setupContactLinks() {
   const contactMap = new Map(invitation.contacts.map((contact) => [contact.name, contact.phone]));
   const trigger = document.querySelector("[data-contact-open]");
@@ -542,24 +592,20 @@ function setupContactLinks() {
 function renderGalleryGrid(grid, items) {
   grid.replaceChildren();
 
-  items.forEach((item) => {
-    const index = invitation.gallery.indexOf(item);
+  items.forEach((item, index) => {
     const button = document.createElement("button");
     const image = document.createElement("img");
 
-    button.className = "gallery-tile";
+    button.className = "gallery-thumb";
     button.type = "button";
     button.dataset.gallery = String(index);
-    button.setAttribute("aria-label", `${item.caption || item.alt} 크게 보기`);
+    button.setAttribute("aria-label", `${item.caption || item.alt} 보기`);
 
-    image.src = item.src;
+    image.src = item.thumb || item.src;
     image.alt = item.alt;
-    image.loading = index > 2 ? "lazy" : "eager";
+    image.loading = index > 5 ? "lazy" : "eager";
     if (item.focus) {
       image.style.objectPosition = item.focus;
-    }
-    if (item.scale) {
-      image.style.transform = `scale(${item.scale})`;
     }
 
     button.append(image);
@@ -571,6 +617,10 @@ function setupGallery() {
   const dialog = document.querySelector("[data-gallery-dialog]");
   const grid = document.querySelector("[data-gallery-grid]");
   const progress = document.querySelector("[data-gallery-progress]");
+  const mainButton = document.querySelector("[data-gallery-main-open]");
+  const mainImage = document.querySelector("[data-gallery-main-image]");
+  const inlinePrev = document.querySelector("[data-gallery-inline-prev]");
+  const inlineNext = document.querySelector("[data-gallery-inline-next]");
   const image = document.querySelector("[data-gallery-image]");
   const caption = document.querySelector("[data-gallery-caption]");
   const counter = document.querySelector("[data-gallery-counter]");
@@ -583,10 +633,24 @@ function setupGallery() {
   function showImage(index) {
     activeIndex = (index + invitation.gallery.length) % invitation.gallery.length;
     const item = invitation.gallery[activeIndex];
+    mainImage.src = item.src;
+    mainImage.alt = item.alt;
+    mainImage.style.objectPosition = item.focus || "50% 50%";
     image.src = item.src;
     image.alt = item.alt;
     caption.textContent = item.caption || item.alt;
     counter.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
+    progress.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
+
+    grid.querySelectorAll("[data-gallery]").forEach((tile) => {
+      const isActive = Number(tile.dataset.gallery) === activeIndex;
+      tile.classList.toggle("is-active", isActive);
+      tile.setAttribute("aria-current", isActive ? "true" : "false");
+
+      if (isActive) {
+        tile.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
+    });
   }
 
   function openImage(index) {
@@ -594,38 +658,18 @@ function setupGallery() {
     dialog.showModal();
   }
 
-  function getCurrentGalleryIndex() {
-    const tiles = Array.from(grid.querySelectorAll("[data-gallery]"));
-    const viewportCenter = (grid.scrollLeft || 0) + (grid.clientWidth || 0) / 2;
-    let closestIndex = 0;
-    let closestDistance = Infinity;
-
-    tiles.forEach((tile, index) => {
-      const tileCenter = (tile.offsetLeft || 0) + (tile.offsetWidth || 0) / 2;
-      const distance = Math.abs(tileCenter - viewportCenter);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
-
-    return Number(tiles[closestIndex]?.dataset.gallery || 0);
-  }
-
-  function updateGalleryProgress() {
-    progress.textContent = `${getCurrentGalleryIndex() + 1} / ${invitation.gallery.length}`;
-  }
-
   renderGalleryGrid(grid, invitation.gallery);
-  updateGalleryProgress();
+  showImage(0);
 
   grid.querySelectorAll("[data-gallery]").forEach((tile) => {
     tile.addEventListener("click", () => {
-      openImage(Number(tile.dataset.gallery));
+      showImage(Number(tile.dataset.gallery));
     });
   });
 
-  grid.addEventListener("scroll", updateGalleryProgress, { passive: true });
+  mainButton.addEventListener("click", () => openImage(activeIndex));
+  inlinePrev.addEventListener("click", () => showImage(activeIndex - 1));
+  inlineNext.addEventListener("click", () => showImage(activeIndex + 1));
   close.addEventListener("click", () => dialog.close());
   prev.addEventListener("click", () => showImage(activeIndex - 1));
   next.addEventListener("click", () => showImage(activeIndex + 1));
@@ -723,236 +767,12 @@ function setupRsvp() {
   });
 }
 
-function formatGuestbookDate(value) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return "";
-  }
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}.${month}.${day}`;
-}
-
 function getIntegrationEndpoint() {
   return invitation.integrations.rsvpEndpoint.trim();
 }
 
-function withEndpointParams(params) {
-  const endpoint = getIntegrationEndpoint();
-  const query = Object.entries(params)
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    .join("&");
-
-  return `${endpoint}${endpoint.includes("?") ? "&" : "?"}${query}`;
-}
-
-function requestJsonp(params) {
-  return new Promise((resolve, reject) => {
-    const endpoint = getIntegrationEndpoint();
-    if (!endpoint) {
-      reject(new Error("No integration endpoint configured."));
-      return;
-    }
-
-    const callbackName = `__guestbookCallback_${Date.now()}_${Math.random()
-      .toString(36)
-      .slice(2)}`;
-    const script = document.createElement("script");
-    const timeout = window.setTimeout(() => {
-      cleanup();
-      reject(new Error("Guestbook request timed out."));
-    }, 7000);
-
-    function cleanup() {
-      window.clearTimeout(timeout);
-      delete window[callbackName];
-      script.remove();
-    }
-
-    window[callbackName] = (payload) => {
-      cleanup();
-      resolve(payload);
-    };
-
-    script.onerror = () => {
-      cleanup();
-      reject(new Error("Guestbook request failed."));
-    };
-    script.src = withEndpointParams({ ...params, callback: callbackName });
-    document.body.append(script);
-  });
-}
-
-async function requestEndpoint(params) {
-  const endpoint = getIntegrationEndpoint();
-  if (!endpoint) {
-    throw new Error("No integration endpoint configured.");
-  }
-
-  const url = withEndpointParams({ ...params, _: Date.now() });
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      throw new Error("Endpoint request failed.");
-    }
-
-    return response.json();
-  } catch {
-    return requestJsonp({ ...params, _: Date.now() });
-  }
-}
-
 function createGuestbookId() {
   return `guestbook-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
-
-function normalizeGuestbookItem(item, index) {
-  return {
-    id: item.id || `local-${index}-${item.savedAt || item.createdAt || Date.now()}`,
-    target: item.target || "두 사람",
-    relation: item.relation || "",
-    name: item.name || "",
-    message: item.message || "",
-    savedAt: item.savedAt || item.createdAt || new Date().toISOString(),
-    password: item.password || "",
-  };
-}
-
-function getLocalGuestbook() {
-  return readStorage(storageKeys.guestbook, fallbackGuestbook).map(normalizeGuestbookItem);
-}
-
-function saveLocalGuestbook(messages) {
-  writeStorage(storageKeys.guestbook, messages.slice(0, 50));
-}
-
-function setGuestbookMessages(messages) {
-  guestbookState.messages = messages.map(normalizeGuestbookItem);
-  saveLocalGuestbook(guestbookState.messages);
-  renderGuestbook();
-}
-
-function getGuestbookSender(item) {
-  return [item.relation, item.name].filter(Boolean).join(" ") || "익명";
-}
-
-function createGuestbookCard(item) {
-  const card = document.createElement("article");
-  const target = document.createElement("span");
-  const deleteButton = document.createElement("button");
-  const message = document.createElement("p");
-  const divider = document.createElement("div");
-  const dividerIcon = document.createElement("i");
-  const meta = document.createElement("div");
-  const time = document.createElement("time");
-  const from = document.createElement("div");
-  const fromLabel = document.createElement("span");
-  const fromName = document.createElement("strong");
-  const targetSide = item.target === "신부" ? "bride" : "groom";
-
-  card.className = `guestbook-card guestbook-card--${targetSide}`;
-  target.className = "guestbook-card__target";
-  target.textContent = `To. ${item.target || "두 사람"}`;
-
-  deleteButton.className = "guestbook-card__delete";
-  deleteButton.type = "button";
-  deleteButton.dataset.guestbookDelete = item.id;
-  deleteButton.setAttribute("aria-label", "축하 메시지 삭제");
-  deleteButton.innerHTML = '<i data-lucide="x" aria-hidden="true"></i>';
-
-  message.textContent = item.message;
-
-  divider.className = "guestbook-card__divider";
-  dividerIcon.setAttribute("data-lucide", "sprout");
-  dividerIcon.setAttribute("aria-hidden", "true");
-  divider.append(dividerIcon);
-
-  meta.className = "guestbook-card__meta";
-  time.textContent = formatGuestbookDate(item.savedAt);
-  time.dateTime = item.savedAt;
-
-  from.className = "guestbook-card__from";
-  fromLabel.textContent = "From.";
-  fromName.textContent = getGuestbookSender(item);
-  from.append(fromLabel, fromName);
-
-  meta.append(time, from);
-  card.append(target, deleteButton, message, divider, meta);
-  return card;
-}
-
-function renderGuestbookList(list, messages, emptyText) {
-  list.replaceChildren();
-
-  if (!messages.length) {
-    const empty = document.createElement("p");
-    empty.className = "guestbook-empty";
-    empty.textContent = emptyText;
-    list.append(empty);
-    return;
-  }
-
-  messages.forEach((item) => {
-    list.append(createGuestbookCard(item));
-  });
-
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
-}
-
-function renderGuestbook() {
-  const previewList = document.querySelector("[data-guestbook-list]");
-  const allList = document.querySelector("[data-guestbook-all-list]");
-  const allOpenButton = document.querySelector("[data-guestbook-all-open]");
-  const messages = guestbookState.messages;
-
-  renderGuestbookList(
-    previewList,
-    messages.slice(0, 3),
-    "아직 남겨진 축하 메시지가 없습니다. 첫 번째 마음을 남겨주세요.",
-  );
-  renderGuestbookList(
-    allList,
-    messages,
-    "아직 남겨진 축하 메시지가 없습니다. 첫 번째 마음을 남겨주세요.",
-  );
-
-  allOpenButton.hidden = messages.length <= 3;
-  if (messages.length > 3) {
-    allOpenButton.querySelector("span").textContent = `축하 메시지 ${messages.length}개 전체보기`;
-  }
-}
-
-function revealGuestbookList() {
-  const list = document.querySelector("[data-guestbook-list]");
-  if (list && list.scrollIntoView) {
-    list.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}
-
-async function loadGuestbookFromRemote() {
-  if (!getIntegrationEndpoint()) {
-    return;
-  }
-
-  try {
-    const payload = await requestEndpoint({ action: "listGuestbook" });
-    if (!payload || !payload.ok || !Array.isArray(payload.messages)) {
-      throw new Error("Invalid guestbook response.");
-    }
-
-    guestbookState.remoteReady = true;
-    setGuestbookMessages(payload.messages);
-  } catch {
-    guestbookState.remoteReady = false;
-  }
 }
 
 async function submitGuestbookToRemote(payload) {
@@ -973,37 +793,7 @@ async function submitGuestbookToRemote(payload) {
     }),
   });
 
-  guestbookState.remoteReady = true;
   return true;
-}
-
-function openGuestbookDeleteDialog(item, dialog, form, title) {
-  guestbookState.pendingDeleteId = item.id;
-  title.textContent = `From. ${getGuestbookSender(item)} 메시지를 삭제합니다.`;
-  form.reset();
-  dialog.showModal();
-}
-
-async function deleteGuestbookMessage(password) {
-  const id = guestbookState.pendingDeleteId;
-  const item = guestbookState.messages.find((message) => message.id === id);
-  if (!item) {
-    return { ok: false, message: "삭제할 메시지를 찾을 수 없어요." };
-  }
-
-  if (guestbookState.remoteReady && getIntegrationEndpoint()) {
-    return requestEndpoint({
-      action: "deleteGuestbook",
-      id,
-      password,
-    });
-  }
-
-  if (!item.password || item.password !== password) {
-    return { ok: false, message: "비밀번호가 맞지 않아요." };
-  }
-
-  return { ok: true };
 }
 
 function setupGuestbook() {
@@ -1011,17 +801,11 @@ function setupGuestbook() {
   const dialog = document.querySelector("[data-guestbook-dialog]");
   const close = document.querySelector("[data-guestbook-close]");
   const form = document.querySelector("[data-guestbook-form]");
+  if (!trigger || !dialog || !close || !form) {
+    return;
+  }
+
   const submitButton = form.querySelector("button[type='submit']");
-  const list = document.querySelector("[data-guestbook-list]");
-  const allOpenButton = document.querySelector("[data-guestbook-all-open]");
-  const allDialog = document.querySelector("[data-guestbook-all-dialog]");
-  const allClose = document.querySelector("[data-guestbook-all-close]");
-  const allList = document.querySelector("[data-guestbook-all-list]");
-  const deleteDialog = document.querySelector("[data-guestbook-delete-dialog]");
-  const deleteClose = document.querySelector("[data-guestbook-delete-close]");
-  const deleteForm = document.querySelector("[data-guestbook-delete-form]");
-  const deleteSubmit = deleteForm.querySelector("button[type='submit']");
-  const deleteTitle = document.querySelector("[data-guestbook-delete-title]");
 
   trigger.addEventListener("click", () => {
     dialog.showModal();
@@ -1031,17 +815,6 @@ function setupGuestbook() {
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
       dialog.close();
-    }
-  });
-
-  allOpenButton.addEventListener("click", () => {
-    allDialog.showModal();
-  });
-
-  allClose.addEventListener("click", () => allDialog.close());
-  allDialog.addEventListener("click", (event) => {
-    if (event.target === allDialog) {
-      allDialog.close();
     }
   });
 
@@ -1055,7 +828,6 @@ function setupGuestbook() {
       relation: data.relation,
       name: data.name,
       message: data.message,
-      password: data.password,
       savedAt,
       source: window.location.href.split("#")[0],
     };
@@ -1063,79 +835,127 @@ function setupGuestbook() {
     submitButton.disabled = true;
     try {
       const sent = await submitGuestbookToRemote(item);
-      setGuestbookMessages([item, ...guestbookState.messages]);
-      showToast(
-        sent
-          ? "축하 메시지를 남겼어요."
-          : "구글 시트 연결 전이라 이 기기에만 저장했어요.",
-      );
+      if (!sent) {
+        showToast("메시지 전달 연결을 확인해 주세요.");
+        return;
+      }
+
       form.reset();
       dialog.close();
-      window.setTimeout(revealGuestbookList, 80);
-
-      if (sent) {
-        window.setTimeout(loadGuestbookFromRemote, 1200);
-      }
+      showMessageDeliveryEffect();
     } catch {
       showToast("축하 메시지를 남기지 못했어요. 잠시 후 다시 시도해 주세요.");
     } finally {
       submitButton.disabled = false;
     }
   });
+}
 
-  function handleDeleteClick(event) {
-    const button = event.target.closest("[data-guestbook-delete]");
-    if (!button) {
-      return;
-    }
+function setupScrollReveal() {
+  const revealSelector = [
+    ":scope > .section-kicker",
+    ":scope > h2",
+    ":scope > .section-note",
+    ":scope > .intro-message",
+    ":scope > .family-line",
+    ":scope > .contact-trigger",
+    ":scope > .gallery-viewer",
+    ":scope > .d-day-count",
+    ":scope > .location-meta",
+    ".map-preview",
+    ".navigation-panel",
+    ".direction-block",
+    ".account-group",
+    ":scope > .form-open-button",
+    ":scope > .flower-button",
+  ].join(",");
+  const targets = [];
+  const seen = new Set();
 
-    const item = guestbookState.messages.find(
-      (message) => message.id === button.dataset.guestbookDelete,
-    );
-    if (item) {
-      openGuestbookDeleteDialog(item, deleteDialog, deleteForm, deleteTitle);
-    }
-  }
-
-  list.addEventListener("click", handleDeleteClick);
-  allList.addEventListener("click", handleDeleteClick);
-
-  deleteClose.addEventListener("click", () => deleteDialog.close());
-  deleteDialog.addEventListener("click", (event) => {
-    if (event.target === deleteDialog) {
-      deleteDialog.close();
-    }
-  });
-
-  deleteForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const data = Object.fromEntries(new FormData(deleteForm));
-
-    deleteSubmit.disabled = true;
-    try {
-      const result = await deleteGuestbookMessage(data.password);
-      if (!result || !result.ok) {
-        showToast(result && result.message ? result.message : "비밀번호가 맞지 않아요.");
+  document.querySelectorAll(".section-band").forEach((section) => {
+    let revealIndex = 0;
+    section.querySelectorAll(revealSelector).forEach((element) => {
+      if (seen.has(element)) {
         return;
       }
 
-      setGuestbookMessages(
-        guestbookState.messages.filter(
-          (message) => message.id !== guestbookState.pendingDeleteId,
-        ),
-      );
-      showToast("축하 메시지를 삭제했어요.");
-      deleteForm.reset();
-      deleteDialog.close();
+      seen.add(element);
+      element.classList.add("reveal-on-scroll");
+      element.style.setProperty("--reveal-delay", `${Math.min(revealIndex * 80, 280)}ms`);
+      targets.push(element);
+      revealIndex += 1;
+    });
+  });
 
-      if (guestbookState.remoteReady) {
-        window.setTimeout(loadGuestbookFromRemote, 600);
-      }
-    } catch {
-      showToast("축하 메시지를 삭제하지 못했어요. 잠시 후 다시 시도해 주세요.");
-    } finally {
-      deleteSubmit.disabled = false;
-    }
+  if (
+    !targets.length ||
+    !("IntersectionObserver" in window) ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    targets.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -8% 0px",
+      threshold: 0.16,
+    },
+  );
+
+  targets.forEach((element) => observer.observe(element));
+}
+
+function setupStickyQuickActions() {
+  const quickActions = document.querySelector(".quick-actions");
+  if (!quickActions) {
+    return;
+  }
+
+  const spacer = document.createElement("div");
+  spacer.className = "quick-actions-spacer";
+  quickActions.after(spacer);
+  let fixedAt = 0;
+
+  function measureQuickActions() {
+    quickActions.classList.remove("is-fixed", "is-compact");
+    spacer.classList.remove("is-active");
+
+    const styles = window.getComputedStyle(quickActions);
+    const marginTop = parseFloat(styles.marginTop) || 0;
+    const marginBottom = parseFloat(styles.marginBottom) || 0;
+    const topOffset = 8;
+    fixedAt = window.scrollY + quickActions.getBoundingClientRect().top - topOffset;
+    spacer.style.setProperty(
+      "--quick-actions-spacer-height",
+      `${Math.max(quickActions.offsetHeight + marginTop + marginBottom, 0)}px`,
+    );
+  }
+
+  function updateQuickActions() {
+    const shouldFix = window.scrollY > fixedAt;
+    quickActions.classList.toggle("is-fixed", shouldFix);
+    quickActions.classList.toggle("is-compact", shouldFix);
+    spacer.classList.toggle("is-active", shouldFix);
+  }
+
+  measureQuickActions();
+  updateQuickActions();
+  window.addEventListener("scroll", updateQuickActions, { passive: true });
+  window.addEventListener("resize", () => {
+    measureQuickActions();
+    updateQuickActions();
   });
 }
 
@@ -1146,9 +966,9 @@ setupContactLinks();
 setupGallery();
 setupRsvp();
 setupMusicPlayer();
-setGuestbookMessages(getLocalGuestbook());
 setupGuestbook();
-loadGuestbookFromRemote();
+setupScrollReveal();
+setupStickyQuickActions();
 window.setInterval(updateCountdown, 1000);
 
 window.addEventListener("load", () => {

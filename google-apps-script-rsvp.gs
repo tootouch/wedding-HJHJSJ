@@ -33,31 +33,11 @@ function doPost(e) {
     return output_({ ok: true, item: createGuestbook_(payload) });
   }
 
-  if (payload.action === "deleteGuestbook") {
-    return output_(deleteGuestbook_(payload));
-  }
-
   appendRsvp_(payload);
   return output_({ ok: true });
 }
 
-function doGet(e) {
-  const params = (e && e.parameter) || {};
-
-  if (params.action === "listGuestbook") {
-    return output_(
-      {
-        ok: true,
-        messages: listGuestbook_(),
-      },
-      params.callback,
-    );
-  }
-
-  if (params.action === "deleteGuestbook") {
-    return output_(deleteGuestbook_(params), params.callback);
-  }
-
+function doGet() {
   return ContentService
     .createTextOutput("Wedding invitation endpoint is ready.")
     .setMimeType(ContentService.MimeType.TEXT);
@@ -103,71 +83,12 @@ function createGuestbook_(payload) {
     item.message,
     item.name,
     item.relation,
-    hashPassword_(payload.password || ""),
+    "",
     item.source,
     "",
   ]);
 
   return item;
-}
-
-function listGuestbook_() {
-  const sheet = getSheet_(GUESTBOOK_SHEET_NAME, GUESTBOOK_HEADERS);
-  const values = sheet.getDataRange().getValues();
-  if (values.length <= 1) {
-    return [];
-  }
-
-  const headers = values[0];
-  const index = headerIndex_(headers);
-
-  return values
-    .slice(1)
-    .filter(function(row) {
-      return !row[index.deletedAt];
-    })
-    .map(function(row) {
-      return {
-        id: row[index.id],
-        savedAt: row[index.createdAt],
-        target: row[index.target],
-        message: row[index.message],
-        name: row[index.name],
-        relation: row[index.relation],
-      };
-    })
-    .reverse()
-    .slice(0, 50);
-}
-
-function deleteGuestbook_(payload) {
-  const id = payload.id || "";
-  const password = payload.password || "";
-
-  if (!id || !password) {
-    return { ok: false, message: "삭제할 메시지와 비밀번호를 확인해 주세요." };
-  }
-
-  const sheet = getSheet_(GUESTBOOK_SHEET_NAME, GUESTBOOK_HEADERS);
-  const values = sheet.getDataRange().getValues();
-  const index = headerIndex_(values[0]);
-  const passwordHash = hashPassword_(password);
-
-  for (let rowIndex = 1; rowIndex < values.length; rowIndex += 1) {
-    const row = values[rowIndex];
-    if (row[index.id] !== id || row[index.deletedAt]) {
-      continue;
-    }
-
-    if (row[index.passwordHash] !== passwordHash) {
-      return { ok: false, message: "비밀번호가 맞지 않아요." };
-    }
-
-    sheet.getRange(rowIndex + 1, index.deletedAt + 1).setValue(new Date().toISOString());
-    return { ok: true };
-  }
-
-  return { ok: false, message: "삭제할 메시지를 찾을 수 없어요." };
 }
 
 function getSheet_(name, headers) {
@@ -195,28 +116,6 @@ function getSpreadsheet_() {
   }
 
   return spreadsheet;
-}
-
-function headerIndex_(headers) {
-  return headers.reduce(function(index, header, columnIndex) {
-    index[header] = columnIndex;
-    return index;
-  }, {});
-}
-
-function hashPassword_(password) {
-  const digest = Utilities.computeDigest(
-    Utilities.DigestAlgorithm.SHA_256,
-    String(password),
-    Utilities.Charset.UTF_8,
-  );
-
-  return digest
-    .map(function(byte) {
-      const value = byte < 0 ? byte + 256 : byte;
-      return `0${value.toString(16)}`.slice(-2);
-    })
-    .join("");
 }
 
 function output_(payload, callback) {
