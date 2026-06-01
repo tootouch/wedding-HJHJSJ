@@ -527,7 +527,7 @@ img {
 
 .gallery-main img {
   width: 100%;
-  height: min(68vh, 520px);
+  height: min(68svh, 520px);
   display: block;
   object-fit: contain;
   background: #fbfbf7;
