@@ -19,23 +19,7 @@
   --map-start: rgba(85, 95, 62, 0.9);
   --map-end: rgba(169, 112, 63, 0.66);
   --shadow: 0 18px 50px rgba(66, 52, 39, 0.12);
-  --font-latin:
-    "Gill Sans MT",
-    "Gill Sans",
-    "Gill Sans Nova",
-    Arial,
-    "NanumSquare",
-    sans-serif;
-  --font-korean:
-    "NanumSquare",
-    "Apple SD Gothic Neo",
-    "Noto Sans KR",
-    system-ui,
-    sans-serif;
   --font-main:
-    "Gill Sans MT",
-    "Gill Sans",
-    "Gill Sans Nova",
     "NanumSquare",
     "Apple SD Gothic Neo",
     "Noto Sans KR",
@@ -53,7 +37,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 106.25%;
-  font-family: var(--font-main);
+  font-family: var(--font-main) !important;
 }
 
 body {
@@ -62,12 +46,12 @@ body {
     linear-gradient(90deg, rgba(85, 95, 62, 0.1), transparent 32%, rgba(201, 130, 114, 0.12)),
     var(--paper);
   color: var(--ink);
-  font-family: var(--font-main);
+  font-family: var(--font-main) !important;
 }
 
 .invitation-shell,
 .invitation-shell *:not(svg):not(svg *) {
-  font-family: var(--font-main);
+  font-family: var(--font-main) !important;
 }
 
 button,
@@ -75,7 +59,7 @@ input,
 textarea,
 select,
 dialog {
-  font: inherit;
+  font-family: var(--font-main) !important;
 }
 
 button,
@@ -164,7 +148,7 @@ img {
 .section-kicker {
   margin: 0;
   color: var(--champagne);
-  font-family: var(--font-latin) !important;
+  font-family: var(--font-main) !important;
   font-size: 0.78rem;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -175,7 +159,7 @@ img {
 .invitation-shell .d-day-count__content > p,
 .invitation-shell .d-day-count__days,
 .invitation-shell .d-day-count__clock {
-  font-family: var(--font-latin) !important;
+  font-family: var(--font-main) !important;
 }
 
 .hero__eyebrow {
@@ -321,7 +305,7 @@ img {
 
 .section-band h2 {
   margin: 12px 0 0;
-  font-family: var(--font-korean) !important;
+  font-family: var(--font-main) !important;
   font-size: 0.89rem;
   line-height: 1.34;
   font-weight: 500;
@@ -329,7 +313,7 @@ img {
 }
 
 .invitation-shell .section-band h2 {
-  font-family: var(--font-korean) !important;
+  font-family: var(--font-main) !important;
 }
 
 .section-note {
@@ -450,7 +434,7 @@ img {
 .d-day-count__content p {
   margin: 0;
   color: rgba(255, 253, 249, 0.72);
-  font-family: var(--font-latin) !important;
+  font-family: var(--font-main) !important;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -469,7 +453,7 @@ img {
 .d-day-count__days {
   margin-top: 34px;
   color: var(--white);
-  font-family: var(--font-latin) !important;
+  font-family: var(--font-main) !important;
   font-size: clamp(4.2rem, 22vw, 6.5rem);
   line-height: 0.9;
   font-weight: 400;
@@ -484,7 +468,7 @@ img {
 .d-day-count__clock {
   margin-top: 28px;
   color: var(--white);
-  font-family: var(--font-latin) !important;
+  font-family: var(--font-main) !important;
   font-size: clamp(2.1rem, 11vw, 3.25rem);
   line-height: 1;
   font-weight: 400;
