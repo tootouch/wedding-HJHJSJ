@@ -186,63 +186,69 @@ window.galleryImages = [
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
-    "src": "assets/gallery-large/HKS01431.jpg",
-    "thumb": "assets/gallery-thumb/HKS01431.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 32",
-    "caption": "재혁과 소진의 웨딩 사진"
-  },
-  {
     "src": "assets/gallery-large/HKS01435.jpg",
     "thumb": "assets/gallery-thumb/HKS01435.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 33",
+    "alt": "재혁과 소진의 웨딩 사진 32",
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
     "src": "assets/gallery-large/HKS01471.jpg",
     "thumb": "assets/gallery-thumb/HKS01471.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 34",
+    "alt": "재혁과 소진의 웨딩 사진 33",
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
     "src": "assets/gallery-large/HKS01476.jpg",
     "thumb": "assets/gallery-thumb/HKS01476.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 35",
-    "caption": "재혁과 소진의 웨딩 사진"
-  },
-  {
-    "src": "assets/gallery-large/HKS01481.jpg",
-    "thumb": "assets/gallery-thumb/HKS01481.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 36",
+    "alt": "재혁과 소진의 웨딩 사진 34",
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
     "src": "assets/gallery-large/HKS01519.jpg",
     "thumb": "assets/gallery-thumb/HKS01519.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 37",
+    "alt": "재혁과 소진의 웨딩 사진 35",
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
     "src": "assets/gallery-large/HKS01528.jpg",
     "thumb": "assets/gallery-thumb/HKS01528.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 38",
+    "alt": "재혁과 소진의 웨딩 사진 36",
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
     "src": "assets/gallery-large/HKS01603.jpg",
     "thumb": "assets/gallery-thumb/HKS01603.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 39",
+    "alt": "재혁과 소진의 웨딩 사진 37",
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
     "src": "assets/gallery-large/HKS01609.jpg",
     "thumb": "assets/gallery-thumb/HKS01609.jpg",
-    "alt": "재혁과 소진의 웨딩 사진 40",
+    "alt": "재혁과 소진의 웨딩 사진 38",
     "caption": "재혁과 소진의 웨딩 사진"
   },
   {
     "src": "assets/gallery-large/HKS01642.jpg",
     "thumb": "assets/gallery-thumb/HKS01642.jpg",
+    "alt": "재혁과 소진의 웨딩 사진 39",
+    "caption": "재혁과 소진의 웨딩 사진"
+  },
+  {
+    "src": "assets/gallery-large/07_HKS01481_기본액자_선수정.jpg",
+    "thumb": "assets/gallery-thumb/07_HKS01481_기본액자_선수정.jpg",
+    "alt": "재혁과 소진의 웨딩 사진 40",
+    "caption": "재혁과 소진의 웨딩 사진"
+  },
+  {
+    "src": "assets/gallery-large/12 13_HKS01364_선수정_5x7인화.jpg",
+    "thumb": "assets/gallery-thumb/12 13_HKS01364_선수정_5x7인화.jpg",
     "alt": "재혁과 소진의 웨딩 사진 41",
+    "caption": "재혁과 소진의 웨딩 사진"
+  },
+  {
+    "src": "assets/gallery-large/15 01_HKS01431_선수정_5x7인화.jpg",
+    "thumb": "assets/gallery-thumb/15 01_HKS01431_선수정_5x7인화.jpg",
+    "alt": "재혁과 소진의 웨딩 사진 42",
     "caption": "재혁과 소진의 웨딩 사진"
   }
 ];
