@@ -419,7 +419,7 @@ img {
   overflow: hidden;
   background:
     linear-gradient(rgba(24, 24, 20, 0.48), rgba(24, 24, 20, 0.48)),
-    url("assets/cover.jpeg") center 43% / cover;
+    url("assets/dday_count/HKS01665.jpg") center 43% / cover;
   color: var(--white);
   text-align: center;
 }
