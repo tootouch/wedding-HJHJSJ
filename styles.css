@@ -419,7 +419,7 @@ img {
   overflow: hidden;
   background:
     linear-gradient(rgba(24, 24, 20, 0.48), rgba(24, 24, 20, 0.48)),
-    url("assets/dday_count/HKS01665.jpg") center 43% / cover;
+    url("assets/dday_count/HKS01665.jpg?v=20260623-dday-bg-edit") center 43% / cover;
   color: var(--white);
   text-align: center;
 }
@@ -1134,10 +1134,11 @@ img {
 
 .account-card__number {
   color: var(--ink);
-  font-size: 0.98rem;
+  font-size: clamp(0.84rem, 2.2vw, 0.98rem);
   font-weight: 800;
   line-height: 1.45;
   text-align: right;
+  white-space: nowrap;
   word-break: keep-all;
 }
 
