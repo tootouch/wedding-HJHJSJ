@@ -786,6 +786,9 @@ function setupGallery() {
   const next = document.querySelector("[data-gallery-next]");
   let activeIndex = 0;
   let pointerStartX = 0;
+  let pointerStartY = 0;
+  let activeGalleryPointers = 0;
+  let isPinchingGallery = false;
   let thumbDragStartX = 0;
   let thumbDragScrollLeft = 0;
   let isDraggingThumbs = false;
@@ -905,18 +908,38 @@ function setupGallery() {
   });
 
   figure.addEventListener("pointerdown", (event) => {
+    activeGalleryPointers += 1;
+    if (activeGalleryPointers > 1) {
+      isPinchingGallery = true;
+    }
     pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
     figure.setPointerCapture?.(event.pointerId);
   });
 
   figure.addEventListener("pointerup", (event) => {
+    activeGalleryPointers = Math.max(0, activeGalleryPointers - 1);
+    if (isPinchingGallery) {
+      if (activeGalleryPointers === 0) {
+        isPinchingGallery = false;
+      }
+      return;
+    }
     const distance = event.clientX - pointerStartX;
-    if (Math.abs(distance) < 44) {
+    const verticalDistance = event.clientY - pointerStartY;
+    if (Math.abs(distance) < 56 || Math.abs(distance) < Math.abs(verticalDistance) * 1.25) {
       return;
     }
     showImage(distance > 0 ? activeIndex - 1 : activeIndex + 1, {
       direction: distance > 0 ? -1 : 1,
     });
+  });
+
+  figure.addEventListener("pointercancel", () => {
+    activeGalleryPointers = Math.max(0, activeGalleryPointers - 1);
+    if (activeGalleryPointers === 0) {
+      isPinchingGallery = false;
+    }
   });
 
   dialog.addEventListener("close", () => {

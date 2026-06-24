@@ -1712,7 +1712,7 @@ img {
   height: 100%;
   margin: 0;
   cursor: grab;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
   user-select: none;
 }
 
