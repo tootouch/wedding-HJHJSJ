@@ -786,6 +786,11 @@ function setupGallery() {
   const next = document.querySelector("[data-gallery-next]");
   let activeIndex = 0;
   let pointerStartX = 0;
+  let thumbDragStartX = 0;
+  let thumbDragScrollLeft = 0;
+  let isDraggingThumbs = false;
+  let suppressThumbClick = false;
+  let pendingThumbTile = null;
   let hintTimer = 0;
 
   function playSwipeHint() {
@@ -799,14 +804,20 @@ function setupGallery() {
   }
 
   function showImage(index, options = {}) {
-    const { scrollThumb = true } = options;
+    const { scrollThumb = true, direction = 0 } = options;
     activeIndex = (index + invitation.gallery.length) % invitation.gallery.length;
     const item = invitation.gallery[activeIndex];
+    image.classList.remove("is-entering-from-left", "is-entering-from-right");
     mainImage.src = item.src;
     mainImage.alt = item.alt;
     mainImage.style.objectPosition = item.focus || "50% 50%";
     image.src = item.src;
     image.alt = item.alt;
+    image.style.objectPosition = item.focus || "50% 50%";
+    if (direction !== 0) {
+      void image.offsetWidth;
+      image.classList.add(direction > 0 ? "is-entering-from-right" : "is-entering-from-left");
+    }
     caption.textContent = item.caption || item.alt;
     counter.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
 
@@ -830,18 +841,53 @@ function setupGallery() {
   renderGalleryGrid(grid, invitation.gallery);
   showImage(0, { scrollThumb: false });
 
-  grid.querySelectorAll("[data-gallery]").forEach((tile) => {
-    tile.addEventListener("click", () => {
-      openImage(Number(tile.dataset.gallery));
-    });
+  grid.addEventListener("pointerdown", (event) => {
+    if (event.button !== undefined && event.button !== 0) {
+      return;
+    }
+    pendingThumbTile = event.target.closest("[data-gallery]");
+    thumbDragStartX = event.clientX;
+    thumbDragScrollLeft = grid.scrollLeft;
+    isDraggingThumbs = event.pointerType !== "touch";
+    suppressThumbClick = false;
+    if (isDraggingThumbs) {
+      grid.classList.add("is-dragging");
+      grid.setPointerCapture?.(event.pointerId);
+    }
   });
 
+  grid.addEventListener("pointermove", (event) => {
+    if (event.pointerType === "touch" || !isDraggingThumbs) {
+      return;
+    }
+    const distance = event.clientX - thumbDragStartX;
+    if (Math.abs(distance) > 10) {
+      suppressThumbClick = true;
+    }
+    grid.scrollLeft = thumbDragScrollLeft - distance;
+  });
+
+  function stopThumbDrag(event) {
+    const shouldOpenThumb = pendingThumbTile && !suppressThumbClick && event.type === "pointerup";
+    isDraggingThumbs = false;
+    grid.classList.remove("is-dragging");
+    if (shouldOpenThumb) {
+      openImage(Number(pendingThumbTile.dataset.gallery));
+    }
+    pendingThumbTile = null;
+    suppressThumbClick = false;
+  }
+
+  grid.addEventListener("pointerup", stopThumbDrag);
+  grid.addEventListener("pointercancel", stopThumbDrag);
+  grid.addEventListener("pointerleave", stopThumbDrag);
+
   mainButton.addEventListener("click", () => openImage(activeIndex));
-  inlinePrev.addEventListener("click", () => showImage(activeIndex - 1));
-  inlineNext.addEventListener("click", () => showImage(activeIndex + 1));
+  inlinePrev.addEventListener("click", () => showImage(activeIndex - 1, { direction: -1 }));
+  inlineNext.addEventListener("click", () => showImage(activeIndex + 1, { direction: 1 }));
   close.addEventListener("click", () => dialog.close());
-  prev.addEventListener("click", () => showImage(activeIndex - 1));
-  next.addEventListener("click", () => showImage(activeIndex + 1));
+  prev.addEventListener("click", () => showImage(activeIndex - 1, { direction: -1 }));
+  next.addEventListener("click", () => showImage(activeIndex + 1, { direction: 1 }));
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
@@ -851,10 +897,10 @@ function setupGallery() {
 
   dialog.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {
-      showImage(activeIndex - 1);
+      showImage(activeIndex - 1, { direction: -1 });
     }
     if (event.key === "ArrowRight") {
-      showImage(activeIndex + 1);
+      showImage(activeIndex + 1, { direction: 1 });
     }
   });
 
@@ -868,7 +914,9 @@ function setupGallery() {
     if (Math.abs(distance) < 44) {
       return;
     }
-    showImage(distance > 0 ? activeIndex - 1 : activeIndex + 1);
+    showImage(distance > 0 ? activeIndex - 1 : activeIndex + 1, {
+      direction: distance > 0 ? -1 : 1,
+    });
   });
 
   dialog.addEventListener("close", () => {
