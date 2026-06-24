@@ -795,7 +795,24 @@ function setupGallery() {
   let suppressThumbClick = false;
   let pendingThumbTile = null;
   let hintTimer = 0;
+  let controlsTimer = 0;
   const preloadedGalleryImages = new Set();
+
+  function hideGalleryControlsLater() {
+    window.clearTimeout(controlsTimer);
+    if (!dialog.open) {
+      return;
+    }
+    controlsTimer = window.setTimeout(() => {
+      dialog.classList.add("is-controls-hidden");
+    }, 2400);
+  }
+
+  function revealGalleryControls() {
+    window.clearTimeout(controlsTimer);
+    dialog.classList.remove("is-controls-hidden");
+    hideGalleryControlsLater();
+  }
 
   function preloadGalleryImage(index) {
     const item = invitation.gallery[(index + invitation.gallery.length) % invitation.gallery.length];
@@ -876,6 +893,7 @@ function setupGallery() {
     showImage(index);
     preloadGalleryImage(index);
     dialog.showModal();
+    revealGalleryControls();
     playSwipeHint();
   }
 
@@ -927,8 +945,14 @@ function setupGallery() {
   inlinePrev.addEventListener("click", () => showImage(activeIndex - 1, { direction: -1 }));
   inlineNext.addEventListener("click", () => showImage(activeIndex + 1, { direction: 1 }));
   close.addEventListener("click", () => dialog.close());
-  prev.addEventListener("click", () => showImage(activeIndex - 1, { direction: -1 }));
-  next.addEventListener("click", () => showImage(activeIndex + 1, { direction: 1 }));
+  prev.addEventListener("click", () => {
+    revealGalleryControls();
+    showImage(activeIndex - 1, { direction: -1 });
+  });
+  next.addEventListener("click", () => {
+    revealGalleryControls();
+    showImage(activeIndex + 1, { direction: 1 });
+  });
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
@@ -937,6 +961,7 @@ function setupGallery() {
   });
 
   dialog.addEventListener("keydown", (event) => {
+    revealGalleryControls();
     if (event.key === "ArrowLeft") {
       showImage(activeIndex - 1, { direction: -1 });
     }
@@ -946,6 +971,7 @@ function setupGallery() {
   });
 
   figure.addEventListener("pointerdown", (event) => {
+    revealGalleryControls();
     activeGalleryPointers += 1;
     if (activeGalleryPointers > 1) {
       isPinchingGallery = true;
@@ -980,9 +1006,13 @@ function setupGallery() {
     }
   });
 
+  dialog.addEventListener("pointermove", revealGalleryControls);
+  dialog.addEventListener("touchstart", revealGalleryControls, { passive: true });
+
   dialog.addEventListener("close", () => {
     window.clearTimeout(hintTimer);
-    dialog.classList.remove("is-swipe-hint");
+    window.clearTimeout(controlsTimer);
+    dialog.classList.remove("is-swipe-hint", "is-controls-hidden");
   });
 }
 

@@ -1827,6 +1827,9 @@ img {
   color: var(--sage-deep);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(14px);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
 }
 
 .gallery-dialog__nav {
@@ -1846,6 +1849,23 @@ img {
   cursor: pointer;
   transform: translateY(-50%);
   backdrop-filter: blur(14px);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.gallery-dialog.is-controls-hidden .gallery-dialog__close,
+.gallery-dialog.is-controls-hidden .gallery-dialog__nav {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gallery-dialog.is-controls-hidden .gallery-dialog__close {
+  transform: translateY(-8px);
+}
+
+.gallery-dialog.is-controls-hidden .gallery-dialog__nav {
+  transform: translateY(-50%) scale(0.94);
 }
 
 .gallery-dialog__nav svg {
