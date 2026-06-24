@@ -62,8 +62,6 @@ ordered_files.each_with_index do |name, index|
   run_sips("-s", "format", "jpeg", "-Z", "320", source, "--out", File.join(THUMB_DIR, "gallery-#{number}.jpg"))
 end
 
-run_sips("-s", "format", "jpeg", "-Z", "1600", File.join(ASSETS_DIR, ordered_files.first), "--out", File.join(ASSETS_DIR, "cover.jpeg"))
-
 manifest_items = gallery_items(ordered_files.length, quoted_keys: true)
 manifest = "globalThis.galleryImages = [\n" +
   manifest_items.map { |item| item.lines.map { |line| "  #{line}" }.join }.join(",\n") +
@@ -81,7 +79,6 @@ File.write(SCRIPT_FILE, script.sub(gallery_pattern, script_replacement))
 
 index = File.read(INDEX_FILE)
 index = index
-  .gsub(/assets\/cover\.jpeg\?v=[^"]+/, "assets/cover.jpeg?v=#{VERSION}")
   .gsub(/assets\/gallery-manifest\.js\?v=[^"]+/, "assets/gallery-manifest.js?v=#{VERSION}")
   .gsub(/script\.js\?v=[^"]+/, "script.js?v=#{VERSION}")
   .gsub(/assets\/gallery-large\/gallery-001\.jpg\?v=[^"]+/, "assets/gallery-large/gallery-001.jpg?v=#{VERSION}")

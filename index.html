@@ -13,25 +13,25 @@
     <meta property="og:title" content="재혁 &amp; 소진의 결혼식에 초대합니다" />
     <meta
       property="og:description"
-      content="2026년 9월 20일 일요일 오후 6시 10분, 라마다 서울 신도림 호텔 5층 세인트그레이스홀"
+      content="2026년 9월 20일 일요일 오후 6시 10분, 라마다 호텔 신도림 5층 세인트그레이스홀"
     />
-    <meta property="og:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg?v=gallery-20260623225342" />
+    <meta property="og:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg?v=cover-202606241051" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg?v=gallery-20260623225342" />
+    <meta name="twitter:image" content="https://tootouch.github.io/wedding-HJHJSJ/assets/cover.jpeg?v=cover-202606241051" />
     <title>재혁 &amp; 소진의 모바일 청첩장</title>
-    <link rel="preload" href="assets/cover.jpeg?v=gallery-20260623225342" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260623-account-nowrap" />
+    <link rel="preload" href="assets/cover.jpeg?v=cover-202606241051" as="image" />
+    <link rel="stylesheet" href="styles.css?v=20260624-account-compact" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
-    <script src="assets/gallery-manifest.js?v=gallery-20260623225342" defer></script>
-    <script src="script.js?v=gallery-20260623225342" defer></script>
+    <script src="assets/gallery-manifest.js?v=gallery-20260624122427" defer></script>
+    <script src="script.js?v=20260624-venue-name" defer></script>
   </head>
   <body>
     <main class="invitation-shell">
       <section class="hero" aria-labelledby="couple-names">
         <img
           class="hero__image"
-          src="assets/cover.jpeg?v=gallery-20260623225342"
+          src="assets/cover.jpeg?v=cover-202606241051"
           alt="재혁과 소진의 웨딩 대표 사진"
         />
         <div class="hero__shade"></div>
@@ -115,30 +115,41 @@
               <i data-lucide="chevron-left" aria-hidden="true"></i>
             </button>
             <button class="gallery-main" type="button" data-gallery-main-open aria-label="사진 크게 보기">
-              <img src="assets/gallery-large/gallery-001.jpg?v=gallery-20260623225342" alt="재혁과 소진의 웨딩 사진" data-gallery-main-image />
+              <img src="assets/gallery-large/gallery-001.jpg?v=gallery-20260624122427" alt="재혁과 소진의 웨딩 사진" data-gallery-main-image />
             </button>
             <button class="gallery-inline-nav gallery-inline-nav--next" type="button" data-gallery-inline-next aria-label="다음 사진">
               <i data-lucide="chevron-right" aria-hidden="true"></i>
             </button>
           </div>
           <div class="gallery-thumbs" data-gallery-grid aria-label="웨딩 사진 썸네일"></div>
-          <p class="gallery-progress" data-gallery-progress>1 / 41</p>
         </div>
       </section>
 
       <section id="calendar" class="calendar section-band" aria-labelledby="calendar-title">
         <div class="d-day-count">
+          <video class="d-day-count__video" autoplay muted loop playsinline preload="metadata" poster="assets/dday_count/HKS01665.jpg?v=20260623-dday-bg-edit" aria-hidden="true">
+            <source src="assets/dday_count/dday_video.mp4" type="video/mp4" />
+          </video>
           <div class="d-day-count__content">
             <p>D-DAY COUNT</p>
             <h2 id="calendar-title">
               <span data-field="groomFirst"></span> &amp; <span data-field="brideFirst"></span>의 결혼식까지
             </h2>
-            <div class="d-day-count__days">
-              D-<strong data-countdown="days">0</strong>
+            <div class="d-day-count__chips" aria-label="예식까지 남은 시간">
+              <div class="d-day-count__chip">
+                <strong data-countdown="days">0</strong>
+                <span>DAYS</span>
+              </div>
+              <div class="d-day-count__chip">
+                <strong data-countdown="hoursPadded">00</strong>
+                <span>HOURS</span>
+              </div>
+              <div class="d-day-count__chip">
+                <strong data-countdown="minutesPadded">00</strong>
+                <span>MIN</span>
+              </div>
             </div>
-            <div class="d-day-count__clock" aria-label="예식까지 남은 시간">
-              <span data-countdown="hoursPadded">00</span>:<span data-countdown="minutesPadded">00</span>:<span data-countdown="secondsPadded">00</span>
-            </div>
+            <p class="d-day-count__date">2026.09.20 SUN 6:10 PM</p>
             <button class="d-day-count__save" type="button" data-action="calendar">
               <i data-lucide="calendar-plus" aria-hidden="true"></i>
               <span>일정 저장</span>
@@ -159,10 +170,10 @@
         </div>
         <div class="location-layout">
           <div class="location-map-column">
-            <div class="map-preview" aria-label="라마다 서울 신도림 호텔 위치 지도">
+            <div class="map-preview" aria-label="라마다 호텔 신도림 위치 지도">
               <iframe
                 class="map-preview__frame"
-                title="라마다 서울 신도림 호텔 위치 지도"
+                title="라마다 호텔 신도림 위치 지도"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=126.8829%2C37.5047%2C126.8878%2C37.5079&amp;layer=mapnik&amp;marker=37.50625443087106%2C126.88535657308628"
                 loading="lazy"
               ></iframe>
@@ -262,9 +273,9 @@
                   <span class="account-card__number" data-field="groomAccount"></span>
                 </div>
                 <div class="account-card__actions account-card__actions--single">
-                  <button class="account-copy-button" type="button" data-copy="groomAccount">
+                  <button class="account-copy-button" type="button" data-copy="groomAccount" aria-label="허재혁 계좌번호 복사">
                     <i data-lucide="copy" aria-hidden="true"></i>
-                    <span>계좌번호 복사</span>
+                    <span>복사</span>
                   </button>
                 </div>
               </article>
@@ -277,9 +288,9 @@
                   <span class="account-card__number" data-field="groomFatherAccount"></span>
                 </div>
                 <div class="account-card__actions account-card__actions--single">
-                  <button class="account-copy-button" type="button" data-copy="groomFatherAccount">
+                  <button class="account-copy-button" type="button" data-copy="groomFatherAccount" aria-label="허승규 계좌번호 복사">
                     <i data-lucide="copy" aria-hidden="true"></i>
-                    <span>계좌번호 복사</span>
+                    <span>복사</span>
                   </button>
                 </div>
               </article>
@@ -303,9 +314,9 @@
                   <span class="account-card__number" data-field="brideAccount"></span>
                 </div>
                 <div class="account-card__actions account-card__actions--single">
-                  <button class="account-copy-button" type="button" data-copy="brideAccount">
+                  <button class="account-copy-button" type="button" data-copy="brideAccount" aria-label="조소진 계좌번호 복사">
                     <i data-lucide="copy" aria-hidden="true"></i>
-                    <span>계좌번호 복사</span>
+                    <span>복사</span>
                   </button>
                 </div>
               </article>
@@ -318,9 +329,9 @@
                   <span class="account-card__number" data-field="brideFatherAccount"></span>
                 </div>
                 <div class="account-card__actions account-card__actions--single">
-                  <button class="account-copy-button" type="button" data-copy="brideFatherAccount">
+                  <button class="account-copy-button" type="button" data-copy="brideFatherAccount" aria-label="조광희 계좌번호 복사">
                     <i data-lucide="copy" aria-hidden="true"></i>
-                    <span>계좌번호 복사</span>
+                    <span>복사</span>
                   </button>
                 </div>
               </article>
@@ -333,9 +344,9 @@
                   <span class="account-card__number" data-field="brideMotherAccount"></span>
                 </div>
                 <div class="account-card__actions account-card__actions--single">
-                  <button class="account-copy-button" type="button" data-copy="brideMotherAccount">
+                  <button class="account-copy-button" type="button" data-copy="brideMotherAccount" aria-label="정은정 계좌번호 복사">
                     <i data-lucide="copy" aria-hidden="true"></i>
-                    <span>계좌번호 복사</span>
+                    <span>복사</span>
                   </button>
                 </div>
               </article>
@@ -399,7 +410,12 @@
         <i data-lucide="chevron-left" aria-hidden="true"></i>
       </button>
       <figure class="gallery-dialog__figure">
-        <img src="assets/cover.jpeg?v=gallery-20260623225342" alt="확대된 웨딩 이미지" data-gallery-image />
+        <img src="assets/cover.jpeg?v=cover-202606241051" alt="확대된 웨딩 이미지" data-gallery-image />
+        <div class="gallery-swipe-hint" aria-hidden="true">
+          <span></span>
+          <strong>좌우로 넘겨보세요</strong>
+          <span></span>
+        </div>
         <figcaption>
           <span data-gallery-caption></span>
           <span data-gallery-counter></span>

@@ -53,10 +53,10 @@ const invitation = {
     dateLabel: "2026. 09. 20. SUN 6:10 PM",
     dateFull: "2026년 9월 20일 일요일",
     time: "오후 6시 10분",
-    venue: "라마다 서울 신도림 호텔",
+    venue: "라마다 호텔 신도림",
     venueHall: "5층 세인트그레이스홀",
-    venueDetail: "라마다 서울 신도림 호텔 5층 세인트그레이스홀",
-    venueShort: "라마다 서울 신도림",
+    venueDetail: "라마다 호텔 신도림 5층 세인트그레이스홀",
+    venueShort: "라마다 호텔 신도림",
     address: "서울특별시 구로구 경인로 624",
     addressShort: "서울특별시 구로구 경인로 624",
     mapQuery: "라마다서울신도림호텔",
@@ -65,249 +65,237 @@ const invitation = {
   },
   gallery: globalThis.galleryImages || [
     {
-      src: "assets/gallery-large/gallery-001.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-001.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-001.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-001.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 1",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-002.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-002.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-002.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-002.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 2",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-003.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-003.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-003.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-003.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 3",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-004.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-004.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-004.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-004.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 4",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-005.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-005.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-005.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-005.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 5",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-006.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-006.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-006.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-006.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 6",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-007.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-007.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-007.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-007.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 7",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-008.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-008.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-008.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-008.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 8",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-009.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-009.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-009.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-009.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 9",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-010.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-010.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-010.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-010.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 10",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-011.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-011.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-011.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-011.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 11",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-012.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-012.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-012.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-012.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 12",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-013.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-013.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-013.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-013.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 13",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-014.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-014.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-014.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-014.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 14",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-015.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-015.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-015.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-015.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 15",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-016.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-016.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-016.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-016.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 16",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-017.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-017.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-017.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-017.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 17",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-018.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-018.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-018.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-018.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 18",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-019.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-019.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-019.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-019.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 19",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-020.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-020.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-020.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-020.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 20",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-021.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-021.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-021.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-021.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 21",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-022.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-022.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-022.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-022.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 22",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-023.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-023.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-023.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-023.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 23",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-024.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-024.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-024.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-024.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 24",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-025.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-025.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-025.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-025.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 25",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-026.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-026.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-026.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-026.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 26",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-027.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-027.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-027.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-027.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 27",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-028.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-028.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-028.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-028.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 28",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-029.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-029.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-029.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-029.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 29",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-030.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-030.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-030.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-030.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 30",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-031.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-031.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-031.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-031.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 31",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-032.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-032.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-032.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-032.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 32",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-033.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-033.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-033.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-033.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 33",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-034.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-034.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-034.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-034.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 34",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-035.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-035.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-035.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-035.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 35",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-036.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-036.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-036.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-036.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 36",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-037.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-037.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-037.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-037.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 37",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-038.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-038.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-038.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-038.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 38",
       caption: "재혁과 소진의 웨딩 사진",
     },
     {
-      src: "assets/gallery-large/gallery-039.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-039.jpg?v=gallery-20260623225342",
+      src: "assets/gallery-large/gallery-039.jpg?v=gallery-20260624122427",
+      thumb: "assets/gallery-thumb/gallery-039.jpg?v=gallery-20260624122427",
       alt: "재혁과 소진의 웨딩 사진 39",
-      caption: "재혁과 소진의 웨딩 사진",
-    },
-    {
-      src: "assets/gallery-large/gallery-040.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-040.jpg?v=gallery-20260623225342",
-      alt: "재혁과 소진의 웨딩 사진 40",
-      caption: "재혁과 소진의 웨딩 사진",
-    },
-    {
-      src: "assets/gallery-large/gallery-041.jpg?v=gallery-20260623225342",
-      thumb: "assets/gallery-thumb/gallery-041.jpg?v=gallery-20260623225342",
-      alt: "재혁과 소진의 웨딩 사진 41",
       caption: "재혁과 소진의 웨딩 사진",
     }
   ],
@@ -785,11 +773,11 @@ function renderGalleryGrid(grid, items) {
 function setupGallery() {
   const dialog = document.querySelector("[data-gallery-dialog]");
   const grid = document.querySelector("[data-gallery-grid]");
-  const progress = document.querySelector("[data-gallery-progress]");
   const mainButton = document.querySelector("[data-gallery-main-open]");
   const mainImage = document.querySelector("[data-gallery-main-image]");
   const inlinePrev = document.querySelector("[data-gallery-inline-prev]");
   const inlineNext = document.querySelector("[data-gallery-inline-next]");
+  const figure = dialog.querySelector(".gallery-dialog__figure");
   const image = document.querySelector("[data-gallery-image]");
   const caption = document.querySelector("[data-gallery-caption]");
   const counter = document.querySelector("[data-gallery-counter]");
@@ -797,7 +785,18 @@ function setupGallery() {
   const prev = document.querySelector("[data-gallery-prev]");
   const next = document.querySelector("[data-gallery-next]");
   let activeIndex = 0;
-  let touchStartX = 0;
+  let pointerStartX = 0;
+  let hintTimer = 0;
+
+  function playSwipeHint() {
+    window.clearTimeout(hintTimer);
+    dialog.classList.remove("is-swipe-hint");
+    void dialog.offsetWidth;
+    dialog.classList.add("is-swipe-hint");
+    hintTimer = window.setTimeout(() => {
+      dialog.classList.remove("is-swipe-hint");
+    }, 1800);
+  }
 
   function showImage(index, options = {}) {
     const { scrollThumb = true } = options;
@@ -810,7 +809,6 @@ function setupGallery() {
     image.alt = item.alt;
     caption.textContent = item.caption || item.alt;
     counter.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
-    progress.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
 
     grid.querySelectorAll("[data-gallery]").forEach((tile) => {
       const isActive = Number(tile.dataset.gallery) === activeIndex;
@@ -826,6 +824,7 @@ function setupGallery() {
   function openImage(index) {
     showImage(index);
     dialog.showModal();
+    playSwipeHint();
   }
 
   renderGalleryGrid(grid, invitation.gallery);
@@ -833,7 +832,7 @@ function setupGallery() {
 
   grid.querySelectorAll("[data-gallery]").forEach((tile) => {
     tile.addEventListener("click", () => {
-      showImage(Number(tile.dataset.gallery));
+      openImage(Number(tile.dataset.gallery));
     });
   });
 
@@ -859,25 +858,23 @@ function setupGallery() {
     }
   });
 
-  dialog.addEventListener(
-    "touchstart",
-    (event) => {
-      touchStartX = event.changedTouches[0].clientX;
-    },
-    { passive: true },
-  );
+  figure.addEventListener("pointerdown", (event) => {
+    pointerStartX = event.clientX;
+    figure.setPointerCapture?.(event.pointerId);
+  });
 
-  dialog.addEventListener(
-    "touchend",
-    (event) => {
-      const distance = event.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(distance) < 44) {
-        return;
-      }
-      showImage(distance > 0 ? activeIndex - 1 : activeIndex + 1);
-    },
-    { passive: true },
-  );
+  figure.addEventListener("pointerup", (event) => {
+    const distance = event.clientX - pointerStartX;
+    if (Math.abs(distance) < 44) {
+      return;
+    }
+    showImage(distance > 0 ? activeIndex - 1 : activeIndex + 1);
+  });
+
+  dialog.addEventListener("close", () => {
+    window.clearTimeout(hintTimer);
+    dialog.classList.remove("is-swipe-hint");
+  });
 }
 
 function setupRsvp() {
