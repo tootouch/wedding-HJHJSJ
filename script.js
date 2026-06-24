@@ -795,6 +795,38 @@ function setupGallery() {
   let suppressThumbClick = false;
   let pendingThumbTile = null;
   let hintTimer = 0;
+  const preloadedGalleryImages = new Set();
+
+  function preloadGalleryImage(index) {
+    const item = invitation.gallery[(index + invitation.gallery.length) % invitation.gallery.length];
+    if (!item || preloadedGalleryImages.has(item.src)) {
+      return;
+    }
+    preloadedGalleryImages.add(item.src);
+    const preloadImage = new Image();
+    preloadImage.decoding = "async";
+    preloadImage.src = item.src;
+    preloadImage.decode?.().catch(() => {});
+  }
+
+  function preloadGalleryNeighbors(index) {
+    [-2, -1, 1, 2].forEach((offset) => preloadGalleryImage(index + offset));
+  }
+
+  function animateGalleryTransition(direction) {
+    if (direction === 0 || !dialog.open || !image.src) {
+      return;
+    }
+    const clone = image.cloneNode(false);
+    clone.removeAttribute("data-gallery-image");
+    clone.classList.remove("is-entering-from-left", "is-entering-from-right");
+    clone.classList.add(
+      "gallery-dialog__image-clone",
+      direction > 0 ? "is-leaving-to-left" : "is-leaving-to-right",
+    );
+    figure.append(clone);
+    clone.addEventListener("animationend", () => clone.remove(), { once: true });
+  }
 
   function playSwipeHint() {
     window.clearTimeout(hintTimer);
@@ -808,6 +840,10 @@ function setupGallery() {
 
   function showImage(index, options = {}) {
     const { scrollThumb = true, direction = 0 } = options;
+    if (direction !== 0) {
+      dialog.classList.remove("is-swipe-hint");
+    }
+    animateGalleryTransition(direction);
     activeIndex = (index + invitation.gallery.length) % invitation.gallery.length;
     const item = invitation.gallery[activeIndex];
     image.classList.remove("is-entering-from-left", "is-entering-from-right");
@@ -823,6 +859,7 @@ function setupGallery() {
     }
     caption.textContent = item.caption || item.alt;
     counter.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
+    preloadGalleryNeighbors(activeIndex);
 
     grid.querySelectorAll("[data-gallery]").forEach((tile) => {
       const isActive = Number(tile.dataset.gallery) === activeIndex;
@@ -837,6 +874,7 @@ function setupGallery() {
 
   function openImage(index) {
     showImage(index);
+    preloadGalleryImage(index);
     dialog.showModal();
     playSwipeHint();
   }

@@ -1721,11 +1721,20 @@ img {
 }
 
 .gallery-dialog img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 0;
   background: transparent;
+  will-change: transform, opacity;
+}
+
+.gallery-dialog__image-clone {
+  z-index: 1;
+  pointer-events: none;
 }
 
 .gallery-dialog img.is-entering-from-left {
@@ -1736,6 +1745,14 @@ img {
   animation: galleryImageEnterFromRight 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.gallery-dialog__image-clone.is-leaving-to-left {
+  animation: galleryImageLeaveToLeft 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.gallery-dialog__image-clone.is-leaving-to-right {
+  animation: galleryImageLeaveToRight 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .gallery-dialog.is-swipe-hint img {
   animation: gallerySwipePreview 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -1744,7 +1761,7 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 2;
+  z-index: 4;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -1785,6 +1802,7 @@ img {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 3;
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -2237,8 +2255,8 @@ img {
 
 @keyframes galleryImageEnterFromLeft {
   0% {
-    opacity: 0.2;
-    transform: translateX(-42px);
+    opacity: 1;
+    transform: translateX(-100%);
   }
 
   100% {
@@ -2249,13 +2267,37 @@ img {
 
 @keyframes galleryImageEnterFromRight {
   0% {
-    opacity: 0.2;
-    transform: translateX(42px);
+    opacity: 1;
+    transform: translateX(100%);
   }
 
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes galleryImageLeaveToLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes galleryImageLeaveToRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(100%);
   }
 }
 
