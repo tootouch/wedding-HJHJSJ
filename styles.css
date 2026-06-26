@@ -1714,6 +1714,7 @@ img {
   cursor: grab;
   touch-action: pan-y pinch-zoom;
   user-select: none;
+  overscroll-behavior: contain;
 }
 
 .gallery-dialog__figure:active {
@@ -1730,11 +1731,28 @@ img {
   border-radius: 0;
   background: transparent;
   will-change: transform, opacity;
+  -webkit-user-drag: none;
 }
 
 .gallery-dialog__image-clone {
   z-index: 1;
   pointer-events: none;
+}
+
+.gallery-dialog.is-gallery-dragging .gallery-dialog__figure {
+  cursor: grabbing;
+}
+
+.gallery-dialog img.is-gallery-dragging,
+.gallery-dialog__image-clone.is-gallery-drag-neighbor {
+  animation: none;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-origin: center center;
+}
+
+.gallery-dialog__image-clone.is-gallery-drag-neighbor {
+  z-index: 1;
 }
 
 .gallery-dialog img.is-entering-from-left {
@@ -1836,19 +1854,17 @@ img {
   position: fixed;
   top: 50%;
   z-index: 5;
-  width: 44px;
-  height: 44px;
+  width: 58px;
+  height: 96px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  border-radius: 999px;
-  background: rgba(255, 253, 249, 0.24);
+  border: 0;
+  background: transparent;
   color: rgba(255, 253, 249, 0.96);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+  filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.42));
   cursor: pointer;
   transform: translateY(-50%);
-  backdrop-filter: blur(14px);
   transition:
     opacity 220ms ease,
     transform 220ms ease;
@@ -1869,8 +1885,10 @@ img {
 }
 
 .gallery-dialog__nav svg {
-  width: 24px;
-  height: 24px;
+  width: 34px;
+  height: 68px;
+  stroke-width: 1.7;
+  transform: scaleY(1.45);
 }
 
 .gallery-dialog__nav--prev {
@@ -2554,8 +2572,8 @@ img {
   }
 
   .gallery-dialog__nav {
-    width: 40px;
-    height: 40px;
+    width: 54px;
+    height: 92px;
   }
 
   .gallery-dialog__nav--prev {

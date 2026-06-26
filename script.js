@@ -721,6 +721,16 @@ function setupGallery() {
   let activeIndex = 0;
   let pointerStartX = 0;
   let pointerStartY = 0;
+  let pointerLastX = 0;
+  let pointerLastAt = 0;
+  let galleryDragVelocity = 0;
+  let galleryDragPointerId = null;
+  let isDraggingGallery = false;
+  let galleryDragDirection = 0;
+  let galleryDragNeighbor = null;
+  let galleryDragFrame = 0;
+  let gallerySettleTimer = 0;
+  let galleryDragDelta = 0;
   let activeGalleryPointers = 0;
   let isPinchingGallery = false;
   let thumbDragStartX = 0;
@@ -779,6 +789,108 @@ function setupGallery() {
     clone.addEventListener("animationend", () => clone.remove(), { once: true });
   }
 
+  function getGalleryItem(index) {
+    return invitation.gallery[(index + invitation.gallery.length) % invitation.gallery.length];
+  }
+
+  function resetGalleryDragStyles() {
+    window.cancelAnimationFrame(galleryDragFrame);
+    window.clearTimeout(gallerySettleTimer);
+    galleryDragFrame = 0;
+    gallerySettleTimer = 0;
+    galleryDragDelta = 0;
+    galleryDragVelocity = 0;
+    galleryDragPointerId = null;
+    isDraggingGallery = false;
+    galleryDragDirection = 0;
+    dialog.classList.remove("is-gallery-dragging");
+    image.classList.remove("is-gallery-dragging");
+    image.style.transition = "";
+    image.style.transform = "";
+    if (galleryDragNeighbor) {
+      galleryDragNeighbor.remove();
+      galleryDragNeighbor = null;
+    }
+  }
+
+  function createGalleryDragNeighbor(direction) {
+    const neighbor = image.cloneNode(false);
+    const item = getGalleryItem(activeIndex + direction);
+    neighbor.removeAttribute("data-gallery-image");
+    neighbor.className = "gallery-dialog__image-clone is-gallery-drag-neighbor";
+    neighbor.src = item.src;
+    neighbor.alt = item.alt;
+    neighbor.style.objectPosition = item.focus || "50% 50%";
+    figure.append(neighbor);
+    preloadGalleryImage(activeIndex + direction);
+    return neighbor;
+  }
+
+  function setGalleryDragPosition(delta) {
+    galleryDragDelta = delta;
+    if (galleryDragFrame) {
+      return;
+    }
+    galleryDragFrame = window.requestAnimationFrame(() => {
+      galleryDragFrame = 0;
+      const width = Math.max(1, figure.clientWidth);
+      const edgeResistance = width * 0.16;
+      const clampedDelta = Math.max(-width - edgeResistance, Math.min(width + edgeResistance, galleryDragDelta));
+      const neighborOffset = galleryDragDirection > 0 ? width : -width;
+      image.style.transform = `translate3d(${clampedDelta}px, 0, 0)`;
+      if (galleryDragNeighbor) {
+        galleryDragNeighbor.style.transform = `translate3d(${neighborOffset + clampedDelta}px, 0, 0)`;
+      }
+    });
+  }
+
+  function beginGalleryDrag(delta) {
+    galleryDragDirection = delta < 0 ? 1 : -1;
+    galleryDragNeighbor = createGalleryDragNeighbor(galleryDragDirection);
+    isDraggingGallery = true;
+    dialog.classList.remove("is-swipe-hint");
+    dialog.classList.add("is-gallery-dragging");
+    image.classList.remove("is-entering-from-left", "is-entering-from-right");
+    image.classList.add("is-gallery-dragging");
+    image.style.transition = "";
+    galleryDragNeighbor.style.transition = "";
+  }
+
+  function settleGalleryDrag(shouldChange) {
+    const width = Math.max(1, figure.clientWidth);
+    const direction = galleryDragDirection;
+    const neighbor = galleryDragNeighbor;
+    window.cancelAnimationFrame(galleryDragFrame);
+    galleryDragFrame = 0;
+
+    if (!isDraggingGallery || !neighbor || direction === 0) {
+      resetGalleryDragStyles();
+      return;
+    }
+
+    const currentTarget = shouldChange ? -direction * width : 0;
+    const neighborTarget = shouldChange ? 0 : direction * width;
+    const finish = () => {
+      const nextIndex = activeIndex + (shouldChange ? direction : 0);
+      gallerySettleTimer = 0;
+      resetGalleryDragStyles();
+      if (shouldChange) {
+        showImage(nextIndex, { direction: 0 });
+      }
+    };
+
+    image.classList.remove("is-gallery-dragging");
+    image.style.transition = "transform 280ms cubic-bezier(0.22, 1, 0.36, 1)";
+    neighbor.style.transition = "transform 280ms cubic-bezier(0.22, 1, 0.36, 1)";
+
+    window.requestAnimationFrame(() => {
+      image.style.transform = `translate3d(${currentTarget}px, 0, 0)`;
+      neighbor.style.transform = `translate3d(${neighborTarget}px, 0, 0)`;
+    });
+
+    gallerySettleTimer = window.setTimeout(finish, 300);
+  }
+
   function playSwipeHint() {
     window.clearTimeout(hintTimer);
     dialog.classList.remove("is-swipe-hint");
@@ -791,6 +903,7 @@ function setupGallery() {
 
   function showImage(index, options = {}) {
     const { scrollThumb = true, direction = 0 } = options;
+    resetGalleryDragStyles();
     if (direction !== 0) {
       dialog.classList.remove("is-swipe-hint");
     }
@@ -909,28 +1022,66 @@ function setupGallery() {
     activeGalleryPointers += 1;
     if (activeGalleryPointers > 1) {
       isPinchingGallery = true;
+      resetGalleryDragStyles();
     }
     pointerStartX = event.clientX;
     pointerStartY = event.clientY;
+    pointerLastX = event.clientX;
+    pointerLastAt = performance.now();
+    galleryDragVelocity = 0;
+    galleryDragPointerId = event.pointerId;
     figure.setPointerCapture?.(event.pointerId);
+  });
+
+  figure.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== galleryDragPointerId || isPinchingGallery) {
+      return;
+    }
+    const deltaX = event.clientX - pointerStartX;
+    const deltaY = event.clientY - pointerStartY;
+    const now = performance.now();
+    const elapsed = Math.max(1, now - pointerLastAt);
+
+    galleryDragVelocity = (event.clientX - pointerLastX) / elapsed;
+    pointerLastX = event.clientX;
+    pointerLastAt = now;
+
+    if (!isDraggingGallery) {
+      if (Math.abs(deltaX) < 10 || Math.abs(deltaX) < Math.abs(deltaY) * 1.15) {
+        return;
+      }
+      beginGalleryDrag(deltaX);
+    }
+
+    event.preventDefault();
+    setGalleryDragPosition(deltaX);
   });
 
   figure.addEventListener("pointerup", (event) => {
     activeGalleryPointers = Math.max(0, activeGalleryPointers - 1);
+    if (event.pointerId !== galleryDragPointerId) {
+      return;
+    }
     if (isPinchingGallery) {
       if (activeGalleryPointers === 0) {
         isPinchingGallery = false;
       }
+      resetGalleryDragStyles();
       return;
     }
     const distance = event.clientX - pointerStartX;
     const verticalDistance = event.clientY - pointerStartY;
-    if (Math.abs(distance) < 56 || Math.abs(distance) < Math.abs(verticalDistance) * 1.25) {
+    const width = Math.max(1, figure.clientWidth);
+    const shouldChange =
+      isDraggingGallery &&
+      Math.abs(distance) >= Math.min(120, width * 0.18) &&
+      Math.abs(distance) >= Math.abs(verticalDistance) * 1.05;
+
+    if (isDraggingGallery) {
+      settleGalleryDrag(shouldChange || Math.abs(galleryDragVelocity) > 0.5);
       return;
     }
-    showImage(distance > 0 ? activeIndex - 1 : activeIndex + 1, {
-      direction: distance > 0 ? -1 : 1,
-    });
+    resetGalleryDragStyles();
   });
 
   figure.addEventListener("pointercancel", () => {
@@ -938,6 +1089,7 @@ function setupGallery() {
     if (activeGalleryPointers === 0) {
       isPinchingGallery = false;
     }
+    resetGalleryDragStyles();
   });
 
   dialog.addEventListener("pointermove", revealGalleryControls);
@@ -946,6 +1098,7 @@ function setupGallery() {
   dialog.addEventListener("close", () => {
     window.clearTimeout(hintTimer);
     window.clearTimeout(controlsTimer);
+    resetGalleryDragStyles();
     dialog.classList.remove("is-swipe-hint", "is-controls-hidden");
   });
 }
