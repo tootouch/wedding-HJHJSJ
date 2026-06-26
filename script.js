@@ -1047,7 +1047,7 @@ function setupGallery() {
     pointerLastAt = now;
 
     if (!isDraggingGallery) {
-      if (Math.abs(deltaX) < 10 || Math.abs(deltaX) < Math.abs(deltaY) * 1.15) {
+      if (Math.abs(deltaX) < 6 || Math.abs(deltaX) < Math.abs(deltaY) * 1.15) {
         return;
       }
       beginGalleryDrag(deltaX);
@@ -1074,7 +1074,7 @@ function setupGallery() {
     const width = Math.max(1, figure.clientWidth);
     const shouldChange =
       isDraggingGallery &&
-      Math.abs(distance) >= Math.min(120, width * 0.18) &&
+      Math.abs(distance) >= Math.min(34, Math.max(24, width * 0.065)) &&
       Math.abs(distance) >= Math.abs(verticalDistance) * 1.05;
 
     if (isDraggingGallery) {
