@@ -711,28 +711,16 @@ function setupGallery() {
   const mainImage = document.querySelector("[data-gallery-main-image]");
   const inlinePrev = document.querySelector("[data-gallery-inline-prev]");
   const inlineNext = document.querySelector("[data-gallery-inline-next]");
-  const figure = dialog.querySelector(".gallery-dialog__figure");
-  const image = document.querySelector("[data-gallery-image]");
+  const slider = document.querySelector("[data-gallery-slider]");
   const caption = document.querySelector("[data-gallery-caption]");
   const counter = document.querySelector("[data-gallery-counter]");
   const close = document.querySelector("[data-gallery-close]");
   const prev = document.querySelector("[data-gallery-prev]");
   const next = document.querySelector("[data-gallery-next]");
   let activeIndex = 0;
-  let pointerStartX = 0;
-  let pointerStartY = 0;
-  let pointerLastX = 0;
-  let pointerLastAt = 0;
-  let galleryDragVelocity = 0;
-  let galleryDragPointerId = null;
-  let isDraggingGallery = false;
-  let galleryDragDirection = 0;
-  let galleryDragNeighbor = null;
-  let galleryDragFrame = 0;
-  let gallerySettleTimer = 0;
-  let galleryDragDelta = 0;
-  let activeGalleryPointers = 0;
-  let isPinchingGallery = false;
+  let scrollFrame = 0;
+  let scrollSettleTimer = 0;
+  let programmaticTarget = null;
   let thumbDragStartX = 0;
   let thumbDragScrollLeft = 0;
   let isDraggingThumbs = false;
@@ -759,7 +747,7 @@ function setupGallery() {
   }
 
   function preloadGalleryImage(index) {
-    const item = invitation.gallery[(index + invitation.gallery.length) % invitation.gallery.length];
+    const item = invitation.gallery[index];
     if (!item || preloadedGalleryImages.has(item.src)) {
       return;
     }
@@ -774,121 +762,8 @@ function setupGallery() {
     [-2, -1, 1, 2].forEach((offset) => preloadGalleryImage(index + offset));
   }
 
-  function animateGalleryTransition(direction) {
-    if (direction === 0 || !dialog.open || !image.src) {
-      return;
-    }
-    const clone = image.cloneNode(false);
-    clone.removeAttribute("data-gallery-image");
-    clone.classList.remove("is-entering-from-left", "is-entering-from-right");
-    clone.classList.add(
-      "gallery-dialog__image-clone",
-      direction > 0 ? "is-leaving-to-left" : "is-leaving-to-right",
-    );
-    figure.append(clone);
-    clone.addEventListener("animationend", () => clone.remove(), { once: true });
-  }
-
   function getGalleryItem(index) {
-    return invitation.gallery[(index + invitation.gallery.length) % invitation.gallery.length];
-  }
-
-  function resetGalleryDragStyles() {
-    window.cancelAnimationFrame(galleryDragFrame);
-    window.clearTimeout(gallerySettleTimer);
-    galleryDragFrame = 0;
-    gallerySettleTimer = 0;
-    galleryDragDelta = 0;
-    galleryDragVelocity = 0;
-    galleryDragPointerId = null;
-    isDraggingGallery = false;
-    galleryDragDirection = 0;
-    dialog.classList.remove("is-gallery-dragging");
-    image.classList.remove("is-gallery-dragging");
-    image.style.transition = "";
-    image.style.transform = "";
-    if (galleryDragNeighbor) {
-      galleryDragNeighbor.remove();
-      galleryDragNeighbor = null;
-    }
-  }
-
-  function createGalleryDragNeighbor(direction) {
-    const neighbor = image.cloneNode(false);
-    const item = getGalleryItem(activeIndex + direction);
-    neighbor.removeAttribute("data-gallery-image");
-    neighbor.className = "gallery-dialog__image-clone is-gallery-drag-neighbor";
-    neighbor.src = item.src;
-    neighbor.alt = item.alt;
-    neighbor.style.objectPosition = item.focus || "50% 50%";
-    figure.append(neighbor);
-    preloadGalleryImage(activeIndex + direction);
-    return neighbor;
-  }
-
-  function setGalleryDragPosition(delta) {
-    galleryDragDelta = delta;
-    if (galleryDragFrame) {
-      return;
-    }
-    galleryDragFrame = window.requestAnimationFrame(() => {
-      galleryDragFrame = 0;
-      const width = Math.max(1, figure.clientWidth);
-      const edgeResistance = width * 0.16;
-      const clampedDelta = Math.max(-width - edgeResistance, Math.min(width + edgeResistance, galleryDragDelta));
-      const neighborOffset = galleryDragDirection > 0 ? width : -width;
-      image.style.transform = `translate3d(${clampedDelta}px, 0, 0)`;
-      if (galleryDragNeighbor) {
-        galleryDragNeighbor.style.transform = `translate3d(${neighborOffset + clampedDelta}px, 0, 0)`;
-      }
-    });
-  }
-
-  function beginGalleryDrag(delta) {
-    galleryDragDirection = delta < 0 ? 1 : -1;
-    galleryDragNeighbor = createGalleryDragNeighbor(galleryDragDirection);
-    isDraggingGallery = true;
-    dialog.classList.remove("is-swipe-hint");
-    dialog.classList.add("is-gallery-dragging");
-    image.classList.remove("is-entering-from-left", "is-entering-from-right");
-    image.classList.add("is-gallery-dragging");
-    image.style.transition = "";
-    galleryDragNeighbor.style.transition = "";
-  }
-
-  function settleGalleryDrag(shouldChange) {
-    const width = Math.max(1, figure.clientWidth);
-    const direction = galleryDragDirection;
-    const neighbor = galleryDragNeighbor;
-    window.cancelAnimationFrame(galleryDragFrame);
-    galleryDragFrame = 0;
-
-    if (!isDraggingGallery || !neighbor || direction === 0) {
-      resetGalleryDragStyles();
-      return;
-    }
-
-    const currentTarget = shouldChange ? -direction * width : 0;
-    const neighborTarget = shouldChange ? 0 : direction * width;
-    const finish = () => {
-      const nextIndex = activeIndex + (shouldChange ? direction : 0);
-      gallerySettleTimer = 0;
-      resetGalleryDragStyles();
-      if (shouldChange) {
-        showImage(nextIndex, { direction: 0 });
-      }
-    };
-
-    image.classList.remove("is-gallery-dragging");
-    image.style.transition = "transform 280ms cubic-bezier(0.22, 1, 0.36, 1)";
-    neighbor.style.transition = "transform 280ms cubic-bezier(0.22, 1, 0.36, 1)";
-
-    window.requestAnimationFrame(() => {
-      image.style.transform = `translate3d(${currentTarget}px, 0, 0)`;
-      neighbor.style.transform = `translate3d(${neighborTarget}px, 0, 0)`;
-    });
-
-    gallerySettleTimer = window.setTimeout(finish, 300);
+    return invitation.gallery[clampGalleryIndex(index)];
   }
 
   function playSwipeHint() {
@@ -901,29 +776,64 @@ function setupGallery() {
     }, 1800);
   }
 
-  function showImage(index, options = {}) {
-    const { scrollThumb = true, direction = 0 } = options;
-    resetGalleryDragStyles();
-    if (direction !== 0) {
-      dialog.classList.remove("is-swipe-hint");
+  function renderGallerySlider() {
+    slider.innerHTML = "";
+    invitation.gallery.forEach((item, index) => {
+      const slide = document.createElement("div");
+      const slideImage = document.createElement("img");
+      slide.className = "gallery-dialog__slide";
+      slide.dataset.gallerySlide = String(index);
+      slide.setAttribute("role", "group");
+      slide.setAttribute("aria-label", `${index + 1} / ${invitation.gallery.length}`);
+      slideImage.src = item.src;
+      slideImage.alt = item.alt;
+      slideImage.decoding = "async";
+      slideImage.loading = index < 2 ? "eager" : "lazy";
+      slideImage.draggable = false;
+      slideImage.style.objectPosition = item.focus || "50% 50%";
+      slide.append(slideImage);
+      slider.append(slide);
+    });
+  }
+
+  function clampGalleryIndex(index) {
+    return Math.min(invitation.gallery.length - 1, Math.max(0, index));
+  }
+
+  function galleryScrollLeftFor(index) {
+    return slider.clientWidth * clampGalleryIndex(index);
+  }
+
+  function scrollGallerySliderTo(index, behavior) {
+    const previousScrollBehavior = slider.style.scrollBehavior;
+    if (behavior === "auto") {
+      slider.style.scrollBehavior = "auto";
     }
-    animateGalleryTransition(direction);
-    activeIndex = (index + invitation.gallery.length) % invitation.gallery.length;
-    const item = invitation.gallery[activeIndex];
-    image.classList.remove("is-entering-from-left", "is-entering-from-right");
+    slider.scrollTo({
+      left: galleryScrollLeftFor(index),
+      behavior,
+    });
+    if (behavior === "auto") {
+      window.requestAnimationFrame(() => {
+        slider.style.scrollBehavior = previousScrollBehavior;
+      });
+    }
+  }
+
+  function updateActiveImage(index, options = {}) {
+    const { scrollThumb = true } = options;
+    activeIndex = clampGalleryIndex(index);
+    const item = getGalleryItem(activeIndex);
     mainImage.src = item.src;
     mainImage.alt = item.alt;
     mainImage.style.objectPosition = item.focus || "50% 50%";
-    image.src = item.src;
-    image.alt = item.alt;
-    image.style.objectPosition = item.focus || "50% 50%";
-    if (direction !== 0) {
-      void image.offsetWidth;
-      image.classList.add(direction > 0 ? "is-entering-from-right" : "is-entering-from-left");
-    }
     caption.textContent = item.caption || item.alt;
     counter.textContent = `${activeIndex + 1} / ${invitation.gallery.length}`;
     preloadGalleryNeighbors(activeIndex);
+
+    slider.querySelectorAll("[data-gallery-slide]").forEach((slide) => {
+      slide.setAttribute("aria-current", Number(slide.dataset.gallerySlide) === activeIndex ? "true" : "false");
+    });
 
     grid.querySelectorAll("[data-gallery]").forEach((tile) => {
       const isActive = Number(tile.dataset.gallery) === activeIndex;
@@ -936,15 +846,40 @@ function setupGallery() {
     });
   }
 
+  function showImage(index, options = {}) {
+    const { scrollThumb = true, behavior = "smooth" } = options;
+    const nextIndex = clampGalleryIndex(index);
+    programmaticTarget = nextIndex;
+    window.clearTimeout(scrollSettleTimer);
+    updateActiveImage(nextIndex, { scrollThumb });
+    scrollGallerySliderTo(nextIndex, behavior);
+
+    scrollSettleTimer = window.setTimeout(() => {
+      programmaticTarget = null;
+      syncImageFromSlider();
+    }, behavior === "auto" ? 50 : 420);
+  }
+
+  function syncImageFromSlider() {
+    if (programmaticTarget !== null || !slider.clientWidth) {
+      return;
+    }
+    const nextIndex = clampGalleryIndex(Math.round(slider.scrollLeft / slider.clientWidth));
+    if (nextIndex !== activeIndex) {
+      updateActiveImage(nextIndex, { scrollThumb: false });
+    }
+  }
+
   function openImage(index) {
-    showImage(index);
-    preloadGalleryImage(index);
     dialog.showModal();
+    showImage(index, { behavior: "auto" });
+    preloadGalleryImage(index);
     revealGalleryControls();
     playSwipeHint();
   }
 
   renderGalleryGrid(grid, invitation.gallery);
+  renderGallerySlider();
   showImage(0, { scrollThumb: false });
 
   grid.addEventListener("pointerdown", (event) => {
@@ -989,16 +924,16 @@ function setupGallery() {
   grid.addEventListener("pointerleave", stopThumbDrag);
 
   mainButton.addEventListener("click", () => openImage(activeIndex));
-  inlinePrev.addEventListener("click", () => showImage(activeIndex - 1, { direction: -1 }));
-  inlineNext.addEventListener("click", () => showImage(activeIndex + 1, { direction: 1 }));
+  inlinePrev.addEventListener("click", () => showImage(activeIndex - 1));
+  inlineNext.addEventListener("click", () => showImage(activeIndex + 1));
   close.addEventListener("click", () => dialog.close());
   prev.addEventListener("click", () => {
     revealGalleryControls();
-    showImage(activeIndex - 1, { direction: -1 });
+    showImage(activeIndex - 1);
   });
   next.addEventListener("click", () => {
     revealGalleryControls();
-    showImage(activeIndex + 1, { direction: 1 });
+    showImage(activeIndex + 1);
   });
 
   dialog.addEventListener("click", (event) => {
@@ -1010,86 +945,33 @@ function setupGallery() {
   dialog.addEventListener("keydown", (event) => {
     revealGalleryControls();
     if (event.key === "ArrowLeft") {
-      showImage(activeIndex - 1, { direction: -1 });
+      showImage(activeIndex - 1);
     }
     if (event.key === "ArrowRight") {
-      showImage(activeIndex + 1, { direction: 1 });
+      showImage(activeIndex + 1);
     }
   });
 
-  figure.addEventListener("pointerdown", (event) => {
+  slider.addEventListener("scroll", () => {
     revealGalleryControls();
-    activeGalleryPointers += 1;
-    if (activeGalleryPointers > 1) {
-      isPinchingGallery = true;
-      resetGalleryDragStyles();
+    if (programmaticTarget !== null || scrollFrame) {
+      return;
     }
-    pointerStartX = event.clientX;
-    pointerStartY = event.clientY;
-    pointerLastX = event.clientX;
-    pointerLastAt = performance.now();
-    galleryDragVelocity = 0;
-    galleryDragPointerId = event.pointerId;
-    figure.setPointerCapture?.(event.pointerId);
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = 0;
+      syncImageFromSlider();
+    });
   });
 
-  figure.addEventListener("pointermove", (event) => {
-    if (event.pointerId !== galleryDragPointerId || isPinchingGallery) {
-      return;
-    }
-    const deltaX = event.clientX - pointerStartX;
-    const deltaY = event.clientY - pointerStartY;
-    const now = performance.now();
-    const elapsed = Math.max(1, now - pointerLastAt);
-
-    galleryDragVelocity = (event.clientX - pointerLastX) / elapsed;
-    pointerLastX = event.clientX;
-    pointerLastAt = now;
-
-    if (!isDraggingGallery) {
-      if (Math.abs(deltaX) < 6 || Math.abs(deltaX) < Math.abs(deltaY) * 1.15) {
-        return;
-      }
-      beginGalleryDrag(deltaX);
-    }
-
-    event.preventDefault();
-    setGalleryDragPosition(deltaX);
+  slider.addEventListener("scrollend", () => {
+    programmaticTarget = null;
+    syncImageFromSlider();
   });
 
-  figure.addEventListener("pointerup", (event) => {
-    activeGalleryPointers = Math.max(0, activeGalleryPointers - 1);
-    if (event.pointerId !== galleryDragPointerId) {
-      return;
+  window.addEventListener("resize", () => {
+    if (dialog.open) {
+      showImage(activeIndex, { behavior: "auto", scrollThumb: false });
     }
-    if (isPinchingGallery) {
-      if (activeGalleryPointers === 0) {
-        isPinchingGallery = false;
-      }
-      resetGalleryDragStyles();
-      return;
-    }
-    const distance = event.clientX - pointerStartX;
-    const verticalDistance = event.clientY - pointerStartY;
-    const width = Math.max(1, figure.clientWidth);
-    const shouldChange =
-      isDraggingGallery &&
-      Math.abs(distance) >= Math.min(34, Math.max(24, width * 0.065)) &&
-      Math.abs(distance) >= Math.abs(verticalDistance) * 1.05;
-
-    if (isDraggingGallery) {
-      settleGalleryDrag(shouldChange || Math.abs(galleryDragVelocity) > 0.5);
-      return;
-    }
-    resetGalleryDragStyles();
-  });
-
-  figure.addEventListener("pointercancel", () => {
-    activeGalleryPointers = Math.max(0, activeGalleryPointers - 1);
-    if (activeGalleryPointers === 0) {
-      isPinchingGallery = false;
-    }
-    resetGalleryDragStyles();
   });
 
   dialog.addEventListener("pointermove", revealGalleryControls);
@@ -1098,7 +980,11 @@ function setupGallery() {
   dialog.addEventListener("close", () => {
     window.clearTimeout(hintTimer);
     window.clearTimeout(controlsTimer);
-    resetGalleryDragStyles();
+    window.clearTimeout(scrollSettleTimer);
+    window.cancelAnimationFrame(scrollFrame);
+    scrollFrame = 0;
+    scrollSettleTimer = 0;
+    programmaticTarget = null;
     dialog.classList.remove("is-swipe-hint", "is-controls-hidden");
   });
 }
